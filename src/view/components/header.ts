@@ -1,0 +1,1 @@
+class Header extends Component {}
