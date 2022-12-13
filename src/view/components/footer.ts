@@ -1,1 +1,3 @@
-class Footer extends Component {}
+import { Component } from "./component";
+
+export class Footer extends Component {}
