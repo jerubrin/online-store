@@ -45,6 +45,9 @@ const cssLoaders = extra => {
 module.exports = {
     context: path.resolve(__dirname, ''),
     mode: 'development',
+    resolve: {
+      extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    },
     entry: {
         main: './src/index.ts'
     },
