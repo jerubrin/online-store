@@ -1,1 +1,5 @@
-export abstract class Component {}
+import { renderFunc } from '../entyties';
+
+export interface iComponent {
+    render: renderFunc;
+}

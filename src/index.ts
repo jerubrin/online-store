@@ -1,4 +1,5 @@
+import { handleLocation } from './controller/routing';
 import './style/main.scss';
-import { Card } from './view/components/card/index';
 
-new Card();
+window.onload = handleLocation;
+window.onpopstate = handleLocation;
