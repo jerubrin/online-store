@@ -1,0 +1,14 @@
+.card-conteiner{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+}
+.sort-conteiner{
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+.sort-conteiner-list{
+    flex-direction: column;
+    
+}
