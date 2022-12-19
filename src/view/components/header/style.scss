@@ -1,0 +1,10 @@
+.header{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    &__logo-cont{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+}
