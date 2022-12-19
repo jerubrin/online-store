@@ -9,5 +9,5 @@ export interface iCartData {
     brand?: string;
     category?: string;
     thumbnail?: string;
-    images?: Array<string>;
+    images: Array<string>;
 }
