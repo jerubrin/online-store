@@ -1,0 +1,16 @@
+.card{
+    width: 100px;
+    height: 100px;
+    padding: 5px;
+    border: 1px solid teal;
+    border-radius: 5px;
+    overflow: hidden;
+    background-size: cover;
+}
+.card-list-elem{
+    width: 90%;
+    height: 30px;
+    background-size:30px;
+    background-repeat: no-repeat;
+    background-position: right;
+}

@@ -1,6 +1,6 @@
 export interface iCartData {
     id?: number;
-    title?: string;
+    title: string;
     description?: string;
     price: number;
     discountPercentage?: number;
