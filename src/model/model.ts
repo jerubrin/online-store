@@ -5,9 +5,9 @@ export interface iCartData {
     price: number;
     discountPercentage?: number;
     rating?: number;
-    stock?: number;
+    stock: number;
     brand?: string;
     category?: string;
     thumbnail?: string;
-    images?: Array<string>;
+    images: Array<string>;
 }

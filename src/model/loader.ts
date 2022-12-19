@@ -1,10 +1,12 @@
 import { iCartData } from './model';
 
-export default class Loader{
-    constructor(){}
-    async getSources():Promise<iCartData[]>{
-        return  await fetch('https://dummyjson.com/products')
-        .then(data=>data.json())
-        .then(data => data.products)
+interface Data {
+    products: iCartData[];
+}
+export default class Loader {
+    async getSources(): Promise<iCartData[]> {
+        return await fetch('https://dummyjson.com/products')
+            .then((res) => res.json())
+            .then((data: Data) => data.products);
     }
 }
