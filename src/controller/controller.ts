@@ -2,15 +2,27 @@ import { iCartData } from '../model/model';
 import { QueryParams } from '../view/entyties';
 import products from '../model/products.json';
 
+const SPLIT_SYMBOL = '|';
+
 const fileterByParams = (_products: Array<iCartData>, params?: QueryParams): Array<iCartData> => {
     if (!params) return _products;
     let __products = _products;
 
     __products = __products.filter(
-        (data) => !params.brand || data.brand?.toLocaleLowerCase().includes(params.brand.toLocaleLowerCase())
+        (data) =>
+            !params.brand ||
+            params.brand
+                .toLocaleLowerCase()
+                .split(SPLIT_SYMBOL)
+                .some((val) => data.brand?.toLocaleLowerCase().includes(val))
     );
     __products = __products.filter(
-        (data) => !params.category || data.category?.toLocaleLowerCase().includes(params.category.toLocaleLowerCase())
+        (data) =>
+            !params.category ||
+            params.category
+                .toLocaleLowerCase()
+                .split(SPLIT_SYMBOL)
+                .some((val) => data.category?.toLocaleLowerCase().includes(val))
     );
     __products = __products.filter((data) => !params.minprice || data.price >= params.minprice);
     __products = __products.filter((data) => !params.maxprice || data.price <= params.maxprice);

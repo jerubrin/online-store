@@ -1,5 +1,6 @@
 import { iCartData } from './model';
 
+// Old class
 interface Data {
     products: iCartData[];
 }
