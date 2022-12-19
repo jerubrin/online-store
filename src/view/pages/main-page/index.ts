@@ -1,10 +1,10 @@
 import './style.scss';
 import { iComponent } from '../../components/component';
-import { List } from '../../entyties';
+import { QueryParams } from '../../entyties';
 import { components } from '../../../model/comp-factory';
 
 export class MainShopPage implements iComponent {
-    render(root: HTMLElement, params?: List<string>) {
+    render(root: HTMLElement, params?: QueryParams) {
         const $header = document.createElement('header');
         const $main = document.createElement('main');
         const $filter = document.createElement('aside');
@@ -13,7 +13,7 @@ export class MainShopPage implements iComponent {
 
         components.getHeader().render($header);
         components.getFilter().render($filter);
-        components.getCardList().render($cardList);
+        components.getCardList().render($cardList, params);
         components.getFooter().render($footer);
 
         $main.append($filter, $cardList);
