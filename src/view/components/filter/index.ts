@@ -5,8 +5,8 @@ export class Filter implements iComponent {
     render(root: HTMLElement) {
         const $block1 = document.createElement('div');
 
-        $block1.textContent = 'Filter';
+        $block1.textContent = 'Filters';
 
-        root.append($block1);
+        root.prepend($block1);
     }
 }

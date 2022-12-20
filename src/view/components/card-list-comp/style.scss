@@ -12,3 +12,17 @@
     flex-direction: column;
     
 }
+.filter__brand{
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 5px;
+    height: 300px;
+    overflow-y: auto;
+    border: 1px solid teal;
+    border-radius: 5px;
+    &__label{
+        display: flex;
+        justify-content: space-between;
+    }
+}
