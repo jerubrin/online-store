@@ -47,7 +47,7 @@ export class CardList implements iComponent {
                 const label = new Constructor(
                     'label',
                     'filter__brand__label',
-                    `${brand} (${objBrands[brand]})`
+                    `${brand} (${objBrands[brand] as number})`
                 ).create();
                 const checkBox = new Constructor('input', 'filter__brand__check').create() as HTMLFormElement;
                 checkBox.type = 'checkbox';
@@ -66,7 +66,7 @@ export class CardList implements iComponent {
                 const label = new Constructor(
                     'label',
                     'filter__brand__label',
-                    `${category} (${objCategories[category]})`
+                    `${category} (${objCategories[category] as number})`
                 ).create();
                 const checkBox = new Constructor('input', 'filter__brand__check').create() as HTMLFormElement;
                 checkBox.type = 'checkbox';
@@ -92,13 +92,15 @@ export class CardList implements iComponent {
         searhInput.placeholder = 'Search...';
 
         searhInput.addEventListener('input', () => {
-            loadedData = products.filter(
-                (data) =>
-                    data.brand?.toLocaleLowerCase().includes(searhInput.value.toLocaleLowerCase()) ||
-                    data.category?.toLocaleLowerCase().includes(searhInput.value.toLocaleLowerCase()) ||
-                    data.description?.toLocaleLowerCase().includes(searhInput.value.toLocaleLowerCase()) ||
-                    data.title?.toLocaleLowerCase().includes(searhInput.value.toLocaleLowerCase())
-            );
+            loadedData = products.filter((data) => {
+                const searchValue = searhInput.value as string;
+                return (
+                    data.brand?.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase()) ||
+                    data.category?.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase()) ||
+                    data.description?.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase()) ||
+                    data.title?.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
+                );
+            });
             this.removeList($cardConteiner);
             draw();
         });
