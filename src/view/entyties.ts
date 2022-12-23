@@ -14,3 +14,12 @@ export interface QueryParams {
 export class List<T> {
     [index: string]: T;
 }
+
+export interface ImultiRange {
+    conteiner: HTMLElement | HTMLFormElement | HTMLInputElement;
+    range1: HTMLInputElement;
+    range2: HTMLInputElement;
+    value1: HTMLElement | HTMLInputElement;
+    value2: HTMLElement | HTMLInputElement;
+    fillTRack: () => void;
+}

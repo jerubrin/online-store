@@ -6,14 +6,39 @@
     border-radius: 5px;
     overflow: hidden;
     background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
 }
 .card-list-elem{
     width: 90%;
-    height: 30px;
+    height: 40px;
     background-size:30px;
     background-repeat: no-repeat;
     background-position: right;
     border: 1px solid teal;
     border-radius: 5px;
     padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.card__btns{
+    width: 90px;
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+    &_item{
+        padding: 5px;
+        width: 50%;
+        background-color: orangered;
+        border-radius: 10px;
+    }
+    &_item-checked{
+        padding: 5px;
+        width: 50%;
+        background-color: green;
+        border-radius: 10px;
+    }
 }
