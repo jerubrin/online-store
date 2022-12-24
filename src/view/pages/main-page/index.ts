@@ -9,17 +9,16 @@ export class MainShopPage implements iComponent {
         const $main = document.createElement('main');
         $main.className = 'main';
 
-        const $filter = document.createElement('aside');
         const $cardList = document.createElement('section');
         $cardList.className = 'card-list';
         const $footer = document.createElement('footer');
 
         components.getHeader().render($header);
-        components.getFilter().render($filter);
+
         components.getCardList().render($cardList, params);
         components.getFooter().render($footer);
 
-        $main.append($filter, $cardList);
+        $main.append($cardList);
         root.append($header, $main, $footer);
 
         console.log('CardList rendered! Params:', params);

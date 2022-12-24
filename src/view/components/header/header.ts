@@ -1,6 +1,5 @@
 import './style.scss';
 import { iComponent } from '../component';
-
 export class Header implements iComponent {
     render(root: HTMLElement) {
         const $block1 = document.createElement('div');
@@ -17,7 +16,8 @@ export class Header implements iComponent {
         $mainLogo.src = '../../../assets/favicon/icon.png';
 
         const $totalPrice = document.createElement('div');
-        $totalPrice.textContent = 'Total price : 0 $';
+        $totalPrice.className = 'header__basket-cont__total-price';
+        $totalPrice.textContent = `Total price : 0 $`;
 
         const $basketBlock = document.createElement('div');
         $basketBlock.className = 'header__basket-cont';
