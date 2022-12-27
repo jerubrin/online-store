@@ -1,0 +1,84 @@
+.modal{
+    position: fixed;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom:0;
+    background-color: rgba(255, 68, 0, 0.568);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &__main{
+        height: 500px;
+        width: 70%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 20px;
+        border-radius: 20px;
+        border: 1px solid teal;
+        background-color: #2a2a2a;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        &__block{
+            width: 90%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        &__block-mini{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        &__input{
+            width: 80%;
+            padding: 5px 15px;
+            border-radius: 7px;
+        }
+        &__input-mini{
+            width: 120px;
+            padding: 5px 15px;
+            border-radius: 7px;
+        }
+        &__close-btn{
+            position: absolute;
+            background-color: red;
+            padding: 5px;
+            right: 5%;
+            top: 5%;
+            border-radius: 5px;
+        }
+        &__confirm-btn{
+            padding: 5px 25px;
+            border-radius: 10px;
+            background-color: orangered;
+        }
+        &__error{
+            padding: 5px;
+            padding-left: 20px;
+            color: red;
+        }
+        &__card{
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            gap: 10px;
+            border-radius: 10px;
+            border:1px solid orangered;
+            align-items: center;
+        }
+        &__block-bottom{
+            display: flex; 
+            gap: 10px;
+        }
+        &__image{
+            width: 30px;
+        }
+        &__text{
+            color: orangered;
+        }
+    }
+}

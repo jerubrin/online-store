@@ -8,6 +8,7 @@ import Constructor from '../../../model/html-constructor';
 import products from '../../../model/products.json';
 import { List } from '../../entyties';
 import { setParams } from '../../../controller/routing';
+import { modalWindow } from '../modal-window';
 
 const optionsArr = ['Alphabet', 'Max-Price', 'Min-Price'];
 export class CardList implements iComponent {
@@ -152,7 +153,6 @@ export class CardList implements iComponent {
             loadedData.forEach((element) => {
                 const $card = document.createElement('div');
                 cardClassList ? ($card.className = 'card-list-elem') : ($card.className = 'card');
-
                 components.getCard(element).render($card);
                 $cardConteiner.append($card);
             });
@@ -200,6 +200,9 @@ export class CardList implements iComponent {
 
         const btnImage = new Constructor('button', 'btn-block__btn', 'Tile').create();
         btnImage.addEventListener('click', () => {
+            const modal = new modalWindow().render();
+            console.log(modal);
+
             cardClassList = false;
             $cardConteiner.classList.remove('sort-conteiner-list');
             this.removeList($cardConteiner, arrWithRanges);
