@@ -57,7 +57,10 @@ export class modalWindow {
         function addError(div: HTMLElement) {
             const errorMessage = new Constructor('p', 'modal__main__error', 'Error').create();
             div.append(errorMessage);
-            setTimeout(() => errorMessage.remove(), 2000);
+            setTimeout(() => {
+                clickTime = true
+                errorMessage.remove()
+            }, 2000);
         }
 
         const regName = /[A-Za-z]{3,}\b.+?[A-Za-z]{3,}/;
@@ -131,43 +134,46 @@ export class modalWindow {
             if (e.code === 'Space') e.preventDefault();
         });
 
+        let clickTime = true
         confirmBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            let errorsCount = 0;
-            if (!regName.test(nameInp.value)) {
-                errorsCount++;
-                addError(nameBlock);
+            if(clickTime){
+                clickTime = false
+                let errorsCount = 0;
+                if (!regName.test(nameInp.value)) {
+                    errorsCount++;
+                    addError(nameBlock);
+                }
+                if (!regAdress.test(adressInp.value)) {
+                    errorsCount++;
+                    addError(adressBlock);
+                }
+                if (!regTel.test(telInp.value)) {
+                    addError(telBlock);
+                    errorsCount++;
+                }
+                if (!regEmail.test(mailInp.value)) {
+                    addError(mailBlock);
+                    errorsCount++;
+                }
+                if (card16Inp.value.length !== 16) {
+                    addError(card16Block);
+                    errorsCount++;
+                }
+                if (cvvInp.value.length !== 3) {
+                    addError(cvvBlock);
+                    errorsCount++;
+                }
+                const month = (cardDateInp.value[0] as string) + (cardDateInp.value[1] as string);
+                if (+month > 12 || Number.isNaN(+month)) {
+                    addError(cardDateBlock);
+                    errorsCount++;
+                }
+                if (errorsCount === 0) {
+                    console.log('yep');
+                }
             }
-            if (!regAdress.test(adressInp.value)) {
-                errorsCount++;
-                addError(adressBlock);
-            }
-            if (!regTel.test(telInp.value)) {
-                addError(telBlock);
-                errorsCount++;
-            }
-            if (!regEmail.test(mailInp.value)) {
-                addError(mailBlock);
-                errorsCount++;
-            }
-            if (card16Inp.value.length !== 16) {
-                addError(card16Block);
-                errorsCount++;
-            }
-            if (cvvInp.value.length !== 3) {
-                addError(cvvBlock);
-                errorsCount++;
-            }
-            const month = (cardDateInp.value[0] as string) + (cardDateInp.value[1] as string);
-            console.log(+month);
-
-            if (+month > 12 || Number.isNaN(+month)) {
-                addError(cardDateBlock);
-                errorsCount++;
-            }
-            if (errorsCount === 0) {
-                console.log('yep');
-            }
+            
         });
 
         nameBlock.append(nameInp);

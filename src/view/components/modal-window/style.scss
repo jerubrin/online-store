@@ -1,3 +1,11 @@
+@keyframes hide {
+    0%{
+        height: 0px;
+    }
+    100%{
+        height: 500px;
+    }
+}
 .modal{
     position: fixed;
     right: 0;
@@ -9,6 +17,7 @@
     justify-content: center;
     align-items: center;
     &__main{
+        animation: hide 0.5s ease-in;
         height: 500px;
         width: 70%;
         display: flex;
@@ -16,11 +25,12 @@
         gap: 10px;
         padding: 20px;
         border-radius: 20px;
-        border: 1px solid teal;
+        border: 1px solid #F9804B;
         background-color: #2a2a2a;
         justify-content: center;
         align-items: center;
         position: relative;
+        overflow: hidden;
         &__block{
             width: 90%;
             display: flex;
@@ -36,11 +46,22 @@
             width: 80%;
             padding: 5px 15px;
             border-radius: 7px;
+            font-weight: bold;
+            text-align: center;
+            &:hover{
+                box-shadow: 0 0 6px 7px #F9804B;
+            }
         }
         &__input-mini{
             width: 120px;
             padding: 5px 15px;
             border-radius: 7px;
+            margin-left: 5px;
+            font-weight: bold;
+            text-align: center;
+            &:hover{
+                box-shadow: 0 0 6px 7px #F9804B;
+            }
         }
         &__close-btn{
             position: absolute;
@@ -49,11 +70,23 @@
             right: 5%;
             top: 5%;
             border-radius: 5px;
+            transition: 0.4s;
+            &:hover{
+                box-shadow: 0 0 6px 7px red;
+                transform: translateY(-3px);
+            }
         }
         &__confirm-btn{
             padding: 5px 25px;
             border-radius: 10px;
-            background-color: orangered;
+            background: linear-gradient(113.96deg, #F9804B 1.49%, #FE9013 101.44%);
+            transition: 0.4s;
+            &:hover{
+                transform: translateY(-3px) scale(1.03);
+            }
+            &:active{
+                background: linear-gradient(113.96deg, #1baf4e 1.49%, #00fa57 101.44%);
+            }
         }
         &__error{
             padding: 5px;
@@ -67,7 +100,7 @@
             padding: 20px;
             gap: 10px;
             border-radius: 10px;
-            border:1px solid orangered;
+            border:1px solid #F9804B;
             align-items: center;
         }
         &__block-bottom{
@@ -78,7 +111,8 @@
             width: 30px;
         }
         &__text{
-            color: orangered;
+            color: #F9804B;
+            font-size: 1.5em;
         }
     }
 }

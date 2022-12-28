@@ -1,8 +1,8 @@
 .card{
-    width: 100px;
-    height: 100px;
-    padding: 5px;
-    border: 1px solid teal;
+    width: 120px;
+    height: 120px;
+    padding-bottom: 5px;
+    border: 2px solid #1baf4e;
     border-radius: 5px;
     overflow: hidden;
     background-size: cover;
@@ -10,6 +10,7 @@
     flex-direction: column;
     justify-content: space-between;
     text-align: center;
+    box-shadow: 0 0 6px 3px #1baf4e;
 }
 .card-list-elem{
     width: 90%;
@@ -17,28 +18,50 @@
     background-size:30px;
     background-repeat: no-repeat;
     background-position: right;
-    border: 1px solid teal;
+    border: 2px solid #1baf4e;
     border-radius: 5px;
     padding: 5px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    p{
+        width: 50%;
+        overflow: visible;
+        text-align: center;
+    }
+}
+.card__text{
+    background-color:#1baf4f7a;
+    padding: 5px 5px;
+    height: 20px;
+    overflow: hidden;
+    width: 120px;
+    border-radius: 5px;
 }
 .card__btns{
     width: 90px;
     display: flex;
     justify-content: space-between;
     gap: 5px;
+    margin: 0 auto;
     &_item{
         padding: 5px;
         width: 50%;
-        background-color: orangered;
+        background: linear-gradient(113.96deg, #F9804B 1.49%, #FE9013 101.44%);
         border-radius: 10px;
+        transition: 0.3s;
+        &:hover{
+            transform: translateY(-3px) scale(1.03);
+        }
     }
     &_item-checked{
         padding: 5px;
         width: 50%;
-        background-color: green;
+        background: linear-gradient(113.96deg, #1baf4e 1.49%, #00fa57 101.44%);
         border-radius: 10px;
+        transition: 0.3s;
+        &:hover{
+            transform: translateY(-3px) scale(1.03);
+        }
     }
 }

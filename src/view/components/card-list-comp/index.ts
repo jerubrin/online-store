@@ -54,8 +54,8 @@ export class CardList implements iComponent {
         function fillTRack() {
             const percent1 = (parseInt(range1.value) / parseInt(range1.max)) * 100;
             const percent2 = (parseInt(range2.value) / parseInt(range1.max)) * 100;
-            sliderTrack.style.background = `linear-gradient(to right, burlywood ${percent1}%, green ${percent1}%,
-            green ${percent2}%, burlywood ${percent2}%)`;
+            sliderTrack.style.background = `linear-gradient(to right, #F9804B ${percent1}%, #1baf4e ${percent1}%,
+            #1baf4e ${percent2}%, #F9804B ${percent2}%)`;
         }
 
         range1.addEventListener('input', slide1);
@@ -163,6 +163,7 @@ export class CardList implements iComponent {
         const $sortConteiner = new Constructor('div', 'sort-conteiner').create();
 
         const $select = document.createElement('select');
+        $select.className = 'sort-conteiner__select'
         const $option = document.createElement('option');
         $option.textContent = 'Sort by:';
         $select.append($option);
@@ -194,15 +195,19 @@ export class CardList implements iComponent {
         btnList.addEventListener('click', () => {
             cardClassList = true;
             $cardConteiner.classList.add('sort-conteiner-list');
+            btnList.classList.add('btn-block__btn-checked')
+            btnImage.classList.remove('btn-block__btn-checked')
             this.removeList($cardConteiner, arrWithRanges);
             draw();
         });
 
         const btnImage = new Constructor('button', 'btn-block__btn', 'Tile').create();
+        btnImage.classList.add('btn-block__btn-checked')
         btnImage.addEventListener('click', () => {
             const modal = new modalWindow().render();
             console.log(modal);
-
+            btnList.classList.remove('btn-block__btn-checked')
+            btnImage.classList.add('btn-block__btn-checked')
             cardClassList = false;
             $cardConteiner.classList.remove('sort-conteiner-list');
             this.removeList($cardConteiner, arrWithRanges);
@@ -341,6 +346,10 @@ export class CardList implements iComponent {
         const categoryText = new Constructor('p', 'filter__header', 'Categories :').create();
 
         resetBtn.addEventListener('click', () => {
+            cardClassList = false
+            btnList.classList.remove('btn-block__btn-checked')
+            btnImage.classList.add('btn-block__btn-checked')
+            $cardConteiner.classList.remove('sort-conteiner-list');
             loadedData = [...products];
             this.removeList($cardConteiner, arrWithRanges);
             draw();

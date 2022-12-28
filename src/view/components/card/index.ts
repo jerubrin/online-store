@@ -8,8 +8,9 @@ export class Card implements iComponent {
     constructor(private data: iCartData) {}
 
     render(root: HTMLElement) {
+        const btnsText = new Constructor('p', 'card__text').create();
         if (this.data.images) root.style.backgroundImage = `url(${this.data.images[0] ?? ''})`;
-        if (this.data.title) root.textContent = this.data.title;
+        if (this.data.title) btnsText.textContent = this.data.title;
         const btnsBlock = new Constructor('div', 'card__btns').create();
         const detailsBtn = new Constructor('button', 'card__btns_item', 'Info').create();
         const buyBtn = new Constructor('button', 'card__btns_item', 'Add').create();
@@ -39,6 +40,6 @@ export class Card implements iComponent {
         });
 
         btnsBlock.append(detailsBtn, buyBtn);
-        root.append(btnsBlock);
+        root.append(btnsText,btnsBlock);
     }
 }

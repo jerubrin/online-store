@@ -1,10 +1,21 @@
 .header{
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 20px;
+    background-color: #2a2a2a;
+    color: #1baf4e;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 8px 8px #1baf4e;
+    h1{
+        font-size: 20px;
+    }
     &__logo-cont{
         display: flex;
         align-items: center;
         gap: 10px;
+
     }
 }
