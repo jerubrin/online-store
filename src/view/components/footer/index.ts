@@ -10,13 +10,12 @@ export class Footer implements iComponent {
         const $linksBlock = new Constructor('div', 'footer__links-block').create();
         const linkConteiner = new Constructor('div', 'footer__link-conteiner').create();
         const linkImg = new Constructor('img', 'footer__link__img').create() as HTMLImageElement;
-        linkImg.src = './assets/img/rslogotip.png'
-        const link = new Constructor('a', 'footer__link','RsSchool').create();
-        linkConteiner.append(linkImg,link)
-        const $design = new Constructor('div', 'footer__links-design','Designed for RsSchool 2022').create();
+        linkImg.src = './assets/img/rslogotip.png';
+        const link = new Constructor('a', 'footer__link', 'RsSchool').create();
+        linkConteiner.append(linkImg, link);
+        const $design = new Constructor('div', 'footer__links-design', 'Designed for RsSchool 2022').create();
 
-
-        $linksBlock.append(linkConteiner)
+        $linksBlock.append(linkConteiner);
         $block1.append($linksBlock, $design);
         root.append($block1);
     }

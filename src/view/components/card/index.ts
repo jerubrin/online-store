@@ -40,6 +40,6 @@ export class Card implements iComponent {
         });
 
         btnsBlock.append(detailsBtn, buyBtn);
-        root.append(btnsText,btnsBlock);
+        root.append(btnsText, btnsBlock);
     }
 }

@@ -163,7 +163,7 @@ export class CardList implements iComponent {
         const $sortConteiner = new Constructor('div', 'sort-conteiner').create();
 
         const $select = document.createElement('select');
-        $select.className = 'sort-conteiner__select'
+        $select.className = 'sort-conteiner__select';
         const $option = document.createElement('option');
         $option.textContent = 'Sort by:';
         $select.append($option);
@@ -195,19 +195,19 @@ export class CardList implements iComponent {
         btnList.addEventListener('click', () => {
             cardClassList = true;
             $cardConteiner.classList.add('sort-conteiner-list');
-            btnList.classList.add('btn-block__btn-checked')
-            btnImage.classList.remove('btn-block__btn-checked')
+            btnList.classList.add('btn-block__btn-checked');
+            btnImage.classList.remove('btn-block__btn-checked');
             this.removeList($cardConteiner, arrWithRanges);
             draw();
         });
 
         const btnImage = new Constructor('button', 'btn-block__btn', 'Tile').create();
-        btnImage.classList.add('btn-block__btn-checked')
+        btnImage.classList.add('btn-block__btn-checked');
         btnImage.addEventListener('click', () => {
             const modal = new modalWindow().render();
             console.log(modal);
-            btnList.classList.remove('btn-block__btn-checked')
-            btnImage.classList.add('btn-block__btn-checked')
+            btnList.classList.remove('btn-block__btn-checked');
+            btnImage.classList.add('btn-block__btn-checked');
             cardClassList = false;
             $cardConteiner.classList.remove('sort-conteiner-list');
             this.removeList($cardConteiner, arrWithRanges);
@@ -346,9 +346,9 @@ export class CardList implements iComponent {
         const categoryText = new Constructor('p', 'filter__header', 'Categories :').create();
 
         resetBtn.addEventListener('click', () => {
-            cardClassList = false
-            btnList.classList.remove('btn-block__btn-checked')
-            btnImage.classList.add('btn-block__btn-checked')
+            cardClassList = false;
+            btnList.classList.remove('btn-block__btn-checked');
+            btnImage.classList.add('btn-block__btn-checked');
             $cardConteiner.classList.remove('sort-conteiner-list');
             loadedData = [...products];
             this.removeList($cardConteiner, arrWithRanges);

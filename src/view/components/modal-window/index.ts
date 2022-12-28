@@ -58,8 +58,8 @@ export class modalWindow {
             const errorMessage = new Constructor('p', 'modal__main__error', 'Error').create();
             div.append(errorMessage);
             setTimeout(() => {
-                clickTime = true
-                errorMessage.remove()
+                clickTime = true;
+                errorMessage.remove();
             }, 2000);
         }
 
@@ -134,11 +134,11 @@ export class modalWindow {
             if (e.code === 'Space') e.preventDefault();
         });
 
-        let clickTime = true
+        let clickTime = true;
         confirmBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            if(clickTime){
-                clickTime = false
+            if (clickTime) {
+                clickTime = false;
                 let errorsCount = 0;
                 if (!regName.test(nameInp.value)) {
                     errorsCount++;
@@ -173,7 +173,6 @@ export class modalWindow {
                     console.log('yep');
                 }
             }
-            
         });
 
         nameBlock.append(nameInp);
