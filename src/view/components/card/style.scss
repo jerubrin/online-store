@@ -1,9 +1,9 @@
 .card{
-    width: 120px;
-    height: 120px;
+    width: 180px;
+    height: 230px;
     padding-bottom: 5px;
-    border: 2px solid #1baf4e;
-    border-radius: 5px;
+    border: 1px solid #1baf4e;
+    border-radius: 8px;
     overflow: hidden;
     background-size: cover;
     display: flex;
@@ -13,8 +13,8 @@
     box-shadow: 2px 2px 4px 2px #1baf4e55;
 }
 .card-list-elem{
-    width: 90%;
-    height: 40px;
+    width: calc(100% - 20px);
+    height: 70px;
     background-size:30px;
     background-repeat: no-repeat;
     background-position: right;
@@ -24,22 +24,64 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: rgba(27, 175, 79, 0.4784313725);
     p{
         width: 50%;
         overflow: visible;
         text-align: center;
     }
+    .card__img {
+        order: 0;
+        height: 100%;
+        width: 100px;
+        background-position: center left;
+        background-color: transparent;
+    }
+    .card__price {
+        order: 2;
+        margin-right: 12px;
+    }
+    .card__btns {
+        order: 3;
+        width: 180px;
+    }
+    .card__text {
+        order: 1;
+        height: auto;
+        width: 100%;
+        text-align: start;
+        border-radius: 0;
+        background-color: transparent
+    }
 }
+
 .card__text{
     background-color:#1baf4f7a;
     padding: 5px 5px;
-    height: 20px;
-    overflow: hidden;
-    width: 120px;
-    border-radius: 5px;
+    width: 100%;
+    border-radius: 5px 5px 0 0;
 }
+
+.card__img {
+    background-color: #ffffff;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
+    margin: 10px;
+}
+
+.card__price {
+    margin: 10px;
+    &::before {
+        content: '$';
+        margin-right: 2px;
+    }
+}
+
 .card__btns{
-    width: 90px;
+    width: 120px;
     display: flex;
     justify-content: space-between;
     gap: 5px;
@@ -50,6 +92,8 @@
         background: linear-gradient(113.96deg, #F9804B 1.49%, #FE9013 101.44%);
         border-radius: 10px;
         transition: 0.3s;
+        text-transform: uppercase;
+        font-size: .8em;
         &:hover{
             transform: translateY(-3px) scale(1.03);
         }

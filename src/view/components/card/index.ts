@@ -9,7 +9,6 @@ export class Card implements iComponent {
 
     render(root: HTMLElement) {
         const btnsText = new Constructor('p', 'card__text').create();
-        if (this.data.images) root.style.backgroundImage = `url(${this.data.images[0] ?? ''})`;
         if (this.data.title) btnsText.textContent = this.data.title;
         const btnsBlock = new Constructor('div', 'card__btns').create();
         const detailsBtn = new Constructor('button', 'card__btns_item', 'Info').create();
@@ -19,6 +18,12 @@ export class Card implements iComponent {
             buyBtn.classList.add('card__btns_item-checked');
         }
         // detailsBtn.addEventListener('click', () => {});
+
+        const $mainPicture = new Constructor('div', 'card__img').create();
+        if (this.data.images) $mainPicture.style.backgroundImage = `url(${this.data.images[0] ?? ''})`;
+
+        const $price = new Constructor('div', 'card__price').create();
+        if (this.data.price) $price.textContent = this.data.price.toString();
 
         buyBtn.addEventListener('click', () => {
             const totalPriceDiv = document.querySelector('.header__basket-cont__total-price') as HTMLElement;
@@ -40,6 +45,6 @@ export class Card implements iComponent {
         });
 
         btnsBlock.append(detailsBtn, buyBtn);
-        root.append(btnsText, btnsBlock);
+        root.append(btnsText, $mainPicture, $price, btnsBlock);
     }
 }

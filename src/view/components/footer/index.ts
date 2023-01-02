@@ -34,7 +34,7 @@ export class Footer implements iComponent {
             $gitHubs.append($githubContainer);
         }
 
-        const $design = new Constructor('div', 'footer__links-design', 'Designed for RsSchool 2022').create();
+        const $design = new Constructor('div', 'footer__links-design', 'Designed in 2022').create();
 
         $linksBlock.append(linkConteiner);
         $block1.append($linksBlock, $gitHubs, $design);
