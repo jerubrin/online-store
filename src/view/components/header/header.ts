@@ -11,9 +11,8 @@ export class Header implements iComponent {
         const $logoText = document.createElement('h1');
         $logoText.textContent = 'Online Store';
 
-        const $mainLogo = document.createElement('img');
-        $mainLogo.setAttribute('alt', 'logo');
-        $mainLogo.src = '../../assets/favicon/icon.png';
+        const $mainLogo = document.createElement('div');
+        $mainLogo.className = 'header__logo-img';
 
         const $totalPrice = document.createElement('div');
         $totalPrice.className = 'header__basket-cont__total-price';
@@ -22,9 +21,9 @@ export class Header implements iComponent {
         const $basketBlock = document.createElement('div');
         $basketBlock.className = 'header__basket-cont';
 
-        const $basket = document.createElement('img');
+        const $basket = document.createElement('div');
+        $basket.className = 'header__basket-img';
         $basket.setAttribute('alt', 'basket');
-        $basket.src = '../../assets/favicon/icon.png';
 
         const $itemsCount = document.createElement('p');
         $itemsCount.textContent = '0';

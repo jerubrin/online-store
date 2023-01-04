@@ -1,6 +1,7 @@
 import { iCartData } from '../model/model';
 import { QueryParams } from '../view/entyties';
 import products from '../model/products.json';
+import { getQueryParams } from './routing';
 
 const SPLIT_SYMBOL = '|';
 
@@ -40,7 +41,7 @@ const fileterByParams = (_products: Array<iCartData>, params?: QueryParams): Arr
     return __products;
 };
 
-export const getProducts = (params?: QueryParams): Array<iCartData> => {
+export const getProducts = (params: QueryParams = getQueryParams()): Array<iCartData> => {
     const data = fileterByParams(products as Array<iCartData>, params);
     return data;
 };

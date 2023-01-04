@@ -37,8 +37,7 @@ export class modalWindow {
         const cvvInp = new Constructor('input', 'modal__main__input-mini').create() as HTMLInputElement;
         cvvInp.placeholder = '***';
         cvvInp.type = 'number';
-        const cardImg = new Constructor('img', 'modal__main__image').create() as HTMLImageElement;
-        cardImg.src = '../../assets/img/credit_shablon.png';
+        const cardImg = new Constructor('div', 'modal__main__image').create() as HTMLElement;
         card16Block.append(cardImg, card16Inp);
         cardDateBlock.append(cardDateText, cardDateInp);
         cvvBlock.append(cvvText, cvvInp);
@@ -77,12 +76,18 @@ export class modalWindow {
                 }
             }
             if (+(card16Inp.value[0] as string) === 4) {
-                cardImg.src = '../../assets/img/Visa.png';
+                // cardImg.src = '../../assets/img/Visa.png';
+                cardImg.className = 'modal__main__image modal__main__image_visa';
             } else if (+(card16Inp.value[0] as string) === 5) {
-                cardImg.src = '../../assets/img/Mastercard.png';
+                // cardImg.src = '../../assets/img/Mastercard.png';
+                cardImg.className = 'modal__main__image modal__main__image_mc';
             } else if (+(card16Inp.value[0] as string) === 3) {
-                cardImg.src = '../../assets/img/american_express.png';
-            } else cardImg.src = '../../assets/img/credit_shablon.png';
+                // cardImg.src = '../../assets/img/american_express.png';
+                cardImg.className = 'modal__main__image modal__main__image_express';
+            } else {
+                // cardImg.src = '../../assets/img/credit_shablon.png';
+                cardImg.className = 'modal__main__image';
+            }
 
             const str = card16Inp.value;
             if (str.length !== 0 && str.replace(/ /g, '').length % 4 === 0 && countTo4) {

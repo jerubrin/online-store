@@ -6,8 +6,20 @@
     color: #1baf4e;
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
-    box-shadow: 0 0 8px 8px #1baf4e;
+    box-shadow: 0 4px 12px 6px #1baf4ebf;
     margin-top: 30px;
+    
+    &__link {
+        background: url(../../../assets/svg/rs-school.svg) no-repeat center;
+        background-size: contain;
+        width: 105px;
+        height: 55px;
+    }
+    
+    &__links-block {
+        width: 125px;
+    }
+
     &__link-conteiner{
         display: flex;
         gap: 20px;
@@ -19,4 +31,41 @@
         }
     }
 
+    &__links-design {
+        display: flex;
+        width: 125px;
+        margin: auto 0;
+        justify-content: end;
+    }
+
+    &__links-githubs {
+        display: flex;
+        margin: auto 0;
+    }
+
+    &__links-github-container {
+        display: flex;
+        flex-direction: column;
+        margin: auto 10px;
+        align-items: center;
+        transition: 0.4s;
+        &:hover {
+            transform: translateY(-4px);
+            cursor: pointer;
+        }
+    }
+
+    &__links-github-icon {
+        background: url(../../../assets/svg/github.svg) no-repeat center;
+        background-size: contain;
+        margin-bottom: 6px;
+        width: 35px;
+        height: 35px;
+    }
+
+    &__links-github-user-name {
+        display: flex;
+        margin: auto 0;
+        color: #1baf4e;
+    }
 }

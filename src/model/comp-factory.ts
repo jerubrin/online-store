@@ -7,6 +7,7 @@ import { MainShopPage } from '../view/pages/main-page';
 import { Cart } from '../view/pages/cart';
 import { NotFound } from '../view/pages/not-found/not-found';
 import { iCartData } from './model';
+import { SortContainer } from '../view/components/sort-conteiner';
 
 export class AllComponents {
     private cardList?: CardList;
@@ -16,6 +17,7 @@ export class AllComponents {
     private footer?: Footer;
     private header?: Header;
     private mainShopPage?: MainShopPage;
+    private sortContainer?: SortContainer;
 
     getMainShopPage(): MainShopPage {
         if (!this.mainShopPage) this.mainShopPage = new MainShopPage();
@@ -54,6 +56,11 @@ export class AllComponents {
     getHeader(): Header {
         if (!this.header) this.header = new Header();
         return this.header;
+    }
+
+    getSortContainer(): SortContainer {
+        if (!this.sortContainer) this.sortContainer = new SortContainer();
+        return this.sortContainer;
     }
 }
 

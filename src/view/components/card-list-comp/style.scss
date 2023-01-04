@@ -176,3 +176,31 @@
 .btn-block__btn-checked{
     background: linear-gradient(113.96deg, #1baf4e 1.49%, #00fa57 101.44%);
 }
+
+.zero-cards {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    // .zero-cards__img
+    &__img {
+        margin-top: 80px;
+        width: 250px;
+        height: 250px;
+        background: url(../../../assets/svg/nothing-to-show.svg) no-repeat center;
+        background-size: cover;
+    }
+
+    // .zero-cards__title
+    &__title {
+        margin: 10px;
+        font-size: 2.4em;
+    }
+
+    // .zero-cards__message
+    &__message {
+        margin: 10px;
+        font-size: 1.4em;
+    }
+}
