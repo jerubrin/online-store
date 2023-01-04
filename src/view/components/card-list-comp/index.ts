@@ -31,6 +31,17 @@ export class CardList implements iComponent {
             components.getCard(element).render($card);
             $cardConteiner.append($card);
         });
+        if (!this.loadedData.length) {
+            const title = 'No exact matches found!';
+            const message = 'We are sorry, we could not find any product!';
+            const $nothigContainer = new Constructor('div', 'zero-cards').create();
+            const $picture = new Constructor('div', 'zero-cards__img').create();
+            const $title = new Constructor('h1', 'zero-cards__title', title).create();
+            const $message = new Constructor('p', 'zero-cards__message', message).create();
+
+            $nothigContainer.append($picture, $title, $message);
+            $cardConteiner.append($nothigContainer);
+        }
         const totalItems = components.getSortContainer().totalItems;
         console.log('totalItems:', totalItems);
         if (totalItems) {
