@@ -12,7 +12,7 @@ export const route = (e: Event) => {
 const routeHandler: List<iComponent> = {
     '/': components.getMainShopPage(),
     '/cart': components.getCart(),
-    '/product': components.getCart(),
+    '/product': components.getProduct(),
     '404': components.getNotFound(),
 };
 
