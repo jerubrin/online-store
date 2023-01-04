@@ -6,10 +6,13 @@ import { iCartData } from '../../../model/model';
 import { iComponent } from '../../components/component';
 import './style.scss';
 
-export class NotFound implements iComponent {
+export class Product implements iComponent {
     render(root: HTMLElement) {
+        console.log('Product');
         const id = getProductsQueryParams().id;
+        console.log('id:', id);
         const product: iCartData | undefined = getProducts().find((product) => product.id == id);
+        console.log('product:', product);
 
         const $header = document.createElement('header');
         const $footer = document.createElement('footer');
