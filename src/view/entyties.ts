@@ -13,6 +13,11 @@ export interface QueryParams {
     [index: string]: string | number;
 }
 
+export interface ProductsQueryParams {
+    id?: number;
+    [index: string]: string | number;
+}
+
 export class List<T> {
     [index: string]: T;
 }

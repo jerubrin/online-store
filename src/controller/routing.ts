@@ -1,6 +1,6 @@
 import { components } from '../model/comp-factory';
 import { iComponent } from '../view/components/component';
-import { List, QueryParams } from '../view/entyties';
+import { List, ProductsQueryParams, QueryParams } from '../view/entyties';
 
 export const route = (e: Event) => {
     const event: Event = e || window.event;
@@ -12,6 +12,7 @@ export const route = (e: Event) => {
 const routeHandler: List<iComponent> = {
     '/': components.getMainShopPage(),
     '/cart': components.getCart(),
+    '/product': components.getCart(),
     '404': components.getNotFound(),
 };
 
@@ -44,6 +45,12 @@ export const setParams = (nesParam: Partial<QueryParams>) => {
 };
 
 export const getQueryParams = (): QueryParams => {
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const queryParams = Object.fromEntries(urlSearchParams.entries());
+    return queryParams;
+};
+
+export const getProductsQueryParams = (): ProductsQueryParams => {
     const urlSearchParams = new URLSearchParams(window.location.search);
     const queryParams = Object.fromEntries(urlSearchParams.entries());
     return queryParams;
