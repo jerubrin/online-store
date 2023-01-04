@@ -6,6 +6,7 @@ const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
 const TerserPlugin = require("terser-webpack-plugin")
 const FileLoader = require('file-loader')
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
+const copyWebpackPlugin = require('copy-webpack-plugin');
 
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -73,6 +74,11 @@ module.exports = {
         new CleanWebpackPlugin(),
         new MiniCSSExtractPlugin({
             filename: filename('css'),
+        }),
+        new copyWebpackPlugin({
+            patterns: [
+                { from: "./_redirects", to: "./" }
+            ],
         })
     ],
     module: {
