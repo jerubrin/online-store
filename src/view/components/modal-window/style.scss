@@ -18,12 +18,11 @@
     align-items: center;
     &__main{
         animation: hide 0.5s ease-in;
-        height: 500px;
+        height: 600px;
         width: 70%;
         display: flex;
         flex-direction: column;
         gap: 10px;
-        padding: 20px;
         border-radius: 20px;
         border: 1px solid #F9804B;
         background-color: #2a2a2a;
@@ -36,6 +35,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            gap: 15px;
         }
         &__block-mini{
             display: flex;
@@ -90,7 +90,7 @@
         }
         &__error{
             padding: 5px;
-            padding-left: 20px;
+            padding-left: 5px;
             color: red;
         }
         &__card{
