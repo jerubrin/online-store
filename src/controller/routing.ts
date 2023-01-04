@@ -41,7 +41,7 @@ export const setParams = (nesParam: Partial<QueryParams>) => {
     }
 };
 
-export const getQueryParams = () => {
+export const getQueryParams = (): QueryParams => {
     const urlSearchParams = new URLSearchParams(window.location.search);
     const queryParams = Object.fromEntries(urlSearchParams.entries());
     return queryParams;

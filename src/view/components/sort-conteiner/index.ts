@@ -1,7 +1,7 @@
 import './style.scss';
 import { iComponent } from '../component';
 import Constructor from '../../../model/html-constructor';
-import { setParams } from '../../../controller/routing';
+import { getQueryParams, setParams } from '../../../controller/routing';
 import { components } from '../../../model/comp-factory';
 import { modalWindow } from '../modal-window';
 
@@ -10,9 +10,11 @@ const optionsArr = ['Alphabet', 'Max-Price', 'Min-Price'];
 export class SortContainer implements iComponent {
     totalItems?: HTMLElement;
     render(root: HTMLElement) {
+        const params = getQueryParams();
         this.totalItems = new Constructor('div', 'sort-conteiner__total').create();
         const searhInput = new Constructor('input', 'sort-conteiner__search').create() as HTMLInputElement;
         searhInput.placeholder = 'Search...';
+        searhInput.value = params.search ?? '';
         searhInput.addEventListener('input', () => {
             setParams({ search: searhInput.value });
             // const newLocal = loadedData = getProducts(params);
