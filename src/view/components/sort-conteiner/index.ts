@@ -21,6 +21,10 @@ export class SortContainer implements iComponent {
             const cardList = components.getCardList();
             if (cardList.root) {
                 cardList.render(cardList?.root);
+                const filter = components.getFilter();
+                if (filter.root) {
+                    filter.render(filter.root);
+                }
             }
         });
 

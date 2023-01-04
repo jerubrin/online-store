@@ -2,9 +2,8 @@ import './style.scss';
 import { iComponent } from '../component';
 import { iCartData } from '../../../model/model';
 import Constructor from '../../../model/html-constructor';
-import { ImultiRange, List } from '../../entyties';
+import { ImultiRange, List, RangeObject } from '../../entyties';
 import { getProducts } from '../../../controller/controller';
-import products from '../../../model/products.json';
 import { components } from '../../../model/comp-factory';
 import { getQueryParams, setParams } from '../../../controller/routing';
 
@@ -15,10 +14,8 @@ const IS_STOCK = false;
 
 export class Filter implements iComponent {
     root: HTMLElement | null = null;
-    minprice = -1;
-    maxprice = -1;
-    minstock = -1;
-    maxstock = -1;
+    multiRangePrice?: RangeObject;
+    multiRangeStock?: RangeObject;
 
     getMinMax(data: iCartData[], min: boolean, price: boolean) {
         const arr = data.reduce((accum: number[], product) => {
@@ -33,7 +30,7 @@ export class Filter implements iComponent {
     getMinStock = (data: iCartData[]) => this.getMinMax(data, GET_MIN, IS_STOCK);
     getMaxStock = (data: iCartData[]) => this.getMinMax(data, GET_MAX, IS_STOCK);
 
-    getMultiRange(name: string) {
+    getMultiRange(name: string): RangeObject {
         const conteiner = new Constructor('div', 'range-block').create();
         const valueTextBlock = new Constructor('div', 'range-block__values').create();
         const values = new Constructor('div', 'range-block__values-cont').create();
@@ -64,8 +61,10 @@ export class Filter implements iComponent {
         }
 
         function fillTRack() {
-            const percent1 = (parseInt(range1.value) / parseInt(range1.max)) * 100;
-            const percent2 = (parseInt(range2.value) / parseInt(range1.max)) * 100;
+            const percent1 =
+                ((parseInt(range1.value) - parseInt(range1.min)) / (parseInt(range1.max) - parseInt(range1.min))) * 100;
+            const percent2 =
+                ((parseInt(range2.value) - parseInt(range2.min)) / (parseInt(range2.max) - parseInt(range2.min))) * 100;
             sliderTrack.style.background = `linear-gradient(to right, #F9804B ${percent1}%, #1baf4e ${percent1}%,
             #1baf4e ${percent2}%, #F9804B ${percent2}%)`;
         }
@@ -77,7 +76,7 @@ export class Filter implements iComponent {
         valueTextBlock.append(valuesText, values);
         sliderCont.append(range1, range2, sliderTrack);
         conteiner.append(valueTextBlock, sliderCont);
-        const obj = {
+        const obj: RangeObject = {
             conteiner,
             range1,
             range2,
@@ -101,7 +100,6 @@ export class Filter implements iComponent {
             accum[product.category] = (accum[product.category] || 0) + 1;
             return accum;
         }, {});
-        console.log(obj);
         return obj;
     }
 
@@ -138,6 +136,37 @@ export class Filter implements iComponent {
             const categoryQueryString = sumOfCategory.join('|');
             setParams({ brand: brandsQueryString, category: categoryQueryString });
 
+            if (this.multiRangePrice && this.multiRangeStock) {
+                const settedMinPrice = +this.multiRangePrice.range1.value;
+                const settedMaxPrice = +this.multiRangePrice.range2.value;
+                const minPrice = +this.multiRangePrice.range1.min;
+                const maxPrice = +this.multiRangePrice.range1.max;
+                if (settedMinPrice > minPrice) {
+                    setParams({ minprice: settedMinPrice });
+                } else {
+                    setParams({ minprice: -1 });
+                }
+                if (settedMaxPrice < maxPrice) {
+                    setParams({ maxprice: settedMaxPrice });
+                } else {
+                    setParams({ maxprice: -1 });
+                }
+
+                const settedMinStock = +this.multiRangeStock.range1.value;
+                const settedMaxStock = +this.multiRangeStock.range2.value;
+                const minStock = +this.multiRangeStock.range1.min;
+                const maxStock = +this.multiRangeStock.range1.max;
+                if (settedMinStock > minStock) {
+                    setParams({ minstock: settedMinStock });
+                } else {
+                    setParams({ minstock: -1 });
+                }
+                if (settedMaxStock < maxStock) {
+                    setParams({ maxstock: settedMaxStock });
+                } else {
+                    setParams({ maxstock: -1 });
+                }
+            }
             this.arrWithRanges.forEach((item) => item.conteiner.remove());
             if (this.root) {
                 this.render(this.root);
@@ -234,50 +263,123 @@ export class Filter implements iComponent {
         });
 
         resetCopyLink.addEventListener('click', () => {
+            navigator.clipboard
+                .writeText(window.location.href)
+                .then(() => {
+                    resetCopyLink.textContent = 'Copied!!!';
+                })
+                .catch((error) => {
+                    resetCopyLink.textContent = 'Error!!!';
+                    console.log(error);
+                });
             setTimeout(() => {
-                navigator.clipboard
-                    .writeText(window.location.href)
-                    .then(() => {
-                        resetCopyLink.textContent = 'Copy link';
-                    })
-                    .catch((error) => console.log(error));
+                resetCopyLink.textContent = 'Copy link';
             }, 1000);
-            resetCopyLink.textContent = 'Copied!!!';
         });
 
         root.append(resetConteiner, brandText, brandFilter, categoryText, categoryFilter);
-        this.drawRanges();
-    }
 
-    drawRanges() {
-        const params = getQueryParams();
-        const loadedData: iCartData[] = getProducts(params);
+        const drawRanges = () => {
+            const paramsForPrice = getQueryParams();
+            const paramsForStock = getQueryParams();
+            const params = getQueryParams();
 
-        const multiRangePrice = this.getMultiRange('Price : ');
-        const multiRangeStock = this.getMultiRange('Stock : ');
-        this.arrWithRanges.push(multiRangePrice, multiRangeStock);
-        console.log('getMinPrice', this.getMinPrice(loadedData));
-        console.log('max', this.getMaxPrice(products).toString());
+            if (params.maxprice) {
+                delete paramsForStock.maxprice;
+                delete params.maxprice;
+            }
+            if (params.minprice) {
+                delete paramsForStock.minprice;
+                delete params.minprice;
+            }
+            if (params.maxstock) {
+                delete paramsForPrice.maxstock;
+                delete params.maxstock;
+            }
+            if (params.minstock) {
+                delete paramsForPrice.minstock;
+                delete params.minstock;
+            }
 
-        multiRangePrice.range1.max = this.getMaxPrice(products).toString();
-        multiRangePrice.range2.max = this.getMaxPrice(products).toString();
-        multiRangePrice.range1.value = this.getMinPrice(loadedData).toString();
-        multiRangePrice.value1.textContent = this.getMinPrice(loadedData).toString();
-        multiRangePrice.value2.textContent = this.getMaxPrice(loadedData).toString();
-        multiRangePrice.range2.value = this.getMaxPrice(loadedData).toString();
-        multiRangePrice.fillTRack();
+            const loadedDataForPrice: iCartData[] = getProducts(paramsForPrice);
+            const loadedDataForStock: iCartData[] = getProducts(paramsForStock);
 
-        multiRangeStock.range1.max = this.getMaxStock(products).toString();
-        multiRangeStock.range2.max = this.getMaxStock(products).toString();
-        multiRangeStock.range1.value = this.getMinStock(loadedData).toString();
-        multiRangeStock.value1.textContent = this.getMinStock(loadedData).toString();
-        multiRangeStock.value2.textContent = this.getMaxStock(loadedData).toString();
-        multiRangeStock.range2.value = this.getMaxStock(loadedData).toString();
-        multiRangeStock.fillTRack();
+            if (params.minstock && params.minstock < this.getMinStock(loadedDataForPrice)) {
+                delete params.minstock;
+                delete paramsForPrice.minstock;
+                delete paramsForStock.minstock;
+            }
+            if (params.maxstock && params.maxstock > this.getMaxStock(loadedDataForPrice)) {
+                delete params.maxstock;
+                delete paramsForPrice.maxstock;
+                delete paramsForStock.maxstock;
+            }
+            if (params.maxprice && params.maxprice > this.getMaxPrice(loadedDataForStock)) {
+                delete params.maxprice;
+                delete paramsForPrice.maxprice;
+                delete paramsForStock.maxprice;
+            }
+            if (params.minprice && params.minprice < this.getMinPrice(loadedDataForStock)) {
+                console.log(paramsForPrice.minprice, '<', this.getMinPrice(loadedDataForStock));
+                delete params.minprice;
+                delete paramsForPrice.minprice;
+                delete paramsForStock.minprice;
+            }
 
-        const _root = components.getFilter().root;
-        if (_root) {
-            _root.append(multiRangePrice.conteiner, multiRangeStock.conteiner);
-        }
+            const loadedData: iCartData[] = getProducts(params);
+
+            console.log('drawRanges', getProducts(params));
+
+            this.multiRangePrice = this.getMultiRange('Price : ');
+            this.multiRangeStock = this.getMultiRange('Stock : ');
+            this.arrWithRanges.push(this.multiRangePrice, this.multiRangeStock);
+
+            this.multiRangePrice.range1.max = this.getMaxPrice(loadedData).toString();
+            this.multiRangePrice.range2.max = this.getMaxPrice(loadedData).toString();
+            this.multiRangePrice.range1.min = this.getMinPrice(loadedData).toString();
+            this.multiRangePrice.range2.min = this.getMinPrice(loadedData).toString();
+
+            console.log('paramsForPrice.minprice =', paramsForPrice.minprice);
+            const minPriceValue = paramsForPrice.minprice
+                ? paramsForPrice.minprice.toString()
+                : this.getMinPrice(loadedData).toString();
+            const maxPriceValue = paramsForPrice.maxprice
+                ? paramsForPrice.maxprice.toString()
+                : this.getMaxPrice(loadedData).toString();
+            console.log('maxPriceValue =', maxPriceValue);
+            this.multiRangePrice.range1.value = minPriceValue;
+            this.multiRangePrice.value1.textContent = minPriceValue;
+            this.multiRangePrice.value2.textContent = maxPriceValue;
+            this.multiRangePrice.range2.value = maxPriceValue;
+            this.multiRangePrice.fillTRack();
+
+            this.multiRangeStock.range1.max = this.getMaxStock(loadedData).toString();
+            this.multiRangeStock.range2.max = this.getMaxStock(loadedData).toString();
+            this.multiRangeStock.range1.min = this.getMinStock(loadedData).toString();
+            this.multiRangeStock.range2.min = this.getMinStock(loadedData).toString();
+
+            const minStockValue = paramsForStock.minstock
+                ? paramsForStock.minstock.toString()
+                : this.getMinStock(loadedData).toString();
+            const maxStockValue = paramsForStock.maxstock
+                ? paramsForStock.maxstock.toString()
+                : this.getMaxStock(loadedData).toString();
+            this.multiRangeStock.range1.value = minStockValue;
+            this.multiRangeStock.value1.textContent = minStockValue;
+            this.multiRangeStock.value2.textContent = maxStockValue;
+            this.multiRangeStock.range2.value = maxStockValue;
+            this.multiRangeStock.fillTRack();
+
+            const _root = components.getFilter().root;
+            if (_root) {
+                _root.append(this.multiRangePrice.conteiner, this.multiRangeStock.conteiner);
+            }
+
+            this.multiRangePrice.range1.addEventListener('change', changeHandler);
+            this.multiRangePrice.range2.addEventListener('change', changeHandler);
+            this.multiRangeStock.range1.addEventListener('change', changeHandler);
+            this.multiRangeStock.range2.addEventListener('change', changeHandler);
+        };
+        drawRanges();
     }
 }

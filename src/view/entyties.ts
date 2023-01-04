@@ -27,3 +27,12 @@ export interface ImultiRange {
 }
 
 export type SortFunction = (a: iCartData, b: iCartData) => number;
+
+export interface RangeObject {
+    conteiner: HTMLElement;
+    range1: HTMLInputElement;
+    range2: HTMLInputElement;
+    value1: HTMLElement;
+    value2: HTMLElement;
+    fillTRack: () => void;
+}
