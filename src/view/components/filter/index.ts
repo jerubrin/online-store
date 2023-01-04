@@ -8,10 +8,19 @@ import products from '../../../model/products.json';
 import { components } from '../../../model/comp-factory';
 import { getQueryParams, setParams } from '../../../controller/routing';
 
+const GET_MIN = true;
+const GET_MAX = false;
+const IS_PRICE = true;
+const IS_STOCK = false;
+
 export class Filter implements iComponent {
     root: HTMLElement | null = null;
+    minprice = -1;
+    maxprice = -1;
+    minstock = -1;
+    maxstock = -1;
 
-    getMin(data: iCartData[], min: boolean, price: boolean) {
+    getMinMax(data: iCartData[], min: boolean, price: boolean) {
         const arr = data.reduce((accum: number[], product) => {
             price ? accum.push(product.price) : accum.push(product.stock);
             return accum;
@@ -19,6 +28,10 @@ export class Filter implements iComponent {
         if (data.length === 0) return 0;
         return min ? Math.min.apply(null, arr) : Math.max.apply(null, arr);
     }
+    getMinPrice = (data: iCartData[]) => this.getMinMax(data, GET_MIN, IS_PRICE);
+    getMaxPrice = (data: iCartData[]) => this.getMinMax(data, GET_MAX, IS_PRICE);
+    getMinStock = (data: iCartData[]) => this.getMinMax(data, GET_MIN, IS_STOCK);
+    getMaxStock = (data: iCartData[]) => this.getMinMax(data, GET_MAX, IS_STOCK);
 
     getMultiRange(name: string) {
         const conteiner = new Constructor('div', 'range-block').create();
@@ -243,20 +256,23 @@ export class Filter implements iComponent {
         const multiRangePrice = this.getMultiRange('Price : ');
         const multiRangeStock = this.getMultiRange('Stock : ');
         this.arrWithRanges.push(multiRangePrice, multiRangeStock);
-        multiRangePrice.range1.value = this.getMin(loadedData, true, true).toString();
-        multiRangePrice.value1.textContent = this.getMin(loadedData, true, true).toString();
-        multiRangePrice.value2.textContent = this.getMin(loadedData, false, true).toString();
-        multiRangePrice.range2.max = this.getMin(products, false, true).toString();
-        multiRangePrice.range1.max = this.getMin(products, false, true).toString();
-        multiRangePrice.range2.value = this.getMin(loadedData, false, true).toString();
+        console.log('getMinPrice', this.getMinPrice(loadedData));
+        console.log('max', this.getMaxPrice(products).toString());
+
+        multiRangePrice.range1.max = this.getMaxPrice(products).toString();
+        multiRangePrice.range2.max = this.getMaxPrice(products).toString();
+        multiRangePrice.range1.value = this.getMinPrice(loadedData).toString();
+        multiRangePrice.value1.textContent = this.getMinPrice(loadedData).toString();
+        multiRangePrice.value2.textContent = this.getMaxPrice(loadedData).toString();
+        multiRangePrice.range2.value = this.getMaxPrice(loadedData).toString();
         multiRangePrice.fillTRack();
 
-        multiRangeStock.range1.value = this.getMin(loadedData, true, false).toString();
-        multiRangeStock.value1.textContent = this.getMin(loadedData, true, false).toString();
-        multiRangeStock.value2.textContent = this.getMin(loadedData, false, false).toString();
-        multiRangeStock.range2.max = this.getMin(products, false, false).toString();
-        multiRangeStock.range1.max = this.getMin(products, false, false).toString();
-        multiRangeStock.range2.value = this.getMin(loadedData, false, false).toString();
+        multiRangeStock.range1.max = this.getMaxStock(products).toString();
+        multiRangeStock.range2.max = this.getMaxStock(products).toString();
+        multiRangeStock.range1.value = this.getMinStock(loadedData).toString();
+        multiRangeStock.value1.textContent = this.getMinStock(loadedData).toString();
+        multiRangeStock.value2.textContent = this.getMaxStock(loadedData).toString();
+        multiRangeStock.range2.value = this.getMaxStock(loadedData).toString();
         multiRangeStock.fillTRack();
 
         const _root = components.getFilter().root;
