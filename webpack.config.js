@@ -53,7 +53,7 @@ module.exports = {
     },
     output: {
         filename: filename('js'),
-        path: path.resolve(__dirname, "docs")
+        path: path.resolve(__dirname, "dist")
     },
     optimization: optimization(),
     devServer: {
