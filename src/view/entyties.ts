@@ -1,3 +1,5 @@
+import { iCartData } from '../model/model';
+
 export type renderFunc = (root: HTMLElement, params?: QueryParams) => void;
 
 export interface QueryParams {
@@ -23,3 +25,5 @@ export interface ImultiRange {
     value2: HTMLElement | HTMLInputElement;
     fillTRack: () => void;
 }
+
+export type SortFunction = (a: iCartData, b: iCartData) => number;

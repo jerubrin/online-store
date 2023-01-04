@@ -107,8 +107,7 @@ export class Filter implements iComponent {
         let sumOfBrands: Array<string> = [];
         let sumOfCategory: Array<string> = [];
 
-        // change listener
-        const changeBrand = () => {
+        const changeHandler = () => {
             sumOfBrands = [];
             sumOfCategory = [];
 
@@ -161,7 +160,7 @@ export class Filter implements iComponent {
                 if (brandsCheckedSet.has(brand)) {
                     checkBox.checked = true;
                 }
-                checkBox.addEventListener('click', changeBrand);
+                checkBox.addEventListener('click', changeHandler);
                 label.prepend(checkBox);
                 brandFilter.append(label);
                 checkboxesBrand.push(checkBox);
@@ -199,7 +198,7 @@ export class Filter implements iComponent {
                 label.prepend(checkBox);
                 categoryFilter.append(label);
                 checkboxesCategory.push(checkBox);
-                checkBox.addEventListener('change', changeBrand);
+                checkBox.addEventListener('change', changeHandler);
             }
         };
         drawCategories();

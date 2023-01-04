@@ -4,6 +4,7 @@ import Constructor from '../../../model/html-constructor';
 import { getQueryParams, setParams } from '../../../controller/routing';
 import { components } from '../../../model/comp-factory';
 import { modalWindow } from '../modal-window';
+import { storageNames } from '../../../model/local-storage-enum';
 
 const optionsArr = ['Alphabet', 'Max-Price', 'Min-Price'];
 
@@ -17,8 +18,6 @@ export class SortContainer implements iComponent {
         searhInput.value = params.search ?? '';
         searhInput.addEventListener('input', () => {
             setParams({ search: searhInput.value });
-            // const newLocal = loadedData = getProducts(params);
-            // this.removeList($cardConteiner);
             const cardList = components.getCardList();
             if (cardList.root) {
                 cardList.render(cardList?.root);
@@ -30,32 +29,43 @@ export class SortContainer implements iComponent {
         const $select = document.createElement('select');
         $select.className = 'sort-conteiner__select';
         const $option = document.createElement('option');
-        $option.textContent = 'Sort by:';
+        $option.textContent = 'Sort by: default';
         $select.append($option);
 
-        optionsArr.forEach((item: string) => {
-            const $option = document.createElement('option');
-            $option.textContent = item;
-            $select.append($option);
-        });
-
-        $select.addEventListener('change', () => {
+        const onchange = () => {
             const cardList = components.getCardList();
+            localStorage.setItem(storageNames.sortBy, $select.value);
+            if ($select.value === 'Sort by: default') {
+                cardList.setSortFunction(null);
+            }
             if ($select.value === 'Alphabet') {
-                cardList.loadedData?.sort((a, b) => {
+                cardList.setSortFunction((a, b) => {
                     return a.title.localeCompare(b.title);
                 });
             }
             if ($select.value === 'Max-Price') {
-                cardList.loadedData?.sort((a, b) => a.price - b.price);
+                cardList.setSortFunction((a, b) => b.price - a.price);
             }
             if ($select.value === 'Min-Price') {
-                cardList.loadedData?.sort((a, b) => a.price - b.price);
+                cardList.setSortFunction((a, b) => a.price - b.price);
             }
             if (cardList.root) {
-                cardList.render(cardList?.root);
+                cardList.render(cardList.root);
+            }
+        };
+
+        const selectValue = localStorage.getItem(storageNames.sortBy);
+        optionsArr.forEach((item: string) => {
+            const $option = document.createElement('option');
+            $option.textContent = item;
+            $select.append($option);
+            if ($option.textContent == selectValue) {
+                $option.selected = true;
+                onchange();
             }
         });
+
+        $select.addEventListener('change', onchange);
 
         const $btnsBlock = new Constructor('div', 'btn-block').create();
         const btnList = new Constructor('button', 'btn-block__btn', 'List').create();
