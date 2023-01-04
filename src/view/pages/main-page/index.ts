@@ -11,7 +11,7 @@ export class MainShopPage implements iComponent {
         $main.className = 'main';
 
         const $filter = new Constructor('aside', 'filter').create();
-        components.getFilter().render($filter, params);
+        components.getFilter().render($filter);
 
         const $cardList = document.createElement('section');
         $cardList.className = 'card-list';

@@ -26,6 +26,7 @@ export const setParams = (nesParam: Partial<QueryParams>) => {
     Object.assign(queryParams, nesParam);
     Object.keys(queryParams).forEach((key) => {
         if (!queryParams[key]) delete queryParams[key];
+        if (queryParams[key] === -1) delete queryParams[key];
     });
 
     const urlSearchParams = new URLSearchParams();

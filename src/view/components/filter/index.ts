@@ -2,10 +2,11 @@ import './style.scss';
 import { iComponent } from '../component';
 import { iCartData } from '../../../model/model';
 import Constructor from '../../../model/html-constructor';
-import { ImultiRange, List, QueryParams } from '../../entyties';
+import { ImultiRange, List } from '../../entyties';
 import { getProducts } from '../../../controller/controller';
 import products from '../../../model/products.json';
 import { components } from '../../../model/comp-factory';
+import { getQueryParams, setParams } from '../../../controller/routing';
 
 export class Filter implements iComponent {
     root: HTMLElement | null = null;
@@ -87,13 +88,15 @@ export class Filter implements iComponent {
             accum[product.category] = (accum[product.category] || 0) + 1;
             return accum;
         }, {});
+        console.log(obj);
         return obj;
     }
 
     arrWithRanges: ImultiRange[] = [];
 
-    render(root: HTMLElement, params?: QueryParams) {
+    render(root: HTMLElement) {
         this.root = root;
+        root.innerHTML = '';
         const resetConteiner = new Constructor('div', 'reset-cont').create();
         const resetBtn = new Constructor('button', 'reset-cont__btn', 'Reset filters').create();
         const resetCopyLink = new Constructor('button', 'reset-cont__btn', 'Copy link').create();
@@ -101,59 +104,52 @@ export class Filter implements iComponent {
         const categoryFilter = new Constructor('div', 'filter__brand').create();
         resetConteiner.append(resetBtn, resetCopyLink);
 
-        let loadedData: iCartData[] = getProducts(params);
+        let sumOfBrands: Array<string> = [];
+        let sumOfCategory: Array<string> = [];
 
-        let arrWithChekedValues: string[] = [];
-        let sumOfBrands: iCartData[] = [];
-        let sumOfCategory: iCartData[] = [];
-        let checkCountBrands = 0;
-        let checkCountCategory = 0;
+        // change listener
         const changeBrand = () => {
+            sumOfBrands = [];
+            sumOfCategory = [];
+
             checkboxesBrand.forEach((item) => {
                 if (item.checked) {
-                    arrWithChekedValues.push(item.value);
-                    console.log(arrWithChekedValues);
-                    checkCountBrands++;
-                    sumOfBrands = sumOfBrands.concat(products.filter((product) => product.brand === item.value));
-                } else {
-                    arrWithChekedValues = arrWithChekedValues.filter((el) => el !== item.value);
+                    sumOfBrands = [...sumOfBrands, item.value];
                 }
             });
             checkboxesCategory.forEach((item) => {
                 if (item.checked) {
-                    checkCountCategory++;
-                    sumOfCategory = sumOfCategory.concat(
-                        sumOfBrands.filter((product) => product.category === item.value)
-                    );
-                    if (sumOfBrands.length === 0) {
-                        sumOfCategory = sumOfCategory.concat(
-                            products.filter((product) => product.category === item.value)
-                        );
-                    }
+                    sumOfCategory = [...sumOfCategory, item.value];
                 }
             });
-            checkCountCategory !== 0 ? (sumOfBrands = [...sumOfCategory]) : (loadedData = [...sumOfBrands]);
-            checkCountBrands === 0 && checkCountCategory === 0
-                ? (loadedData = [...products])
-                : (loadedData = [...sumOfBrands]);
-            sumOfBrands = [];
-            sumOfCategory = [];
-            checkCountBrands = 0;
-            checkCountCategory = 0;
-            categoryFilter.innerHTML = '';
-            drawCategory();
+            const brandsQueryString = sumOfBrands.join('|');
+            const categoryQueryString = sumOfCategory.join('|');
+            setParams({ brand: brandsQueryString, category: categoryQueryString });
+
             this.arrWithRanges.forEach((item) => item.conteiner.remove());
-            components.getFilter().drawRanges(params);
+            if (this.root) {
+                this.render(this.root);
+            }
         };
 
+        const products = getProducts({});
         const objBrands = this.getObjBrand(products);
         let checkboxesBrand: HTMLInputElement[] = [];
+
         const drawBrands = () => {
-            const objBrandsFiltered = this.getObjBrand(loadedData);
+            const products = getProducts();
+            const objBrandsFiltered = this.getObjBrand(products);
             checkboxesBrand = [];
+            const brandsCheckedSet = new Set(getQueryParams().brand?.split('|') as Array<string>);
+
             for (const brand in objBrands) {
                 let avalaible = objBrandsFiltered[brand];
-                if (avalaible === undefined) avalaible = 0;
+                if ((objBrands[brand] as number) == 0) {
+                    continue;
+                }
+                if (avalaible === undefined) {
+                    avalaible = 0;
+                }
                 const label = new Constructor(
                     'label',
                     'filter__brand__label',
@@ -162,7 +158,9 @@ export class Filter implements iComponent {
                 const checkBox = new Constructor('input', 'filter__brand__check').create() as HTMLInputElement;
                 checkBox.type = 'checkbox';
                 checkBox.value = brand;
-                if (arrWithChekedValues.indexOf(brand) !== -1) checkBox.checked = true;
+                if (brandsCheckedSet.has(brand)) {
+                    checkBox.checked = true;
+                }
                 checkBox.addEventListener('click', changeBrand);
                 label.prepend(checkBox);
                 brandFilter.append(label);
@@ -171,49 +169,22 @@ export class Filter implements iComponent {
         };
         drawBrands();
 
-        const changeCategory = () => {
-            checkboxesCategory.forEach((item) => {
-                if (item.checked) {
-                    arrWithChekedValues.push(item.value);
-                    checkCountCategory++;
-                    sumOfBrands = sumOfBrands.concat(products.filter((product) => product.category === item.value));
-                } else {
-                    arrWithChekedValues = arrWithChekedValues.filter((el) => el !== item.value);
-                }
-            });
-            checkboxesBrand.forEach((item) => {
-                if (item.checked) {
-                    checkCountBrands++;
-                    sumOfCategory = sumOfCategory.concat(sumOfBrands.filter((product) => product.brand === item.value));
-                    if (sumOfBrands.length === 0) {
-                        sumOfCategory = sumOfCategory.concat(
-                            products.filter((product) => product.brand === item.value)
-                        );
-                    }
-                }
-            });
-            checkCountBrands !== 0 ? (sumOfBrands = [...sumOfCategory]) : (loadedData = [...sumOfBrands]);
-            checkCountBrands === 0 && checkCountCategory === 0
-                ? (loadedData = [...products])
-                : (loadedData = [...sumOfBrands]);
-            sumOfBrands = [];
-            sumOfCategory = [];
-            checkCountCategory = 0;
-            checkCountBrands = 0;
-            brandFilter.innerHTML = '';
-            drawBrands();
-            this.arrWithRanges.forEach((item) => item.conteiner.remove());
-            components.getFilter().drawRanges(params);
-        };
-
         const objCategories = this.getObjCategory(products);
         let checkboxesCategory: HTMLInputElement[] = [];
-        const drawCategory = () => {
-            const objCategoryFiltered = this.getObjCategory(loadedData);
+        const drawCategories = () => {
+            const products = getProducts();
+            const objCategoryFiltered = this.getObjCategory(products);
             checkboxesCategory = [];
+            const categoriesBrandsCheckedSet = new Set(getQueryParams().category?.split('|') as Array<string>);
+
             for (const category in objCategories) {
                 let avalaible = objCategoryFiltered[category];
-                if (avalaible === undefined) avalaible = 0;
+                if ((objCategories[category] as number) == 0) {
+                    continue;
+                }
+                if (avalaible === undefined) {
+                    avalaible = 0;
+                }
                 const label = new Constructor(
                     'label',
                     'filter__brand__label',
@@ -222,24 +193,32 @@ export class Filter implements iComponent {
                 const checkBox = new Constructor('input', 'filter__brand__check').create() as HTMLInputElement;
                 checkBox.type = 'checkbox';
                 checkBox.value = category;
-                if (arrWithChekedValues.indexOf(category) !== -1) checkBox.checked = true;
+                if (categoriesBrandsCheckedSet.has(category)) {
+                    checkBox.checked = true;
+                }
                 label.prepend(checkBox);
                 categoryFilter.append(label);
                 checkboxesCategory.push(checkBox);
-                checkBox.addEventListener('change', changeCategory);
+                checkBox.addEventListener('change', changeBrand);
             }
         };
-        drawCategory();
+        drawCategories();
 
         const brandText = new Constructor('p', 'filter__header', 'Brands :').create();
         const categoryText = new Constructor('p', 'filter__header', 'Categories :').create();
 
         resetBtn.addEventListener('click', () => {
-            arrWithChekedValues = [];
-            brandFilter.innerHTML = '';
-            drawBrands();
-            categoryFilter.innerHTML = '';
-            drawCategory();
+            setParams({
+                brand: '',
+                category: '',
+                minprice: -1,
+                maxprice: -1,
+                minstock: -1,
+                maxstock: -1,
+            });
+            if (this.root) {
+                this.render(this.root);
+            }
         });
 
         resetCopyLink.addEventListener('click', () => {
@@ -254,19 +233,12 @@ export class Filter implements iComponent {
             resetCopyLink.textContent = 'Copied!!!';
         });
 
-        // setTimeout(() => {
-        //     const $main = document.querySelector('.main');
-        //     $main?.prepend($filter);
-        // }, 500);
-
-        // $block1.textContent = 'Filters';
-
-        // root.prepend($block1);
         root.append(resetConteiner, brandText, brandFilter, categoryText, categoryFilter);
-        components.getFilter().drawRanges(params);
+        this.drawRanges();
     }
 
-    drawRanges(params?: QueryParams) {
+    drawRanges() {
+        const params = getQueryParams();
         const loadedData: iCartData[] = getProducts(params);
 
         const multiRangePrice = this.getMultiRange('Price : ');
