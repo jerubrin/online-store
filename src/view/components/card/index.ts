@@ -3,6 +3,7 @@ import { iComponent } from '../component';
 import { iCartData } from '../../../model/model';
 import { newCart } from '../../pages/cart';
 import Constructor from '../../../model/html-constructor';
+import { goToProduct } from '../../../controller/routing';
 
 export class Card implements iComponent {
     constructor(private data: iCartData) {}
@@ -17,7 +18,9 @@ export class Card implements iComponent {
             buyBtn.textContent = 'Delete';
             buyBtn.classList.add('card__btns_item-checked');
         }
-        // detailsBtn.addEventListener('click', () => {});
+        detailsBtn.addEventListener('click', () => {
+            goToProduct(this.data.id);
+        });
 
         const $mainPicture = new Constructor('div', 'card__img').create();
         if (this.data.images) $mainPicture.style.backgroundImage = `url(${this.data.images[0] ?? ''})`;
