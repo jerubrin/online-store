@@ -32,7 +32,8 @@ export const setParams = (nesParam: Partial<QueryParams>) => {
     for (const key in queryParams) {
         urlSearchParams.append(key, queryParams[key]?.toString() ?? '');
     }
-    window.history.replaceState({}, '', '?' + urlSearchParams.toString());
+    const paramsStr = urlSearchParams.toString();
+    window.history.replaceState({}, '', paramsStr ? '?' + paramsStr : '/');
 
     const cardList = components.getCardList();
     if (cardList?.root) {
