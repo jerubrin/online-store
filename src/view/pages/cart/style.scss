@@ -1,0 +1,24 @@
+.empty-cart {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    padding: 20px;
+    background-color: #1baf4f5d;
+    width: 320px;
+    border-radius: 30px;
+    
+    &__picture {
+        margin: auto;
+        width: 200px;
+        height: 200px;
+        background: url(../../../assets/svg/add_shopping_cart.svg) no-repeat center;
+        background-size: contain;
+        transform: rotate(-.2rad);
+    }
+
+    &__title {
+        margin: 30px auto;
+        text-align: center;
+        font-size: 2.4em;
+    }
+}

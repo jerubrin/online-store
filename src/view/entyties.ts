@@ -10,6 +10,8 @@ export interface QueryParams {
     maxprice?: number;
     minstock?: number;
     maxstock?: number;
+    sorting?: sortingParams;
+    list?: string;
     [index: string]: string | number;
 }
 
@@ -40,4 +42,12 @@ export interface RangeObject {
     value1: HTMLElement;
     value2: HTMLElement;
     fillTRack: () => void;
+}
+
+export enum sortingParams {
+    def = '',
+    alphabetFovard = 'Alphabet (a-z)',
+    alphabetBack = 'Alphabet (z-a)',
+    priceMaxMin = 'Price (from max)',
+    priceMinMax = 'Price (from min)',
 }

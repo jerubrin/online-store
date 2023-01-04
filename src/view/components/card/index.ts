@@ -1,9 +1,9 @@
 import './style.scss';
 import { iComponent } from '../component';
 import { iCartData } from '../../../model/model';
-import { newCart } from '../../pages/cart';
 import Constructor from '../../../model/html-constructor';
 import { goToProduct } from '../../../controller/routing';
+import * as cartList from '../../pages/cart/cart.funcs';
 
 export class Card implements iComponent {
     constructor(private data: iCartData) {}
@@ -35,15 +35,15 @@ export class Card implements iComponent {
             if (this.data.addedToCart) {
                 buyBtn.classList.add('card__btns_item-checked');
                 buyBtn.textContent = 'Delete';
-                newCart.addToCart(this.data);
-                totalPriceDiv.textContent = `Total price : ${newCart.getTotalPrice()} $`;
-                totalProductsDiv.textContent = newCart.getTotalProducts().toString();
+                cartList.addToCart(this.data);
+                totalPriceDiv.textContent = `Total price : ${cartList.getTotalPrice()} $`;
+                totalProductsDiv.textContent = cartList.getTotalProducts().toString();
             } else {
                 buyBtn.classList.remove('card__btns_item-checked');
                 buyBtn.textContent = 'Add';
-                newCart.deleteFromCart(this.data.id as number);
-                totalPriceDiv.textContent = `Total price : ${newCart.getTotalPrice()} $`;
-                totalProductsDiv.textContent = newCart.getTotalProducts().toString();
+                cartList.deleteFromCart(this.data.id as number);
+                totalPriceDiv.textContent = `Total price : ${cartList.getTotalPrice()} $`;
+                totalProductsDiv.textContent = cartList.getTotalProducts().toString();
             }
         });
 

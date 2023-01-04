@@ -60,6 +60,10 @@ export const goToCart = () => {
     window.location.pathname = '/cart';
 };
 
+export const goToMain = () => {
+    window.location.pathname = '/';
+};
+
 export const goToProduct = (id?: number) => {
     if (id) {
         window.location.href = `/product?id=${id}`;

@@ -1,32 +1,28 @@
 import './style.scss';
 import { iComponent } from '../../components/component';
-import { iCartData } from '../../../model/model';
+import Constructor from '../../../model/html-constructor';
+import { components } from '../../../model/comp-factory';
+import * as cartList from '../../pages/cart/cart.funcs';
 
 export class Cart implements iComponent {
-    private cart: iCartData[] = [];
-
     render(root: HTMLElement) {
-        const header = document.createElement('div');
-        console.log(root, header);
-    }
-    addToCart(product: iCartData) {
-        this.cart.push(product);
-    }
+        const $header = document.createElement('header');
+        const $footer = document.createElement('footer');
+        const $main = new Constructor('main', 'cart').create();
 
-    deleteFromCart(id: number) {
-        this.cart = this.cart.filter((product) => product.id !== id);
-    }
-    getTotalPrice(): number {
-        const total = this.cart.reduce((accum, product) => {
-            return accum + product.price;
-        }, 0);
-        return total;
-    }
+        if (cartList.getTotalProducts() > 0) {
+        } else {
+            const $emptyCart = new Constructor('div', 'empty-cart').create();
+            const $picture = new Constructor('div', 'empty-cart__picture').create();
+            const $title = new Constructor('h1', 'empty-cart__title', 'Your Cart is empty').create();
 
-    getTotalProducts(): number {
-        const total = this.cart.length;
-        return total;
+            $emptyCart.append($picture, $title);
+            $main.append($emptyCart);
+        }
+
+        components.getHeader().render($header);
+        components.getFooter().render($footer);
+
+        root.append($header, $main, $footer);
     }
 }
-
-export const newCart = new Cart();

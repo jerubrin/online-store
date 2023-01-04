@@ -3,10 +3,8 @@ import { iComponent } from '../component';
 import Constructor from '../../../model/html-constructor';
 import { getQueryParams, setParams } from '../../../controller/routing';
 import { components } from '../../../model/comp-factory';
-import { modalWindow } from '../modal-window';
-import { storageNames } from '../../../model/local-storage-enum';
-
-const optionsArr = ['Alphabet', 'Max-Price', 'Min-Price'];
+// import { modalWindow } from '../modal-window';
+import { sortingParams } from '../../entyties';
 
 export class SortContainer implements iComponent {
     totalItems?: HTMLElement;
@@ -38,19 +36,29 @@ export class SortContainer implements iComponent {
 
         const onchange = () => {
             const cardList = components.getCardList();
-            localStorage.setItem(storageNames.sortBy, $select.value);
+            // localStorage.setItem(storageNames.sortBy, $select.value);
             if ($select.value === 'Sort by: default') {
+                setParams({ sorting: sortingParams.def });
                 cardList.setSortFunction(null);
             }
-            if ($select.value === 'Alphabet') {
+            if ($select.value === sortingParams.alphabetFovard) {
+                setParams({ sorting: sortingParams.alphabetFovard });
                 cardList.setSortFunction((a, b) => {
                     return a.title.localeCompare(b.title);
                 });
             }
-            if ($select.value === 'Max-Price') {
+            if ($select.value === sortingParams.alphabetBack) {
+                setParams({ sorting: sortingParams.alphabetBack });
+                cardList.setSortFunction((a, b) => {
+                    return b.title.localeCompare(a.title);
+                });
+            }
+            if ($select.value === sortingParams.priceMaxMin) {
+                setParams({ sorting: sortingParams.priceMaxMin });
                 cardList.setSortFunction((a, b) => b.price - a.price);
             }
-            if ($select.value === 'Min-Price') {
+            if ($select.value === sortingParams.priceMinMax) {
+                setParams({ sorting: sortingParams.priceMinMax });
                 cardList.setSortFunction((a, b) => a.price - b.price);
             }
             if (cardList.root) {
@@ -58,8 +66,9 @@ export class SortContainer implements iComponent {
             }
         };
 
-        const selectValue = localStorage.getItem(storageNames.sortBy);
-        optionsArr.forEach((item: string) => {
+        const selectValue = params.sorting;
+        Object.values(sortingParams).forEach((item: string) => {
+            if (item == sortingParams.def) return;
             const $option = document.createElement('option');
             $option.textContent = item;
             $select.append($option);
@@ -73,31 +82,40 @@ export class SortContainer implements iComponent {
 
         const $btnsBlock = new Constructor('div', 'btn-block').create();
         const btnList = new Constructor('button', 'btn-block__btn', 'List').create();
-        btnList.addEventListener('click', () => {
-            const cardList = components.getCardList();
-            cardList.cardClassList = true;
-            btnList.classList.add('btn-block__btn-checked');
-            btnImage.classList.remove('btn-block__btn-checked');
-            if (cardList.root) {
-                cardList.render(cardList?.root);
-            }
-        });
-
         const btnImage = new Constructor('button', 'btn-block__btn', 'Tile').create();
-        btnImage.classList.add('btn-block__btn-checked');
-        btnImage.addEventListener('click', () => {
+
+        const changeListView = (isList: boolean) => {
             const cardList = components.getCardList();
-            const modal = new modalWindow().render();
-            console.log(modal);
-            btnList.classList.remove('btn-block__btn-checked');
-            btnImage.classList.add('btn-block__btn-checked');
-            cardList.cardClassList = false;
+            cardList.cardClassList = isList;
+            if (isList) {
+                btnList.classList.add('btn-block__btn-checked');
+                btnImage.classList.remove('btn-block__btn-checked');
+            } else {
+                btnList.classList.remove('btn-block__btn-checked');
+                btnImage.classList.add('btn-block__btn-checked');
+            }
             if (cardList.root) {
                 cardList.render(cardList?.root);
             }
+            if (cardList.root) {
+                cardList.render(cardList?.root);
+            }
+
+            // const modal = new modalWindow().render();
+            // console.log(modal);
+        };
+
+        btnList.addEventListener('click', () => {
+            setParams({ list: 'true' });
+            changeListView(true);
         });
 
-        // $filter.append(resetConteiner, brandText, brandFilter, categoryText, categoryFilter);
+        btnImage.addEventListener('click', () => {
+            setParams({ list: '' });
+            changeListView(false);
+        });
+
+        changeListView(params.list == 'true');
 
         $btnsBlock.append(btnList, btnImage);
 
