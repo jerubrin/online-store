@@ -1,6 +1,6 @@
 import { components } from '../model/comp-factory';
 import { iComponent } from '../view/components/component';
-import { List, ProductsQueryParams, QueryParams } from '../view/entyties';
+import { CardQueryParams, List, ProductsQueryParams, QueryParams } from '../view/entyties';
 
 export const route = (e: Event) => {
     const event: Event = e || window.event;
@@ -44,17 +44,15 @@ export const setParams = (nesParam: Partial<QueryParams>) => {
     }
 };
 
-export const getQueryParams = (): QueryParams => {
+function _getQueryParams<T>(): T {
     const urlSearchParams = new URLSearchParams(window.location.search);
     const queryParams = Object.fromEntries(urlSearchParams.entries());
-    return queryParams;
-};
+    return queryParams as T;
+}
 
-export const getProductsQueryParams = (): ProductsQueryParams => {
-    const urlSearchParams = new URLSearchParams(window.location.search);
-    const queryParams = Object.fromEntries(urlSearchParams.entries());
-    return queryParams;
-};
+export const getQueryParams = (): QueryParams => _getQueryParams<QueryParams>();
+export const getProductsQueryParams = (): ProductsQueryParams => _getQueryParams<ProductsQueryParams>();
+export const getCardQueryParams = (): CardQueryParams => _getQueryParams<CardQueryParams>();
 
 export const goToCart = () => {
     window.location.pathname = '/cart';

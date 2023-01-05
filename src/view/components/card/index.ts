@@ -4,6 +4,7 @@ import { iCartData } from '../../../model/model';
 import Constructor from '../../../model/html-constructor';
 import { goToProduct } from '../../../controller/routing';
 import * as cartList from '../../pages/cart/cart.funcs';
+import { components } from '../../../model/comp-factory';
 
 export class Card implements iComponent {
     constructor(private data: iCartData) {}
@@ -14,7 +15,7 @@ export class Card implements iComponent {
         const btnsBlock = new Constructor('div', 'card__btns').create();
         const detailsBtn = new Constructor('button', 'card__btns_item', 'Info').create();
         const buyBtn = new Constructor('button', 'card__btns_item', 'Add').create();
-        if (this.data.addedToCart) {
+        if (cartList.hasItem(this.data.id)) {
             buyBtn.textContent = 'Delete';
             buyBtn.classList.add('card__btns_item-checked');
         }
@@ -28,23 +29,28 @@ export class Card implements iComponent {
         const $price = new Constructor('div', 'card__price').create();
         if (this.data.price) $price.textContent = this.data.price.toString();
 
-        buyBtn.addEventListener('click', () => {
-            const totalPriceDiv = document.querySelector('.header__basket-cont__total-price') as HTMLElement;
-            const totalProductsDiv = document.querySelector('.header__basket-cont_items') as HTMLElement;
-            this.data.addedToCart = !this.data.addedToCart;
-            if (this.data.addedToCart) {
+        const cartButtonHandler = () => {
+            const totalPriceDiv = components.getHeader().$totalPrice as HTMLElement;
+            const totalProductsDiv = components.getHeader().$itemsCount as HTMLElement;
+
+            if (cartList.hasItem(this.data.id)) {
                 buyBtn.classList.add('card__btns_item-checked');
                 buyBtn.textContent = 'Delete';
-                cartList.addToCart(this.data);
-                totalPriceDiv.textContent = `Total price : ${cartList.getTotalPrice()} $`;
-                totalProductsDiv.textContent = cartList.getTotalProducts().toString();
             } else {
                 buyBtn.classList.remove('card__btns_item-checked');
                 buyBtn.textContent = 'Add';
-                cartList.deleteFromCart(this.data.id as number);
-                totalPriceDiv.textContent = `Total price : ${cartList.getTotalPrice()} $`;
-                totalProductsDiv.textContent = cartList.getTotalProducts().toString();
             }
+            totalPriceDiv.textContent = `Total price : ${cartList.getTotalPrice()} $`;
+            totalProductsDiv.textContent = cartList.getTotalProducts().toString();
+        };
+        cartButtonHandler();
+        buyBtn.addEventListener('click', () => {
+            if (!cartList.hasItem(this.data.id)) {
+                cartList.addToCart(this.data);
+            } else {
+                cartList.deleteFromCart(this.data.id);
+            }
+            cartButtonHandler();
         });
 
         btnsBlock.append(detailsBtn, buyBtn);

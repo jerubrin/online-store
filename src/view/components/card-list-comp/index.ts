@@ -6,6 +6,7 @@ import { getProducts } from '../../../controller/controller';
 import Constructor from '../../../model/html-constructor';
 import { getQueryParams } from '../../../controller/routing';
 import { SortFunction } from '../../entyties';
+import { loadData } from '../../pages/cart/cart.funcs';
 
 export class CardList implements iComponent {
     root?: HTMLElement;
@@ -13,6 +14,7 @@ export class CardList implements iComponent {
     cardClassList = false;
 
     render(root: HTMLElement) {
+        loadData();
         const params = getQueryParams();
         root.innerHTML = '';
         this.root = root;

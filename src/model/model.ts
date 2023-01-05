@@ -10,5 +10,9 @@ export interface iCartData {
     category: string;
     thumbnail?: string;
     images: Array<string>;
-    addedToCart?: boolean;
+    // addedToCart?: boolean;
+}
+
+export class CartItem {
+    constructor(public product: iCartData, public count: number) {}
 }

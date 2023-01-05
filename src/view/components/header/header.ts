@@ -2,6 +2,9 @@ import './style.scss';
 import { iComponent } from '../component';
 import { goToCart, goToMain } from '../../../controller/routing';
 export class Header implements iComponent {
+    $totalPrice?: HTMLElement;
+    $itemsCount?: HTMLElement;
+
     render(root: HTMLElement) {
         const $block1 = document.createElement('div');
         $block1.classList.add('header', 'wrapper');
@@ -19,6 +22,7 @@ export class Header implements iComponent {
         const $totalPrice = document.createElement('div');
         $totalPrice.className = 'header__basket-cont__total-price';
         $totalPrice.textContent = `Total price : 0 $`;
+        this.$totalPrice = $totalPrice;
 
         const $basketBlock = document.createElement('a');
         $basketBlock.className = 'header__basket-cont';
@@ -31,6 +35,7 @@ export class Header implements iComponent {
         const $itemsCount = document.createElement('p');
         $itemsCount.textContent = '0';
         $itemsCount.className = 'header__basket-cont_items';
+        this.$itemsCount = $itemsCount;
 
         $basketBlock.append($basket, $itemsCount);
         $logoBlock.append($mainLogo, $logoText);

@@ -20,6 +20,11 @@ export interface ProductsQueryParams {
     [index: string]: string | number;
 }
 
+export interface CardQueryParams {
+    page?: number;
+    [index: string]: string | number;
+}
+
 export class List<T> {
     [index: string]: T;
 }

@@ -11,6 +11,9 @@ export class Cart implements iComponent {
         const $main = new Constructor('main', 'cart').create();
 
         if (cartList.getTotalProducts() > 0) {
+            const $products = new Constructor('div', 'empty-cart').create();
+
+            $main.append($products);
         } else {
             const $emptyCart = new Constructor('div', 'empty-cart').create();
             const $picture = new Constructor('div', 'empty-cart__picture').create();
