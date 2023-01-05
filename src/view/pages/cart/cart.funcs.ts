@@ -36,6 +36,7 @@ export const hasItem = (id?: number) => {
 export const getTotalPrice = (): number => cart.reduce((sum, item) => sum + item.product.price, 0);
 
 export const getTotalProducts = (): number => cart.reduce((sum, item) => sum + item.count, 0);
+export const getInfo = () => console.log(cart);
 
 function saveData() {
     localStorage.setItem(storageNames.cardData, JSON.stringify(cart));

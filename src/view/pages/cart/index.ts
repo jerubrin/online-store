@@ -6,6 +6,7 @@ import * as cartList from '../../pages/cart/cart.funcs';
 
 export class Cart implements iComponent {
     render(root: HTMLElement) {
+        cartList.loadData();
         const $header = document.createElement('header');
         const $footer = document.createElement('footer');
         const $main = new Constructor('main', 'cart').create();
@@ -25,12 +26,8 @@ export class Cart implements iComponent {
 
         components.getHeader().render($header);
         components.getFooter().render($footer);
+        components.getHeader().refreshData();
 
         root.append($header, $main, $footer);
-    }
-
-    checkProduct(id: number): boolean {
-        const product = this.cart.find((product) => product.id === id);
-        return product !== undefined ? true : false;
     }
 }

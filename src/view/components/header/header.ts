@@ -1,6 +1,7 @@
 import './style.scss';
 import { iComponent } from '../component';
 import { goToCart, goToMain } from '../../../controller/routing';
+import * as cartList from '../../pages/cart/cart.funcs';
 export class Header implements iComponent {
     $totalPrice?: HTMLElement;
     $itemsCount?: HTMLElement;
@@ -41,5 +42,12 @@ export class Header implements iComponent {
         $logoBlock.append($mainLogo, $logoText);
         $block1.append($logoBlock, $totalPrice, $basketBlock);
         root.append($block1);
+    }
+
+    public refreshData() {
+        if (this.$totalPrice && this.$itemsCount) {
+            this.$totalPrice.textContent = `Total price : ${cartList.getTotalPrice()} $`;
+            this.$itemsCount.textContent = cartList.getTotalProducts().toString();
+        }
     }
 }
