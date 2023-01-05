@@ -76,16 +76,12 @@ export class modalWindow {
                 }
             }
             if (+(card16Inp.value[0] as string) === 4) {
-                // cardImg.src = '../../assets/img/Visa.png';
                 cardImg.className = 'modal__main__image modal__main__image_visa';
             } else if (+(card16Inp.value[0] as string) === 5) {
-                // cardImg.src = '../../assets/img/Mastercard.png';
                 cardImg.className = 'modal__main__image modal__main__image_mc';
             } else if (+(card16Inp.value[0] as string) === 3) {
-                // cardImg.src = '../../assets/img/american_express.png';
                 cardImg.className = 'modal__main__image modal__main__image_express';
             } else {
-                // cardImg.src = '../../assets/img/credit_shablon.png';
                 cardImg.className = 'modal__main__image';
             }
 

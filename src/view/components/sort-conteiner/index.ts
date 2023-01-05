@@ -3,7 +3,6 @@ import { iComponent } from '../component';
 import Constructor from '../../../model/html-constructor';
 import { getQueryParams, setParams } from '../../../controller/routing';
 import { components } from '../../../model/comp-factory';
-import { modalWindow } from '../modal-window';
 import { storageNames } from '../../../model/local-storage-enum';
 
 const optionsArr = ['Alphabet', 'Max-Price', 'Min-Price'];
@@ -87,8 +86,6 @@ export class SortContainer implements iComponent {
         btnImage.classList.add('btn-block__btn-checked');
         btnImage.addEventListener('click', () => {
             const cardList = components.getCardList();
-            const modal = new modalWindow().render();
-            console.log(modal);
             btnList.classList.remove('btn-block__btn-checked');
             btnImage.classList.add('btn-block__btn-checked');
             cardList.cardClassList = false;

@@ -27,6 +27,11 @@ export class Cart implements iComponent {
         const total = this.cart.length;
         return total;
     }
+
+    checkProduct(id: number): boolean {
+        const product = this.cart.find((product) => product.id === id);
+        return product !== undefined ? true : false;
+    }
 }
 
 export const newCart = new Cart();
