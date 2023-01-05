@@ -28,4 +28,9 @@ export class Cart implements iComponent {
 
         root.append($header, $main, $footer);
     }
+
+    checkProduct(id: number): boolean {
+        const product = this.cart.find((product) => product.id === id);
+        return product !== undefined ? true : false;
+    }
 }
