@@ -1,18 +1,12 @@
 import {describe, expect, test} from '@jest/globals';
-const sum = require('./sum');
-// const Constructor = require('./src/model/html-constructor')
-// const Filter = require('./src/view/components/filter/index')
 import Constructor from './src/model/html-constructor';
-// import { Filter } from './src/view/components/filter/index';
+import { params } from './src/controller/routing';
+import { Filter } from './src/view/components/filter/index';
 // import {getProducts} from './src/controller/controller'
-// import Classes from './allClasses'
+import products from './src/model/products.json';
 
 
-test('adds 1 + 2 to equal 3', () => {
-  expect(sum(1, 2)).toBe(3);
-});
-
-test('Create HTMElement', () => {
+test('Class Constructor create HTMElement', () => {
     const div = document.createElement('div')
     div.className = 'test'
     expect(new Constructor('div', 'test').create()).toStrictEqual(div);
@@ -20,8 +14,30 @@ test('Create HTMElement', () => {
     expect(element).not.toBeNull();
   });
 
-// test('Return min or max value', () => {
-//     let arr = []
-//     expect(new Filter.getMinMax(arr,true,true)).toBe(0);
-//   });
+test('Metod getMinMax return min or max value', () => {
+    let arr = []
+    expect(new Filter().getMinMax(arr,true,true)).toBe(0);
+    expect(new Filter().getMinMax(products,true,true)).toBe(10);
+    expect(new Filter().getMinMax(products,false,true)).toBe(1749);
+  });
+
+  test('Metod getMultiRange return multirange', () => {
+    expect(new Filter().getMultiRange('slider')).not.toBeNull();
+  });
+
+  test('Metod getObjBrand return object', () => {
+    expect(new Filter().getObjBrand(products)).not.toBeNull();
+  });
+
+  test('Metod getObjBrand return Error witn no params', () => {
+    expect(() => new Filter().getObjBrand()).toThrow();
+  });
+
+  test('Metod getObjCategory return object', () => {
+    expect(new Filter().getObjCategory(products)).not.toBeNull();
+  });
+
+  test('Metod getObjCategory return Error witn no params', () => {
+    expect(() => new Filter().getObjCategory()).toThrow();
+  });
 
