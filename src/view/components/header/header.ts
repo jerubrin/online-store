@@ -46,6 +46,7 @@ export class Header implements iComponent {
 
     public refreshData() {
         if (this.$totalPrice && this.$itemsCount) {
+            console.log(cartList.getTotalPrice());
             this.$totalPrice.textContent = `Total price : ${cartList.getTotalPrice()} $`;
             this.$itemsCount.textContent = cartList.getTotalProducts().toString();
         }

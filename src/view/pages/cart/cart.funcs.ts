@@ -36,11 +36,16 @@ export const hasItem = (id?: number) => {
 export const getTotalPrice = (): number => cart.reduce((sum, item) => sum + item.product.price, 0);
 
 export const getTotalProducts = (): number => cart.reduce((sum, item) => sum + item.count, 0);
+export const getLength = (): number => cart.length;
 export const getInfo = () => console.log(cart);
 
 function saveData() {
     localStorage.setItem(storageNames.cardData, JSON.stringify(cart));
 }
+
+export const clearCart = () => {
+    cart.length = 0;
+};
 
 export function loadData() {
     const res = localStorage.getItem(storageNames.cardData);
@@ -48,3 +53,8 @@ export function loadData() {
         cart = JSON.parse(res) as Array<CartItem>;
     }
 }
+
+export const getList = () => cart;
+
+export const getListByPage = (page: number, limit: number) =>
+    cart.slice((page - 1) * limit, (page - 1) * limit + limit);
