@@ -74,22 +74,24 @@ export class Product implements iComponent {
                     counter = 0;
                 }
                 imgArr.forEach((img) => {
-                    img.style.opacity = '0';
+                    img.style.display = 'none';
                 });
-                (imgArr[counter] as HTMLElement).style.opacity = '1';
+                (imgArr[counter] as HTMLElement).style.display = 'block';
             });
+
             prevBtn.addEventListener('click', () => {
                 counter--;
                 if (counter === -1) {
                     counter = imgArr.length - 1;
                 }
                 imgArr.forEach((img) => {
-                    img.style.opacity = '0';
+                    img.style.display = 'none';
                 });
-                (imgArr[counter] as HTMLElement).style.opacity = '1';
+                (imgArr[counter] as HTMLElement).style.display = 'block';
             });
 
             const cartBlock = new Constructor('div', 'buttons').create();
+            const buttonsName = new Constructor('div', 'buttons__price', `${product.title}`).create();
             const buttonsPrice = new Constructor('div', 'buttons__price', `${product.price.toString()} $`).create();
             const addBtn = new Constructor('button', 'buttons__btn', 'Add to cart').create();
             const buyBtn = new Constructor('button', 'buttons__btn', 'Buy now').create();
@@ -118,7 +120,7 @@ export class Product implements iComponent {
                 console.log(modal);
             });
 
-            cartBlock.append(buttonsPrice, addBtn, buyBtn);
+            cartBlock.append(buttonsName, buttonsPrice, addBtn, buyBtn);
 
             infoMiniContainer.append(descriptionHeader, descriptionText);
             infoContainer.append(
@@ -129,11 +131,13 @@ export class Product implements iComponent {
                 brandMiniContainer,
                 categoryMiniContainer
             );
-            productContainer.append(imageContainer, infoContainer, cartBlock);
+            productContainer.append(infoContainer, imageContainer, cartBlock);
 
             main.append(breadContainer, productContainer);
         } else {
-            // если id не верный
+            const errorText = new Constructor('div', 'error-text', 'Sorry, but product not found').create();
+            const errorImage = new Constructor('div', 'error-image').create();
+            main.append(errorText, errorImage);
         }
 
         components.getHeader().render($header);
