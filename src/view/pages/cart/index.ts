@@ -5,6 +5,7 @@ import { components } from '../../../model/comp-factory';
 import * as cartList from '../../pages/cart/cart.funcs';
 import { ProductInCart } from '../../components/product-in-card';
 import { iCartData } from '../../../model/model';
+import * as promos from './promos';
 
 export class Cart implements iComponent {
     currentPage = 1;
@@ -49,22 +50,6 @@ export class Cart implements iComponent {
             const $title__pageNext = new Constructor('button', 'title__page-next', '>').create();
             $title__page.append($title__pagePrev, $title__pageNumber, $title__pageNext);
 
-            //Handlers
-            $title__pagePrev.onclick = () => {
-                this.currentPage = this.currentPage > 1 ? this.currentPage - 1 : this.currentPage;
-                console.log(this.currentPage, this.limit);
-                this.rerender();
-            };
-            $title__pageNext.onclick = () => {
-                this.currentPage = this.currentPage < this.maxPage ? this.currentPage + 1 : this.currentPage;
-                console.log(this.currentPage, this.limit);
-                this.rerender();
-            };
-            $title__limitInput.onchange = () => {
-                this.limit = +($title__limitInput as HTMLInputElement).value;
-                this.rerender();
-            };
-
             $products__title.append($title__title, $title__limit, $title__page);
 
             // List
@@ -80,10 +65,77 @@ export class Cart implements iComponent {
 
             $products.append($products__title, $products__list);
 
-            const $totalPrice = new Constructor('div', 'total-price').create();
+            // Summary
+            const $summary = new Constructor('div', 'summary').create();
+            const $summary__title = new Constructor('div', 'summary__title', 'Summary').create();
 
-            $main.append($products, $totalPrice);
+            const $summary__content = new Constructor('div', 'summary__content').create();
+
+            const $summary__products = new Constructor('div', 'summary__products').create();
+            const $summary__productsTitle = new Constructor('div', 'summary__info-title', 'Products:').create();
+            const $summary__productsNumber = new Constructor(
+                'div',
+                'summary__info-number',
+                cartList.getTotalProducts().toString()
+            ).create();
+            $summary__products.append($summary__productsTitle, $summary__productsNumber);
+
+            const $summary__price = new Constructor('div', 'summary__price').create();
+            const $summary__priceTitle = new Constructor('div', 'summary__info-title', 'Total:').create();
+            const $summary__priceNumber = new Constructor(
+                'div',
+                'summary__info-number',
+                cartList.getTotalPrice().toString()
+            ).create();
+            $summary__price.append($summary__priceTitle, $summary__priceNumber);
+
+            // Promo
+            const $summary__NewPrice = new Constructor('div', 'summary__price').create();
+            if (promos.getPromoLength() > 0) {
+                const $summary__NewPriceTitle = new Constructor('div', 'summary__info-title', 'Total:').create();
+                const $summary__NewPriceNumber = new Constructor(
+                    'div',
+                    'summary__info-number',
+                    promos.getNewPrice(cartList.getTotalPrice()).toString()
+                ).create();
+                $summary__NewPrice.append($summary__NewPriceTitle, $summary__NewPriceNumber);
+                $summary__price.classList.add('summary__old-price');
+            } else {
+                $summary__NewPrice.classList.add('display-none');
+            }
+
+            const $summary__promo = new Constructor('div', 'summary__total').create();
+
+            const $summary__buyButton = new Constructor('button', 'summary__buy-button').create();
+
+            $summary__content.append(
+                $summary__products,
+                $summary__price,
+                $summary__NewPrice,
+                $summary__promo,
+                $summary__buyButton
+            );
+            $summary.append($summary__title, $summary__content);
+
+            $main.append($products, $summary);
+
+            //Handlers
+            $title__pagePrev.onclick = () => {
+                this.currentPage = this.currentPage > 1 ? this.currentPage - 1 : this.currentPage;
+                console.log(this.currentPage, this.limit);
+                this.rerender();
+            };
+            $title__pageNext.onclick = () => {
+                this.currentPage = this.currentPage < this.maxPage ? this.currentPage + 1 : this.currentPage;
+                console.log(this.currentPage, this.limit);
+                this.rerender();
+            };
+            $title__limitInput.onchange = () => {
+                this.limit = +($title__limitInput as HTMLInputElement).value;
+                this.rerender();
+            };
         } else {
+            // Empty Cart
             const $emptyCart = new Constructor('div', 'empty-cart').create();
             const $picture = new Constructor('div', 'empty-cart__picture').create();
             const $title = new Constructor('h1', 'empty-cart__title', 'Your Cart is empty').create();

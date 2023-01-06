@@ -22,3 +22,9 @@
         font-size: 2.4em;
     }
 }
+
+.summary{
+    &__old-price {
+        text-decoration: line-through;
+    }
+}
