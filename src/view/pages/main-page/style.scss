@@ -23,6 +23,7 @@
     background: rgba(27, 175, 79, 0.4784313725);
     border-radius: 0 100px 100px 0;
     z-index: 0;
+    transition: all .3s;
     &_showed {
         border-radius: 100px 0 0 100px;
     }

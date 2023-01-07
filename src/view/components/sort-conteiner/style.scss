@@ -13,10 +13,17 @@
         &:hover{
             box-shadow: 0 0 6px 6px #F9804B;
         }
+        @media screen and (max-width: 480px) {
+            margin-top: 8px;
+        }
     }
 
     // .sort-conteiner__total
-    &__total {}
+    &__total {
+      @media screen and (max-width: 480px) {
+          margin-top: 8px;
+      }
+    }
 
     // .sort-conteiner__search
     &__search{
@@ -31,6 +38,7 @@
         }
         @media screen and (max-width: 480px) {
             margin-top: 8px;
+            max-width: 132px;
         }
     }
 
