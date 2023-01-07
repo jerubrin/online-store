@@ -5,7 +5,7 @@ import { components } from '../../../model/comp-factory';
 import * as cartList from '../../pages/cart/cart.funcs';
 import { ProductInCart } from '../../components/product-in-card';
 import * as promos from './promos';
-import { modalWindow } from '../../components/modal-window';
+import { ModalWindow } from '../../components/modal-window';
 
 export class Cart implements iComponent {
     currentPage = 1;
@@ -174,7 +174,7 @@ export class Cart implements iComponent {
             };
             inputHandler();
             $promo__input.oninput = inputHandler;
-            $summary__buyButton.onclick = () => new modalWindow().render();
+            $summary__buyButton.onclick = () => new ModalWindow().render(() => cartList.clearCart());
         } else {
             // Empty Cart
             const $emptyCart = new Constructor('div', 'empty-cart').create();

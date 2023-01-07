@@ -1,8 +1,10 @@
 import './style.scss';
 import Constructor from '../../../model/html-constructor';
+import { goToMain } from '../../../controller/routing';
+import { callbackFunc } from '../../entyties';
 
-export class modalWindow {
-    render() {
+export class ModalWindow {
+    render(callback?: callbackFunc) {
         const modalConteiner = new Constructor('div', 'modal').create();
         const mainModal = new Constructor('form', 'modal__main').create();
         const nameText = new Constructor('div', 'modal__main__text', 'Your name:').create();
@@ -174,11 +176,18 @@ export class modalWindow {
                     let seconds = 4;
                     let text = `Thanks for buying, redirest to main page in ${seconds}`;
                     const succesText = new Constructor('div', 'modal__main__succes', text).create();
+                    mainModal.classList.add('modal__main_succses');
                     const ID = setInterval(() => {
                         seconds--;
                         text = `Thanks for buying, redirest to main page in ${seconds}`;
                         succesText.textContent = text;
                         if (seconds === 0) {
+                            console.log(callback);
+                            if (callback) {
+                                console.log(callback, ' - runned!');
+                                callback();
+                            }
+                            goToMain();
                             clearInterval(ID);
                         }
                     }, 1000);

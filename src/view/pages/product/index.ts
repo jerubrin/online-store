@@ -4,7 +4,7 @@ import { components } from '../../../model/comp-factory';
 import Constructor from '../../../model/html-constructor';
 import { iCartData } from '../../../model/model';
 import { iComponent } from '../../components/component';
-import { modalWindow } from '../../components/modal-window';
+import { ModalWindow } from '../../components/modal-window';
 import * as cartList from '../../pages/cart/cart.funcs';
 import './style.scss';
 
@@ -115,7 +115,7 @@ export class Product implements iComponent {
             });
 
             buyBtn.addEventListener('click', () => {
-                const modal = new modalWindow().render();
+                const modal = new ModalWindow().render();
                 console.log(modal);
             });
 

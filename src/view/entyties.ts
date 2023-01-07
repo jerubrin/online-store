@@ -56,3 +56,5 @@ export enum sortingParams {
     priceMaxMin = 'Price (from max)',
     priceMinMax = 'Price (from min)',
 }
+
+export type callbackFunc = () => void;

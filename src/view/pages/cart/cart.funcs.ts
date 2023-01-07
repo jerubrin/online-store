@@ -45,7 +45,8 @@ function saveData() {
 }
 
 export const clearCart = () => {
-    cart.length = 0;
+    cart = [];
+    saveData();
 };
 
 export function loadData() {
