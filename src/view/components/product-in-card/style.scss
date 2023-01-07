@@ -17,6 +17,10 @@
         align-items: center;
         font-size: 1.2em;
         background: rgba(27, 175, 79, 0.4784313725);
+
+        @media screen and (max-width: 680px) {
+            padding:8px;
+        }
     }
 
     // .item__img
@@ -25,6 +29,9 @@
         background-repeat: no-repeat;
         background-position: center;
         background-size: contain;
+        @media screen and (max-width: 680px) {
+            height: 200px;
+        }
     }
 
     // .item__info-block
@@ -73,6 +80,11 @@
         justify-content: space-between;
         align-items: center;
         font-size: 1.1em;
+        @media screen and (max-width: 680px) {
+            flex-direction: row;
+            min-height: 50px;
+            align-items: center;
+        }
     }
 
     // .item__stock
@@ -134,5 +146,9 @@
             margin-right: 2px;
             font-weight: 700;
         }
+    }
+
+    @media screen and (max-width: 680px) {
+        flex-direction: column;
     }
 }
