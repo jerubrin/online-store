@@ -12,6 +12,7 @@ export const addToCart = (product: iCartData, count = 1) => {
 
 export const deleteFromCart = (id?: number) => {
     const i = cart.findIndex((item) => item.product.id === id);
+    console.log(i);
     if (i > -1) cart.splice(i, 1);
     saveData();
 };
@@ -33,7 +34,7 @@ export const hasItem = (id?: number) => {
     return i > -1;
 };
 
-export const getTotalPrice = (): number => cart.reduce((sum, item) => sum + item.product.price, 0);
+export const getTotalPrice = (): number => cart.reduce((sum, item) => sum + item.product.price * item.count, 0);
 
 export const getTotalProducts = (): number => cart.reduce((sum, item) => sum + item.count, 0);
 export const getLength = (): number => cart.length;
@@ -53,6 +54,22 @@ export function loadData() {
         cart = JSON.parse(res) as Array<CartItem>;
     }
 }
+
+export const incCount = (id?: number) => {
+    const _item = cart.find((item) => item.product.id == id);
+    if (_item) {
+        _item.count += 1;
+        saveData();
+    }
+};
+
+export const decCount = (id?: number) => {
+    const _item = cart.find((item) => item.product.id == id);
+    if (_item) {
+        _item.count -= 1;
+        saveData();
+    }
+};
 
 export const getList = () => cart;
 

@@ -1,3 +1,5 @@
+import { storageNames } from '../../../model/local-storage-enum';
+
 interface iPromoCode {
     title: string;
     code: string;
@@ -10,15 +12,25 @@ const promoCodes: Array<iPromoCode> = [
     { title: 'All For Free (100%)', code: 'FREE', percent: 100 },
 ];
 
-const applyedCodes: Array<iPromoCode> = [{ title: 'Rolling Scopes School (10%)', code: 'RS', percent: 10 }];
+let applyedCodes: Array<iPromoCode> = [];
 
-export const addPromo = (promo: iPromoCode) => applyedCodes.push(promo);
+export const addPromo = (promo: iPromoCode) => {
+    if (promoCodes.includes(promo)) {
+        applyedCodes.push(promo);
+        saveData();
+    }
+};
 
-export const removePromo = (promo: iPromoCode) => applyedCodes.filter((p) => p != promo);
+export const removePromo = (promo?: iPromoCode) => {
+    applyedCodes = applyedCodes.filter((p) => p != promo);
+    saveData();
+};
 
 export const getPromoLength = () => applyedCodes.length;
 
 export const findPromo = (code: string) => promoCodes.find((promo) => promo.code.toUpperCase() === code.toUpperCase());
+
+export const hasPromo = (promo: iPromoCode) => applyedCodes.find((value) => value.code == promo.code);
 
 export const getTotalPercent = () => {
     const percent = applyedCodes.reduce((sum, promo) => sum + promo.percent, 0);
@@ -29,3 +41,23 @@ export const getNewPrice = (price: number): number => {
     const percent = getTotalPercent();
     return price - (price * percent) / 100;
 };
+
+export const getAllPromos = (): Array<iPromoCode> => [...applyedCodes];
+
+const saveData = () => {
+    const _applyedCodes = JSON.stringify(applyedCodes);
+    localStorage.setItem(storageNames.promoData, _applyedCodes);
+};
+
+const loadData = () => {
+    const __applyedCodes = localStorage.getItem(storageNames.promoData);
+    if (__applyedCodes) {
+        const _applyedCodes = JSON.parse(__applyedCodes) as Array<iPromoCode>;
+        console.log(_applyedCodes);
+        applyedCodes = _applyedCodes
+            .filter((promo) => promoCodes.find((p) => p.code == promo.code))
+            .map((promo) => promoCodes.find((p) => p.code == promo.code)) as Array<iPromoCode>;
+        console.log(applyedCodes);
+    }
+};
+loadData();
