@@ -2,9 +2,6 @@
     display: flex;
     position: relative;
     justify-content: space-between;
-    @media screen and (max-width: 740px) {
-        min-height: 980px;
-    }
 }
 
 .card-list{
@@ -13,6 +10,9 @@
 
 .main-right {
     width: 100%;
+    @media screen and (max-width: 740px) {
+        min-height: 980px;
+    }
 }
 
 .main__button-show {
