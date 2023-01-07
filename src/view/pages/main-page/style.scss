@@ -1,6 +1,10 @@
 .main{
     display: flex;
+    position: relative;
     justify-content: space-between;
+    @media screen and (max-width: 740px) {
+        min-height: 980px;
+    }
 }
 
 .card-list{
@@ -9,4 +13,21 @@
 
 .main-right {
     width: 100%;
+}
+
+.main__button-show {
+    position: absolute;
+    display: none;
+    width: 24px;
+    height: 982px;
+    background: rgba(27, 175, 79, 0.4784313725);
+    border-radius: 0 100px 100px 0;
+    z-index: 0;
+    &_showed {
+        border-radius: 100px 0 0 100px;
+    }
+
+    @media screen and (max-width: 740px) {
+        display: block;
+    }
 }

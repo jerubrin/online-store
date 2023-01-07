@@ -4,4 +4,20 @@
     gap: 10px;
     padding: 10px;
     min-width: 300px;
+    transition: .3s;
+    z-index: 1;
+    min-height: 980px;
+
+    @media screen and (max-width: 740px) {
+        min-width: 300px;
+        position: absolute;
+        left: -310px;
+        background: #ffffff;
+        border: 1px solid rgba(27, 175, 79, 0.4784313725);
+        border-radius: 0 20px 20px 0;
+    }
+
+    &_show {
+        left: 24px;
+    }
 }
