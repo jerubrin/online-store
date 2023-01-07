@@ -26,7 +26,14 @@ export class MainShopPage implements iComponent {
         components.getFooter().render($footer);
 
         $mainSection.append($sortContainer, $cardList);
-        $main.append($filter, $mainSection);
+
+        const $filterShowButton = new Constructor('div', 'main__button-show').create();
+        $filterShowButton.onclick = () => {
+            $filter.classList.toggle('filter_show');
+            $filterShowButton.classList.toggle('main__button-show_showed');
+        };
+
+        $main.append($filter, $filterShowButton, $mainSection);
         root.append($header, $main, $footer);
     }
 }

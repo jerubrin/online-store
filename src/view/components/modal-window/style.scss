@@ -17,19 +17,20 @@
     justify-content: center;
     align-items: center;
     &__main{
+        overflow-y: auto;
+        max-height: 90vh;
+        padding: 32px 0;
         animation: hide 0.5s ease-in;
-        height: 600px;
-        width: 70%;
+        height: 560px;
+        min-width: 700px;
         display: flex;
         flex-direction: column;
         gap: 10px;
-        border-radius: 20px;
+        border-radius: 40px;
         border: 1px solid #F9804B;
         background-color: #2a2a2a;
-        justify-content: center;
         align-items: center;
         position: relative;
-        overflow: hidden;
         &_succses {
             width: max-content;
             height: max-content;
@@ -40,6 +41,9 @@
             justify-content: center;
             align-items: center;
             gap: 15px;
+            @media screen and (max-width: 520px) {
+                flex-direction: column;
+            }
         }
         &__block-mini{
             display: flex;
@@ -55,6 +59,9 @@
             &:hover{
                 box-shadow: 0 0 6px 7px #F9804B;
             }
+            @media screen and (max-width: 520px) {
+                width: 100%;
+            }
         }
         &__input-mini{
             width: 120px;
@@ -69,15 +76,26 @@
         }
         &__close-btn{
             position: absolute;
-            background-color: red;
+            background-color: rgb(226, 69, 69);
             padding: 5px;
             right: 5%;
             top: 5%;
             border-radius: 5px;
             transition: 0.4s;
+            color: #fff;
+            background-image: url(../../../assets/svg/close.svg);
+            background-repeat: no-repeat;
+            background-size: contain;
+            width: 30px;
+            height: 30px;
             &:hover{
-                box-shadow: 0 0 6px 7px red;
+                box-shadow: 0 0 6px 7px rgba(222, 55, 55, 0.541);
                 transform: translateY(-3px);
+            }
+            @media screen and (max-width: 740px) {
+                position: fixed;
+                right: 9%;
+                top: 9%;
             }
         }
         &__confirm-btn{
@@ -104,12 +122,18 @@
             padding: 20px;
             gap: 10px;
             border-radius: 10px;
-            border:1px solid #F9804B;
+            border: 1px solid #F9804B;
             align-items: center;
+            @media screen and (max-width: 740px) {
+                width: 90%;
+            }
         }
         &__block-bottom{
             display: flex; 
             gap: 10px;
+            @media screen and (max-width: 520px) {
+                flex-direction: column;
+            }
         }
         &__image{
             width: 30px;
@@ -137,6 +161,17 @@
                 background-size: contain;
             }
 
+        }
+
+        @media screen and (max-width: 740px) {
+            min-width: 90vw;
+            width: 90vw;
+            border-radius: 25px;
+        }
+        @media screen and (max-width: 520px) {
+            height: max-content;
+            max-height: 90vh;
+            border-radius: 16px;
         }
     }
 }

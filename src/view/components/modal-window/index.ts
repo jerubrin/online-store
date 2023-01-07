@@ -1,10 +1,10 @@
 import './style.scss';
 import Constructor from '../../../model/html-constructor';
 import { goToMain } from '../../../controller/routing';
-import { callbackFunc } from '../../entyties';
+import * as cartList from '../../pages/cart/cart.funcs';
 
 export class ModalWindow {
-    render(callback?: callbackFunc) {
+    render() {
         const modalConteiner = new Constructor('div', 'modal').create();
         const mainModal = new Constructor('form', 'modal__main').create();
         const nameText = new Constructor('div', 'modal__main__text', 'Your name:').create();
@@ -45,7 +45,7 @@ export class ModalWindow {
         cvvBlock.append(cvvText, cvvInp);
         cardBottomBlock.append(cardDateBlock, cvvBlock);
         cardMainBlock.append(card16Block, cardBottomBlock);
-        const closeBtn = new Constructor('a', 'modal__main__close-btn', 'X').create();
+        const closeBtn = new Constructor('a', 'modal__main__close-btn').create();
         const confirmBtn = new Constructor('button', 'modal__main__confirm-btn', 'Confirm').create();
         confirmBtn.setAttribute('type', 'submit');
 
@@ -183,15 +183,11 @@ export class ModalWindow {
                         text = `Thanks for buying, redirest to main page in ${seconds}`;
                         succesText.textContent = text;
                         if (seconds === 0) {
-                            console.log(callback);
-                            if (callback) {
-                                console.log(callback, ' - runned!');
-                                callback();
-                            }
                             goToMain();
                             clearInterval(ID);
                         }
                     }, 1000);
+                    cartList.clearCart();
                     mainModal.innerHTML = '';
                     mainModal.append(succesText);
                 }
