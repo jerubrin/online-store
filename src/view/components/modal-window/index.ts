@@ -64,7 +64,7 @@ export class modalWindow {
 
         const regName = /[A-Za-z]{3,}\b.+?[A-Za-z]{3,}/;
         const regAdress = /[A-Za-z]{5,}.+[A-Za-z]{5,}.+?[A-Za-z]{5,}/;
-        const regTel = /^((\+7)[\s]?)(\(?\d{3}\)?[\s]?)?[\d\s]{9,}$/;
+        const regTel = /^((\+[0-9])[\s]?)(\(?\d{3}\)?[\s]?)?[\d\s]{8,}$/;
         const regEmail = /[A-Za-z0-9]+@[a-z]+\.[a-z]{2,3}/;
 
         const numArr = '1234567890/ ';
@@ -157,7 +157,7 @@ export class modalWindow {
                     addError(mailBlock);
                     errorsCount++;
                 }
-                if (card16Inp.value.length !== 16) {
+                if (card16Inp.value.length !== 19) {
                     addError(card16Block);
                     errorsCount++;
                 }
@@ -171,7 +171,19 @@ export class modalWindow {
                     errorsCount++;
                 }
                 if (errorsCount === 0) {
-                    console.log('yep');
+                    let seconds = 4;
+                    let text = `Thanks for buying, redirest to main page in ${seconds}`;
+                    const succesText = new Constructor('div', 'modal__main__succes', text).create();
+                    const ID = setInterval(() => {
+                        seconds--;
+                        text = `Thanks for buying, redirest to main page in ${seconds}`;
+                        succesText.textContent = text;
+                        if (seconds === 0) {
+                            clearInterval(ID);
+                        }
+                    }, 1000);
+                    mainModal.innerHTML = '';
+                    mainModal.append(succesText);
                 }
             }
         });

@@ -57,11 +57,14 @@
     max-width: 300px;
     max-height: 250px;
     position: absolute;
-    opacity: 0;
+    display: none;
     transition: 0.7s;
     border-radius: 8px;
     &:first-child{
-        opacity: 1;
+        display: block;
+    }
+    &:hover{
+        transform: scale(1.5);
     }
 }
 .buttons__conteiner{
@@ -112,4 +115,17 @@ margin-bottom: 10px;
             background: linear-gradient(113.96deg, #1baf4e 1.49%, #00fa57 101.44%);
         }
     }
+}
+.error-text{
+    padding: 60px 0 20px;
+    font-size: 40px;
+    font-weight: bold;
+    color: #FE9013;
+}
+.error-image{
+    width: 250px;
+    height: 250px;
+    background: url(../../../assets/svg/nothing-to-show.svg) no-repeat center;
+    background-size: cover;
+    margin: 0 auto;
 }
