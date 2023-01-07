@@ -45,8 +45,9 @@ export class ModalWindow {
         cvvBlock.append(cvvText, cvvInp);
         cardBottomBlock.append(cardDateBlock, cvvBlock);
         cardMainBlock.append(card16Block, cardBottomBlock);
-        const closeBtn = new Constructor('button', 'modal__main__close-btn', 'X').create();
+        const closeBtn = new Constructor('a', 'modal__main__close-btn', 'X').create();
         const confirmBtn = new Constructor('button', 'modal__main__confirm-btn', 'Confirm').create();
+        confirmBtn.setAttribute('type', 'submit');
 
         function closeModal() {
             modalConteiner.remove();
@@ -217,5 +218,6 @@ export class ModalWindow {
         );
         modalConteiner.append(mainModal);
         document.body.append(modalConteiner);
+        confirmBtn.focus();
     }
 }
