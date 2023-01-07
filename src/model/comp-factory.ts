@@ -26,7 +26,8 @@ export class AllComponents {
         return this.mainShopPage;
     }
 
-    getCart(): Cart {
+    getCart(openModal = false): Cart {
+        localStorage.setItem('', openModal.toString());
         if (!this.cart) this.cart = new Cart();
         return this.cart;
     }

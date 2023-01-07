@@ -1,6 +1,7 @@
 import { components } from '../model/comp-factory';
 import { iComponent } from '../view/components/component';
 import { CardQueryParams, List, ProductsQueryParams, QueryParams } from '../view/entyties';
+import { storageNames } from '../model/local-storage-enum';
 
 export const route = (e: Event) => {
     const event: Event = e || window.event;
@@ -54,7 +55,8 @@ export const getQueryParams = (): QueryParams => _getQueryParams<QueryParams>();
 export const getProductsQueryParams = (): ProductsQueryParams => _getQueryParams<ProductsQueryParams>();
 export const getCardQueryParams = (): CardQueryParams => _getQueryParams<CardQueryParams>();
 
-export const goToCart = () => {
+export const goToCart = (openModal = false) => {
+    localStorage.setItem(storageNames.openModal, openModal.toString());
     window.location.pathname = '/cart';
 };
 

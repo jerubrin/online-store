@@ -1,10 +1,9 @@
 import { getProducts } from '../../../controller/controller';
-import { getProductsQueryParams } from '../../../controller/routing';
+import { getProductsQueryParams, goToCart } from '../../../controller/routing';
 import { components } from '../../../model/comp-factory';
 import Constructor from '../../../model/html-constructor';
 import { iCartData } from '../../../model/model';
 import { iComponent } from '../../components/component';
-import { ModalWindow } from '../../components/modal-window';
 import * as cartList from '../../pages/cart/cart.funcs';
 import './style.scss';
 
@@ -115,8 +114,11 @@ export class Product implements iComponent {
             });
 
             buyBtn.addEventListener('click', () => {
-                const modal = new ModalWindow().render();
-                console.log(modal);
+                if (!inCart) {
+                    cartList.addToCart(product);
+                    components.getHeader().refreshData();
+                }
+                goToCart(true);
             });
 
             cartBlock.append(buttonsName, buttonsPrice, addBtn, buyBtn);

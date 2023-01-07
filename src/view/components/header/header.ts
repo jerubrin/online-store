@@ -27,7 +27,7 @@ export class Header implements iComponent {
 
         const $basketBlock = document.createElement('a');
         $basketBlock.className = 'header__basket-cont';
-        $basketBlock.onclick = goToCart;
+        $basketBlock.onclick = () => goToCart(false);
 
         const $basket = document.createElement('div');
         $basket.className = 'header__basket-img';

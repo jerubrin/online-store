@@ -6,7 +6,7 @@ import * as cartList from '../../pages/cart/cart.funcs';
 import { ProductInCart } from '../../components/product-in-card';
 import * as promos from './promos';
 import { ModalWindow } from '../../components/modal-window';
-import { callbackFunc } from '../../entyties';
+import { storageNames } from '../../../model/local-storage-enum';
 
 export class Cart implements iComponent {
     currentPage = 1;
@@ -175,7 +175,7 @@ export class Cart implements iComponent {
             };
             inputHandler();
             $promo__input.oninput = inputHandler;
-            $summary__buyButton.onclick = () => new ModalWindow().render((() => cartList.clearCart()) as callbackFunc);
+            $summary__buyButton.onclick = () => new ModalWindow().render();
         } else {
             // Empty Cart
             const $emptyCart = new Constructor('div', 'empty-cart').create();
@@ -191,6 +191,12 @@ export class Cart implements iComponent {
         components.getHeader().refreshData();
 
         root.append($header, $main, $footer);
+
+        const openModal = localStorage.getItem(storageNames.openModal);
+        if (openModal == 'true') {
+            localStorage.setItem(storageNames.openModal, 'false');
+            new ModalWindow().render();
+        }
     }
 
     rerender() {
