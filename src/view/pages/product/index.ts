@@ -21,13 +21,16 @@ export class Product implements iComponent {
         if (product) {
             let inCart = cartList.hasItem(product.id);
 
-            const breadText = `Store => 
+            const breadText = `Store > 
             ${product?.category.replace(product?.category[0] as string, product?.category[0]?.toUpperCase() as string)} 
-            => ${product?.brand} => ${product?.title}`;
+            > ${product?.brand} > ${product?.title}`;
             const breadContainer = new Constructor('div', 'bread__conteiner', breadText).create();
             const productContainer = new Constructor('div', 'product__conteiner').create();
             const infoContainer = new Constructor('div', 'info__conteiner').create();
-            const infoMiniContainer = new Constructor('div', 'info__mini-conteiner').create();
+            const infoMiniContainer = new Constructor(
+                'div',
+                'info__mini-conteiner info__mini-conteiner_first'
+            ).create();
             const descriptionHeader = new Constructor('div', 'info__header', 'Description : ').create();
             const descriptionText = new Constructor('div', 'info__text', product?.description).create();
             const discountMiniContainer = new Constructor('div', 'info__mini-conteiner').create();
@@ -53,54 +56,30 @@ export class Product implements iComponent {
             categoryMiniContainer.append(categoryHeader, categoryText);
 
             const imageContainer = new Constructor('div', 'image__conteiner').create();
+            const imageMiniContainer = new Constructor('div', 'image__mini-conteiner').create();
             const buttonsContainer = new Constructor('div', 'buttons__conteiner').create();
-            const nextBtn = new Constructor('button', 'image__button', 'Next').create();
-            const prevBtn = new Constructor('button', 'image__button', 'Prev').create();
 
-            const imgArr: HTMLElement[] = [];
+            const image = new Constructor('div', 'image__small').create() as HTMLImageElement;
+            image.style.backgroundImage = `url(${product.images[0] ?? ''})`;
+            imageContainer.append(image);
+
             product.images.forEach((img) => {
-                const imgSmall = new Constructor('img', 'image__small').create() as HTMLImageElement;
-                imgSmall.src = img;
-                imgArr.push(imgSmall);
-                imageContainer.append(imgSmall);
+                const imageMini = new Constructor('div', 'image__mini-picture').create() as HTMLImageElement;
+                imageMini.style.backgroundImage = `url(${img})`;
+                imageMini.onclick = () => (image.style.backgroundImage = imageMini.style.backgroundImage);
+                imageMiniContainer.append(imageMini);
             });
-            buttonsContainer.append(prevBtn, nextBtn);
-            imageContainer.append(buttonsContainer);
-
-            let counter = 0;
-            nextBtn.addEventListener('click', () => {
-                counter++;
-                if (counter === imgArr.length) {
-                    counter = 0;
-                }
-                imgArr.forEach((img) => {
-                    img.style.display = 'none';
-                });
-                (imgArr[counter] as HTMLElement).style.display = 'block';
-            });
-
-            prevBtn.addEventListener('click', () => {
-                counter--;
-                if (counter === -1) {
-                    counter = imgArr.length - 1;
-                }
-                imgArr.forEach((img) => {
-                    img.style.display = 'none';
-                });
-                (imgArr[counter] as HTMLElement).style.display = 'block';
-            });
+            imageContainer.append(imageMiniContainer, buttonsContainer);
 
             const cartBlock = new Constructor('div', 'buttons').create();
-            const buttonsName = new Constructor('div', 'buttons__price', `${product.title}`).create();
-            const buttonsPrice = new Constructor('div', 'buttons__price', `${product.price.toString()} $`).create();
+            const buttonsName = new Constructor('div', 'buttons__title', `${product.title}`).create();
+            const buttonsPrice = new Constructor('div', 'buttons__price', `$${product.price.toString()}`).create();
             const addBtn = new Constructor('button', 'buttons__btn', 'Add to cart').create();
             const buyBtn = new Constructor('button', 'buttons__btn', 'Buy now').create();
             if (inCart) {
                 addBtn.textContent = 'Delete from cart';
             }
             addBtn.addEventListener('click', () => {
-                // const totalPriceDiv = document.querySelector('.header__basket-cont__total-price') as HTMLElement;
-                // const totalProductsDiv = document.querySelector('.header__basket-cont_items') as HTMLElement;
                 if (inCart) {
                     addBtn.textContent = 'Add to cart';
                     cartList.deleteFromCart(product.id);
@@ -121,9 +100,13 @@ export class Product implements iComponent {
                 goToCart(true);
             });
 
-            cartBlock.append(buttonsName, buttonsPrice, addBtn, buyBtn);
+            cartBlock.append(buttonsName, buttonsPrice);
+
+            const buttonsBlock = new Constructor('div', 'buttons__down-container').create();
+            buttonsBlock.append(addBtn, buyBtn);
 
             infoMiniContainer.append(descriptionHeader, descriptionText);
+            const infoPlusContainer = new Constructor('div', 'buttons__right-container').create();
             infoContainer.append(
                 infoMiniContainer,
                 discountMiniContainer,
@@ -132,9 +115,10 @@ export class Product implements iComponent {
                 brandMiniContainer,
                 categoryMiniContainer
             );
-            productContainer.append(infoContainer, imageContainer, cartBlock);
+            infoPlusContainer.append(infoContainer, buttonsBlock);
+            productContainer.append(imageContainer, infoPlusContainer);
 
-            main.append(breadContainer, productContainer);
+            main.append(breadContainer, cartBlock, productContainer);
         } else {
             const errorText = new Constructor('div', 'error-text', 'Sorry, but product not found').create();
             const errorImage = new Constructor('div', 'error-image').create();
