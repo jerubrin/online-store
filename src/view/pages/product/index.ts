@@ -4,12 +4,13 @@ import { components } from '../../../model/comp-factory';
 import Constructor from '../../../model/html-constructor';
 import { iCartData } from '../../../model/model';
 import { iComponent } from '../../components/component';
-import { modalWindow } from '../../components/modal-window';
-import { newCart } from '../../pages/cart';
+import { ModalWindow } from '../../components/modal-window';
+import * as cartList from '../../pages/cart/cart.funcs';
 import './style.scss';
 
 export class Product implements iComponent {
     render(root: HTMLElement) {
+        cartList.loadData();
         const id = getProductsQueryParams().id;
         const product: iCartData | undefined = getProducts().find((product) => product.id == id);
 
@@ -19,7 +20,7 @@ export class Product implements iComponent {
         const main = new Constructor('main', 'product').create();
 
         if (product) {
-            let inCart = newCart.checkProduct(product.id as number);
+            let inCart = cartList.hasItem(product.id);
 
             const breadText = `Store => 
             ${product?.category.replace(product?.category[0] as string, product?.category[0]?.toUpperCase() as string)} 
@@ -99,24 +100,22 @@ export class Product implements iComponent {
                 addBtn.textContent = 'Delete from cart';
             }
             addBtn.addEventListener('click', () => {
-                const totalPriceDiv = document.querySelector('.header__basket-cont__total-price') as HTMLElement;
-                const totalProductsDiv = document.querySelector('.header__basket-cont_items') as HTMLElement;
+                // const totalPriceDiv = document.querySelector('.header__basket-cont__total-price') as HTMLElement;
+                // const totalProductsDiv = document.querySelector('.header__basket-cont_items') as HTMLElement;
                 if (inCart) {
                     addBtn.textContent = 'Add to cart';
-                    newCart.deleteFromCart(product.id as number);
-                    totalPriceDiv.textContent = `Total price : ${newCart.getTotalPrice()} $`;
-                    totalProductsDiv.textContent = newCart.getTotalProducts().toString();
+                    cartList.deleteFromCart(product.id);
+                    components.getHeader().refreshData();
                 } else {
                     addBtn.textContent = 'Delete from cart';
-                    newCart.addToCart(product);
-                    totalPriceDiv.textContent = `Total price : ${newCart.getTotalPrice()} $`;
-                    totalProductsDiv.textContent = newCart.getTotalProducts().toString();
+                    cartList.addToCart(product);
+                    components.getHeader().refreshData();
                 }
                 inCart = !inCart;
             });
 
             buyBtn.addEventListener('click', () => {
-                const modal = new modalWindow().render();
+                const modal = new ModalWindow().render();
                 console.log(modal);
             });
 
@@ -142,6 +141,7 @@ export class Product implements iComponent {
 
         components.getHeader().render($header);
         components.getFooter().render($footer);
+        components.getHeader().refreshData();
 
         root.append($header, main, $footer);
     }

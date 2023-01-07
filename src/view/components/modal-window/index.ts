@@ -1,8 +1,10 @@
 import './style.scss';
 import Constructor from '../../../model/html-constructor';
+import { goToMain } from '../../../controller/routing';
+import { callbackFunc } from '../../entyties';
 
-export class modalWindow {
-    render() {
+export class ModalWindow {
+    render(callback?: callbackFunc) {
         const modalConteiner = new Constructor('div', 'modal').create();
         const mainModal = new Constructor('form', 'modal__main').create();
         const nameText = new Constructor('div', 'modal__main__text', 'Your name:').create();
@@ -43,8 +45,9 @@ export class modalWindow {
         cvvBlock.append(cvvText, cvvInp);
         cardBottomBlock.append(cardDateBlock, cvvBlock);
         cardMainBlock.append(card16Block, cardBottomBlock);
-        const closeBtn = new Constructor('button', 'modal__main__close-btn', 'X').create();
+        const closeBtn = new Constructor('a', 'modal__main__close-btn', 'X').create();
         const confirmBtn = new Constructor('button', 'modal__main__confirm-btn', 'Confirm').create();
+        confirmBtn.setAttribute('type', 'submit');
 
         function closeModal() {
             modalConteiner.remove();
@@ -174,11 +177,18 @@ export class modalWindow {
                     let seconds = 4;
                     let text = `Thanks for buying, redirest to main page in ${seconds}`;
                     const succesText = new Constructor('div', 'modal__main__succes', text).create();
+                    mainModal.classList.add('modal__main_succses');
                     const ID = setInterval(() => {
                         seconds--;
                         text = `Thanks for buying, redirest to main page in ${seconds}`;
                         succesText.textContent = text;
                         if (seconds === 0) {
+                            console.log(callback);
+                            if (callback) {
+                                console.log(callback, ' - runned!');
+                                callback();
+                            }
+                            goToMain();
                             clearInterval(ID);
                         }
                     }, 1000);
@@ -208,5 +218,6 @@ export class modalWindow {
         );
         modalConteiner.append(mainModal);
         document.body.append(modalConteiner);
+        confirmBtn.focus();
     }
 }

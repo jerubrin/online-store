@@ -10,11 +10,18 @@ export interface QueryParams {
     maxprice?: number;
     minstock?: number;
     maxstock?: number;
+    sorting?: sortingParams;
+    list?: string;
     [index: string]: string | number;
 }
 
 export interface ProductsQueryParams {
     id?: number;
+    [index: string]: string | number;
+}
+
+export interface CardQueryParams {
+    page?: number;
     [index: string]: string | number;
 }
 
@@ -41,3 +48,13 @@ export interface RangeObject {
     value2: HTMLElement;
     fillTRack: () => void;
 }
+
+export enum sortingParams {
+    def = '',
+    alphabetFovard = 'Alphabet (a-z)',
+    alphabetBack = 'Alphabet (z-a)',
+    priceMaxMin = 'Price (from max)',
+    priceMinMax = 'Price (from min)',
+}
+
+export type callbackFunc = () => void;
