@@ -47,6 +47,22 @@
         font-style: 700;
     }
 
+    &__brand-category {
+        display: flex;
+        justify-content: space-between;
+        margin: 4px 0 10px;
+    }
+
+    &__brand {
+        font-weight: 900;
+        font-size: 1.2em;
+    }
+
+    &__category {
+        font-size: 1.1em;
+        font-style: italic;
+    }
+
     // .item__description
     &__description {
         text-align: center;
