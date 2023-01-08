@@ -20,8 +20,8 @@ export class Cart implements iComponent {
         this.root = root;
         setParams({ ['id']: '' });
         const params = getCardQueryParams();
-        if (params.page && !isNaN(params.page)) this.currentPage = +params.page;
-        if (params.limit && !isNaN(params.limit)) this.limit = +params.limit;
+        if (params.page && !isNaN(+params.page)) this.currentPage = +params.page;
+        if (params.limit && !isNaN(+params.limit)) this.limit = +params.limit;
         cartList.loadData();
         const $header = document.createElement('header');
         const $footer = document.createElement('footer');

@@ -9,7 +9,7 @@ export class MainShopPage implements iComponent {
     private root?: HTMLElement;
 
     render(root: HTMLElement) {
-        setParams({ ['id']: '', ['page']: '' });
+        setParams({ ['id']: '', ['page']: '', ['limit']: '' });
         this.root = root;
         const params = getQueryParams();
         this.checkParams(params);

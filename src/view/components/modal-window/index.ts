@@ -115,6 +115,9 @@ export class ModalWindow {
                 cvvInp.value = cvvInp.value.slice(0, 3);
             }
         });
+        cvvInp.onkeydown = (event: KeyboardEvent) => event.key !== 'e' && event.key !== 'E' && event.key !== '-';
+        cvvInp.setAttribute('min', '0');
+        cvvInp.setAttribute('max', '999');
         let moreThan2 = true;
         cardDateInp.addEventListener('input', () => {
             for (let i = 0; i < cardDateInp.value.length; i++) {
