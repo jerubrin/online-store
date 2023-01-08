@@ -7,6 +7,7 @@ import { ProductInCart } from '../../components/product-in-card';
 import * as promos from './promos';
 import { ModalWindow } from '../../components/modal-window';
 import { storageNames } from '../../../model/local-storage-enum';
+import { setParams } from '../../../controller/routing';
 
 export class Cart implements iComponent {
     currentPage = 1;
@@ -17,6 +18,7 @@ export class Cart implements iComponent {
 
     render(root: HTMLElement) {
         this.root = root;
+        setParams({ ['id']: '' });
         cartList.loadData();
         const $header = document.createElement('header');
         const $footer = document.createElement('footer');

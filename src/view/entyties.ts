@@ -2,6 +2,20 @@ import { iCartData } from '../model/model';
 
 export type renderFunc = (root: HTMLElement, params?: QueryParams) => void;
 
+export const allParams: Set<string> = new Set([
+    'search',
+    'brand',
+    'category',
+    'minprice',
+    'maxprice',
+    'minstock',
+    'maxstock',
+    'sorting',
+    'list',
+    'id',
+    'page',
+]);
+
 export interface QueryParams {
     search?: string;
     brand?: string;

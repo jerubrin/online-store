@@ -2,7 +2,7 @@ import './style.scss';
 import { iComponent } from '../component';
 import { iCartData } from '../../../model/model';
 import Constructor from '../../../model/html-constructor';
-import { ImultiRange, List, RangeObject } from '../../entyties';
+import { ImultiRange, List, RangeObject, sortingParams } from '../../entyties';
 import { getProducts } from '../../../controller/controller';
 import { components } from '../../../model/comp-factory';
 import { getQueryParams, setParams } from '../../../controller/routing';
@@ -256,10 +256,13 @@ export class Filter implements iComponent {
                 maxprice: -1,
                 minstock: -1,
                 maxstock: -1,
+                list: '',
+                search: '',
+                sorting: sortingParams.def,
+                ['id']: '',
+                ['page']: '',
             });
-            if (this.root) {
-                this.render(this.root);
-            }
+            components.getMainShopPage().rerender();
         });
 
         resetCopyLink.addEventListener('click', () => {

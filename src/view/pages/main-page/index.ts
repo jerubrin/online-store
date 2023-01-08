@@ -2,9 +2,14 @@ import './style.scss';
 import { iComponent } from '../../components/component';
 import { components } from '../../../model/comp-factory';
 import Constructor from '../../../model/html-constructor';
+import { setParams } from '../../../controller/routing';
 
 export class MainShopPage implements iComponent {
+    private root?: HTMLElement;
+
     render(root: HTMLElement) {
+        setParams({ ['id']: '', ['page']: '' });
+        this.root = root;
         const $header = document.createElement('header');
         const $main = document.createElement('main');
         $main.className = 'main';
@@ -35,5 +40,12 @@ export class MainShopPage implements iComponent {
 
         $main.append($filter, $filterShowButton, $mainSection);
         root.append($header, $main, $footer);
+    }
+
+    rerender() {
+        if (this.root) {
+            this.root.innerHTML = '';
+            this.render(this.root);
+        }
     }
 }
