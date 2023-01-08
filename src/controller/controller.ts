@@ -36,7 +36,11 @@ const fileterByParams = (_products: Array<iCartData>, params?: QueryParams): Arr
             data.brand?.toLocaleLowerCase().includes(params.search.toLocaleLowerCase()) ||
             data.category?.toLocaleLowerCase().includes(params.search.toLocaleLowerCase()) ||
             data.description?.toLocaleLowerCase().includes(params.search.toLocaleLowerCase()) ||
-            data.title?.toLocaleLowerCase().includes(params.search.toLocaleLowerCase())
+            data.title?.toLocaleLowerCase().includes(params.search.toLocaleLowerCase()) ||
+            data.price?.toString().includes(params.search.toLocaleLowerCase()) ||
+            data.discountPercentage?.toString().includes(params.search.toLocaleLowerCase()) ||
+            data.rating?.toString().includes(params.search.toLocaleLowerCase()) ||
+            data.stock?.toString().includes(params.search.toLocaleLowerCase())
     );
     return __products;
 };

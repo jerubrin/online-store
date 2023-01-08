@@ -3,7 +3,6 @@ import { iComponent } from '../component';
 import Constructor from '../../../model/html-constructor';
 import { getQueryParams, setParams } from '../../../controller/routing';
 import { components } from '../../../model/comp-factory';
-// import { modalWindow } from '../modal-window';
 import { sortingParams } from '../../entyties';
 
 export class SortContainer implements iComponent {
