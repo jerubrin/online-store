@@ -15,7 +15,9 @@ export class Footer implements iComponent {
         const $linksBlock = new Constructor('div', 'footer__links-block').create();
         const linkConteiner = new Constructor('div', 'footer__link-conteiner').create();
 
-        const link = new Constructor('a', 'footer__link').create();
+        const link = new Constructor('a', 'footer__link').create() as HTMLLinkElement;
+        link.href = 'https://rs.school/js/';
+        link.setAttribute('target', '_blank');
         linkConteiner.append(link);
 
         const $gitHubs = new Constructor('div', 'footer__links-githubs').create();
@@ -25,11 +27,12 @@ export class Footer implements iComponent {
             { name: 'LoginovskyMax', href: 'https://github.com/LoginovskyMax' } as GitUser,
         ];
         for (let i = 0; i < 2; i++) {
-            const $githubContainer = new Constructor('a', 'footer__links-github-container').create();
+            const $githubContainer = new Constructor('a', 'footer__links-github-container').create() as HTMLLinkElement;
             const $gitHubIcon = new Constructor('div', 'footer__links-github-icon').create();
             const $gitHubUserName = new Constructor('div', 'footer__links-github-user-name').create();
             $githubContainer.append($gitHubIcon, $gitHubUserName);
-            $githubContainer.setAttribute('href', githubs[i]?.href ?? '');
+            $githubContainer.setAttribute('target', '_blank');
+            $githubContainer.href = githubs[i]?.href ?? '';
             $gitHubUserName.textContent = githubs[i]?.name ?? '';
             $gitHubs.append($githubContainer);
         }
