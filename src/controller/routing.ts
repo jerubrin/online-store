@@ -1,6 +1,6 @@
 import { components } from '../model/comp-factory';
 import { iComponent } from '../view/components/component';
-import { allParams, CardQueryParams, List, ProductsQueryParams, QueryParams } from '../view/entyties';
+import { CardQueryParams, List, ProductsQueryParams, QueryParams } from '../view/entyties';
 import { storageNames } from '../model/local-storage-enum';
 
 export const route = (e: Event) => {
@@ -20,7 +20,6 @@ const routeHandler: List<iComponent> = {
 export const handleLocation = () => {
     const path = window.location.pathname;
     const route = (routeHandler[path] || routeHandler['404']) as iComponent;
-    _getQueryParams();
     document.body.innerHTML = '';
     route.render(document.body);
 };
@@ -60,15 +59,6 @@ export const setParams = (nesParam: Partial<QueryParams>) => {
 function _getQueryParams<T>(): T {
     const urlSearchParams = new URLSearchParams(window.location.search);
     const queryParams = Object.fromEntries(urlSearchParams.entries());
-    for (const key in queryParams) {
-        console.log(key);
-        if (!allParams.has(key)) {
-            const route = routeHandler['404'] as iComponent;
-            document.body.innerHTML = '';
-            route.render(document.body, {});
-            throw Error('Wrong Query Params!');
-        }
-    }
     return queryParams as T;
 }
 
