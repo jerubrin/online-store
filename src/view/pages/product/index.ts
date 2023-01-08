@@ -78,14 +78,17 @@ export class Product implements iComponent {
             const buyBtn = new Constructor('button', 'buttons__btn', 'Buy now').create();
             if (inCart) {
                 addBtn.textContent = 'Delete from cart';
+                addBtn.classList.add('buttons__btn_active');
             }
             addBtn.addEventListener('click', () => {
                 if (inCart) {
                     addBtn.textContent = 'Add to cart';
+                    addBtn.classList.remove('buttons__btn_active');
                     cartList.deleteFromCart(product.id);
                     components.getHeader().refreshData();
                 } else {
                     addBtn.textContent = 'Delete from cart';
+                    addBtn.classList.add('buttons__btn_active');
                     cartList.addToCart(product);
                     components.getHeader().refreshData();
                 }

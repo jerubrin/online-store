@@ -124,6 +124,9 @@ margin-bottom: 10px;
             margin: 12px;
             min-height: 45px;
         }
+        &_active {
+            background: linear-gradient(113.96deg, #1baf4e 1.49%, #00fa57 101.44%);
+        }
     }
 }
 .error-text{

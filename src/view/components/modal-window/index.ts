@@ -6,47 +6,47 @@ import * as cartList from '../../pages/cart/cart.funcs';
 export class ModalWindow {
     render() {
         const modalConteiner = new Constructor('div', 'modal').create();
-        const mainModal = new Constructor('form', 'modal__main').create();
-        const nameText = new Constructor('div', 'modal__main__text', 'Your name:').create();
-        const nameBlock = new Constructor('div', 'modal__main__block').create();
-        const nameInp = new Constructor('input', 'modal__main__input').create() as HTMLInputElement;
+        const mainModal = new Constructor('form', 'modal__payment payment').create();
+        const nameText = new Constructor('div', 'payment__text', 'Your name:').create();
+        const nameBlock = new Constructor('div', 'payment__block').create();
+        const nameInp = new Constructor('input', 'payment__input').create() as HTMLInputElement;
         nameInp.placeholder = 'Name SecondName';
-        const telText = new Constructor('div', 'modal__main__text', 'Telefon number:').create();
-        const telBlock = new Constructor('div', 'modal__main__block').create();
-        const telInp = new Constructor('input', 'modal__main__input').create() as HTMLInputElement;
+        const telText = new Constructor('div', 'payment__text', 'Telefon number:').create();
+        const telBlock = new Constructor('div', 'payment__block').create();
+        const telInp = new Constructor('input', 'payment__input').create() as HTMLInputElement;
         telInp.placeholder = '+7 700 22 55 387';
-        const adressText = new Constructor('div', 'modal__main__text', 'Adress:').create();
-        const adressBlock = new Constructor('div', 'modal__main__block').create();
-        const adressInp = new Constructor('input', 'modal__main__input').create() as HTMLInputElement;
+        const adressText = new Constructor('div', 'payment__text', 'Adress:').create();
+        const adressBlock = new Constructor('div', 'payment__block').create();
+        const adressInp = new Constructor('input', 'payment__input').create() as HTMLInputElement;
         adressInp.placeholder = 'Country, City, Street';
-        const mailText = new Constructor('div', 'modal__main__text', 'Your email:').create();
-        const mailBlock = new Constructor('div', 'modal__main__block').create();
-        const mailInp = new Constructor('input', 'modal__main__input').create() as HTMLInputElement;
+        const mailText = new Constructor('div', 'payment__text', 'Your email:').create();
+        const mailBlock = new Constructor('div', 'payment__block').create();
+        const mailInp = new Constructor('input', 'payment__input').create() as HTMLInputElement;
         mailInp.placeholder = 'Your-email@mail.com';
 
-        const cardText = new Constructor('div', 'modal__main__text', 'Card Info: ').create();
-        const cardMainBlock = new Constructor('div', 'modal__main__card').create();
-        const card16Block = new Constructor('div', 'modal__main__block').create();
-        const card16Inp = new Constructor('input', 'modal__main__input').create() as HTMLInputElement;
+        const cardText = new Constructor('div', 'payment__text', 'Card Info: ').create();
+        const cardMainBlock = new Constructor('div', 'payment__card').create();
+        const card16Block = new Constructor('div', 'payment__block').create();
+        const card16Inp = new Constructor('input', 'payment__input').create() as HTMLInputElement;
         card16Inp.placeholder = '16 numbers on card';
-        const cardBottomBlock = new Constructor('div', 'modal__main__block-bottom').create();
-        const cardDateText = new Constructor('div', 'modal__main__text', 'Valid : ').create();
-        const cardDateBlock = new Constructor('div', 'modal__main__block-mini').create();
-        const cardDateInp = new Constructor('input', 'modal__main__input-mini').create() as HTMLInputElement;
+        const cardBottomBlock = new Constructor('div', 'payment__block-bottom').create();
+        const cardDateText = new Constructor('div', 'payment__text', 'Valid : ').create();
+        const cardDateBlock = new Constructor('div', 'payment__block-mini').create();
+        const cardDateInp = new Constructor('input', 'payment__input-mini').create() as HTMLInputElement;
         cardDateInp.placeholder = '10/23';
-        const cvvText = new Constructor('div', 'modal__main__text', 'CVV : ').create();
-        const cvvBlock = new Constructor('div', 'modal__main__block-mini').create();
-        const cvvInp = new Constructor('input', 'modal__main__input-mini').create() as HTMLInputElement;
+        const cvvText = new Constructor('div', 'payment__text', 'CVV : ').create();
+        const cvvBlock = new Constructor('div', 'payment__block-mini').create();
+        const cvvInp = new Constructor('input', 'payment__input-mini').create() as HTMLInputElement;
         cvvInp.placeholder = '***';
         cvvInp.type = 'number';
-        const cardImg = new Constructor('div', 'modal__main__image').create() as HTMLElement;
+        const cardImg = new Constructor('div', 'payment__image').create() as HTMLElement;
         card16Block.append(cardImg, card16Inp);
         cardDateBlock.append(cardDateText, cardDateInp);
         cvvBlock.append(cvvText, cvvInp);
         cardBottomBlock.append(cardDateBlock, cvvBlock);
         cardMainBlock.append(card16Block, cardBottomBlock);
-        const closeBtn = new Constructor('a', 'modal__main__close-btn').create();
-        const confirmBtn = new Constructor('button', 'modal__main__confirm-btn', 'Confirm').create();
+        const closeBtn = new Constructor('a', 'payment__close-btn').create();
+        const confirmBtn = new Constructor('button', 'payment__confirm-btn', 'Confirm').create();
         confirmBtn.setAttribute('type', 'submit');
 
         function closeModal() {
@@ -57,7 +57,7 @@ export class ModalWindow {
         modalConteiner.addEventListener('click', closeModal);
 
         function addError(div: HTMLElement) {
-            const errorMessage = new Constructor('p', 'modal__main__error', 'Error').create();
+            const errorMessage = new Constructor('p', 'payment__error', 'Error').create();
             div.append(errorMessage);
             setTimeout(() => {
                 clickTime = true;
@@ -79,13 +79,13 @@ export class ModalWindow {
                 }
             }
             if (+(card16Inp.value[0] as string) === 4) {
-                cardImg.className = 'modal__main__image modal__main__image_visa';
+                cardImg.className = 'payment__image payment__image_visa';
             } else if (+(card16Inp.value[0] as string) === 5) {
-                cardImg.className = 'modal__main__image modal__main__image_mc';
+                cardImg.className = 'payment__image payment__image_mc';
             } else if (+(card16Inp.value[0] as string) === 3) {
-                cardImg.className = 'modal__main__image modal__main__image_express';
+                cardImg.className = 'payment__image payment__image_express';
             } else {
-                cardImg.className = 'modal__main__image';
+                cardImg.className = 'payment__image';
             }
 
             const str = card16Inp.value;
@@ -179,8 +179,8 @@ export class ModalWindow {
                 if (errorsCount === 0) {
                     let seconds = 4;
                     let text = `Thanks for buying, redirest to main page in ${seconds}`;
-                    const succesText = new Constructor('div', 'modal__main__succes', text).create();
-                    mainModal.classList.add('modal__main_succses');
+                    const succesText = new Constructor('div', 'payment__succes', text).create();
+                    mainModal.classList.add('modal__payment_succses');
                     const ID = setInterval(() => {
                         seconds--;
                         text = `Thanks for buying, redirest to main page in ${seconds}`;
