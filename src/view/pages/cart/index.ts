@@ -7,7 +7,7 @@ import { ProductInCart } from '../../components/product-in-card';
 import * as promos from './promos';
 import { ModalWindow } from '../../components/modal-window';
 import { storageNames } from '../../../model/local-storage-enum';
-import { setParams } from '../../../controller/routing';
+import { getCardQueryParams, setCartParams, setParams } from '../../../controller/routing';
 
 export class Cart implements iComponent {
     currentPage = 1;
@@ -19,6 +19,9 @@ export class Cart implements iComponent {
     render(root: HTMLElement) {
         this.root = root;
         setParams({ ['id']: '' });
+        const params = getCardQueryParams();
+        if (params.page && !isNaN(params.page)) this.currentPage = +params.page;
+        if (params.limit && !isNaN(params.limit)) this.limit = +params.limit;
         cartList.loadData();
         const $header = document.createElement('header');
         const $footer = document.createElement('footer');
@@ -143,14 +146,17 @@ export class Cart implements iComponent {
             //Handlers
             $top__pagePrev.onclick = () => {
                 this.currentPage = this.currentPage > 1 ? this.currentPage - 1 : this.currentPage;
+                setCartParams({ page: this.currentPage, limit: this.limit });
                 this.rerender();
             };
             $top__pageNext.onclick = () => {
                 this.currentPage = this.currentPage < this.maxPage ? this.currentPage + 1 : this.currentPage;
+                setCartParams({ page: this.currentPage, limit: this.limit });
                 this.rerender();
             };
             $top__limitInput.onchange = () => {
                 this.limit = +($top__limitInput as HTMLInputElement).value;
+                setCartParams({ page: this.currentPage, limit: this.limit });
                 this.rerender();
             };
             const inputHandler = () => {

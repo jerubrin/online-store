@@ -25,6 +25,16 @@ export const handleLocation = () => {
     route.render(document.body);
 };
 
+export const setCartParams = (params: CardQueryParams) => {
+    const urlSearchParams = new URLSearchParams();
+    for (const key in params) {
+        urlSearchParams.append(key, params[key]?.toString() ?? '');
+    }
+    console.log(params);
+    const paramsStr = urlSearchParams.toString();
+    window.history.replaceState({}, '', paramsStr ? '?' + paramsStr : window.location.pathname);
+};
+
 export const setParams = (nesParam: Partial<QueryParams>) => {
     const queryParams = getQueryParams();
     Object.assign(queryParams, nesParam);

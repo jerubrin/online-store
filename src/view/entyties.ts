@@ -14,6 +14,7 @@ export const allParams: Set<string> = new Set([
     'list',
     'id',
     'page',
+    'limit',
 ]);
 
 export interface QueryParams {
@@ -36,6 +37,7 @@ export interface ProductsQueryParams {
 
 export interface CardQueryParams {
     page?: number;
+    limit?: number;
     [index: string]: string | number;
 }
 
