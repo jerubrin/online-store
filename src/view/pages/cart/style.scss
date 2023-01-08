@@ -121,6 +121,9 @@
         &:hover {
             transform: translateY(-3px) scale(1.03);
         }
+        &:active{
+            background: linear-gradient(113.96deg, #1baf4e 1.49%, #00fa57 101.44%);
+        }
     }
 
     @media screen and (max-width: 580px) {
@@ -173,6 +176,9 @@
         &:hover {
             transform: translateY(-3px) scale(1.03);
         }
+        &:active{
+            background: linear-gradient(113.96deg, #1baf4e 1.49%, #00fa57 101.44%);
+        }
     }
 
     // .promo__help
@@ -212,6 +218,9 @@
         font-size: 0.8em;
         &:hover {
             transform: translateY(-3px) scale(1.03);
+        }
+        &:active{
+            background: linear-gradient(113.96deg, #1baf4e 1.49%, #00fa57 101.44%);
         }
     }
 }
@@ -297,6 +306,9 @@
         &:hover {
             transform: translateY(-3px) scale(1.03);
         }
+        &:active{
+            background-color: rgba(27, 175, 79, 0.4784313725);
+        }
     }
 
     // .top__page-number
@@ -320,6 +332,9 @@
         &:hover {
             transform: translateY(-3px) scale(1.03);
         }
+        &:active{
+            background-color: rgba(27, 175, 79, 0.4784313725);
+        }
     }
 
     @media screen and (max-width: 580px) {
@@ -339,9 +354,6 @@
     &__list {
         padding: 8px;
     }
-
-    // .products__item
-    &__item {}
 
     @media screen and (max-width: 1060px) {
         width: calc(100% - 48px);

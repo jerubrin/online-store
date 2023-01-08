@@ -4,8 +4,8 @@ import { goToCart, goToMain } from '../../../controller/routing';
 import * as cartList from '../../pages/cart/cart.funcs';
 import * as promos from '../../pages/cart/promos';
 export class Header implements iComponent {
-    $totalPrice?: HTMLElement;
-    $itemsCount?: HTMLElement;
+    private $totalPrice?: HTMLElement;
+    private $itemsCount?: HTMLElement;
 
     render(root: HTMLElement) {
         const $block1 = document.createElement('div');

@@ -39,10 +39,10 @@ export class ProductInCart implements iComponent {
         }
 
         const $item__controlBlock = new Constructor('div', 'item__control-block').create();
-        const $item__minusButton = new Constructor('button', 'item__minus-button', '-').create();
+        const $item__minusButton = new Constructor('button', 'item__minus-button').create();
         const $item__count = new Constructor('p', 'item__count').create();
         if (this.data?.product.price) $item__count.textContent = this.data.count.toString();
-        const $item__plusButton = new Constructor('button', 'item__plus-button', '+').create();
+        const $item__plusButton = new Constructor('button', 'item__plus-button').create();
         $item__controlBlock.append($item__minusButton, $item__count, $item__plusButton);
 
         const $item__price = new Constructor('div', 'item__price').create();
