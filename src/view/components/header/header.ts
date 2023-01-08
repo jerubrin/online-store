@@ -2,6 +2,7 @@ import './style.scss';
 import { iComponent } from '../component';
 import { goToCart, goToMain } from '../../../controller/routing';
 import * as cartList from '../../pages/cart/cart.funcs';
+import * as promos from '../../pages/cart/promos';
 export class Header implements iComponent {
     $totalPrice?: HTMLElement;
     $itemsCount?: HTMLElement;
@@ -46,8 +47,7 @@ export class Header implements iComponent {
 
     public refreshData() {
         if (this.$totalPrice && this.$itemsCount) {
-            console.log(cartList.getTotalPrice());
-            this.$totalPrice.textContent = `Total price : ${cartList.getTotalPrice()} $`;
+            this.$totalPrice.textContent = `Total price : ${promos.getNewPrice(cartList.getTotalPrice())} $`;
             this.$itemsCount.textContent = cartList.getTotalProducts().toString();
         }
     }
