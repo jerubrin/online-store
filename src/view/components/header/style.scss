@@ -37,15 +37,30 @@
         height: 35px;
     }
 
-    &__basket-cont {
-        display: flex;
-        flex-direction: row-reverse;
-        align-items: center;
+    &__total-price {
+        font-size: 1.3em;
+        @media screen and (max-width: 580px) {
+            font-size: 1em;
+        }
+    }
+}
+
+.basket-cont {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.4s;
+    &:hover{
+        transform: translateY(-4px);
         cursor: pointer;
-        transition: 0.4s;
-        &:hover{
-            transform: translateY(-4px);
-            cursor: pointer;
+    }
+
+    &__items {
+        font-size: 1.3em;
+        font-weight: 900;
+        @media screen and (max-width: 580px) {
+            font-size: 1.1em;
         }
     }
 
@@ -59,21 +74,6 @@
             width: 25px;
             height: 25px;
             margin-left: 4px;
-        }
-    }
-
-    &__basket-cont__total-price {
-        font-size: 1.3em;
-        @media screen and (max-width: 580px) {
-            font-size: 1em;
-        }
-    }
-
-    &__basket-cont_items {
-        font-size: 1.3em;
-        font-weight: 900;
-        @media screen and (max-width: 580px) {
-            font-size: 1.1em;
         }
     }
 }

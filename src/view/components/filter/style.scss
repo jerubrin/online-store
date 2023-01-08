@@ -21,3 +21,27 @@
         left: 24px;
     }
 }
+
+.brand{
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 5px;
+    height: 300px;
+    overflow-y: auto;
+    border: 2px solid #1baf4e;
+    border-radius: 5px;
+    &__label{
+        display: flex;
+        justify-content: space-between;
+        padding: 3px;
+        border-radius: 5px;
+        cursor: pointer;
+        &:hover{
+            background-color: #F9804B;
+        }
+        &:has(.filter__check:checked){
+            background-color: #F9804B;
+        }
+    }
+}
