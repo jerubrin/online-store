@@ -1,6 +1,6 @@
 import { storageNames } from '../../../model/local-storage-enum';
 
-interface iPromoCode {
+export interface iPromoCode {
     title: string;
     code: string;
     percent: number;
