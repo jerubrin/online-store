@@ -26,6 +26,8 @@ export const handleLocation = () => {
 
 export const setCartParams = (params: CardQueryParams) => {
     const urlSearchParams = new URLSearchParams();
+    if (params.limit == 4) delete params.limit;
+    if (params.page == 1) delete params.page;
     for (const key in params) {
         urlSearchParams.append(key, params[key]?.toString() ?? '');
     }
