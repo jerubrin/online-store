@@ -53,11 +53,9 @@ const loadData = () => {
     const __applyedCodes = localStorage.getItem(storageNames.promoData);
     if (__applyedCodes) {
         const _applyedCodes = JSON.parse(__applyedCodes) as Array<iPromoCode>;
-        console.log(_applyedCodes);
         applyedCodes = _applyedCodes
             .filter((promo) => promoCodes.find((p) => p.code == promo.code))
             .map((promo) => promoCodes.find((p) => p.code == promo.code)) as Array<iPromoCode>;
-        console.log(applyedCodes);
     }
 };
 loadData();
