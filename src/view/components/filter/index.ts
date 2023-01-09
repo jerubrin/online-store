@@ -2,7 +2,7 @@ import './style.scss';
 import { iComponent } from '../component';
 import { iCartData } from '../../../model/model';
 import Constructor from '../../../model/html-constructor';
-import { ImultiRange, List, RangeObject } from '../../entyties';
+import { ImultiRange, List, RangeObject, sortingParams } from '../../entyties';
 import { getProducts } from '../../../controller/controller';
 import { components } from '../../../model/comp-factory';
 import { getQueryParams, setParams } from '../../../controller/routing';
@@ -111,8 +111,8 @@ export class Filter implements iComponent {
         const resetConteiner = new Constructor('div', 'reset-cont').create();
         const resetBtn = new Constructor('button', 'reset-cont__btn', 'Reset filters').create();
         const resetCopyLink = new Constructor('button', 'reset-cont__btn', 'Copy link').create();
-        const brandFilter = new Constructor('div', 'filter__brand').create();
-        const categoryFilter = new Constructor('div', 'filter__brand').create();
+        const brandFilter = new Constructor('div', 'filter__brand brand').create();
+        const categoryFilter = new Constructor('div', 'filter__brand brand').create();
         resetConteiner.append(resetBtn, resetCopyLink);
 
         let sumOfBrands: Array<string> = [];
@@ -193,10 +193,10 @@ export class Filter implements iComponent {
                 }
                 const label = new Constructor(
                     'label',
-                    'filter__brand__label',
+                    'brand__label',
                     `${brand} (${avalaible}/${objBrands[brand] as number})`
                 ).create();
-                const checkBox = new Constructor('input', 'filter__brand__check').create() as HTMLInputElement;
+                const checkBox = new Constructor('input', 'filter__check').create() as HTMLInputElement;
                 checkBox.type = 'checkbox';
                 checkBox.value = brand;
                 if (brandsCheckedSet.has(brand)) {
@@ -228,10 +228,10 @@ export class Filter implements iComponent {
                 }
                 const label = new Constructor(
                     'label',
-                    'filter__brand__label',
+                    'brand__label',
                     `${category} (${avalaible} / ${objCategories[category] as number})`
                 ).create();
-                const checkBox = new Constructor('input', 'filter__brand__check').create() as HTMLInputElement;
+                const checkBox = new Constructor('input', 'filter__check').create() as HTMLInputElement;
                 checkBox.type = 'checkbox';
                 checkBox.value = category;
                 if (categoriesBrandsCheckedSet.has(category)) {
@@ -256,10 +256,13 @@ export class Filter implements iComponent {
                 maxprice: -1,
                 minstock: -1,
                 maxstock: -1,
+                list: '',
+                search: '',
+                sorting: sortingParams.def,
+                ['id']: '',
+                ['page']: '',
             });
-            if (this.root) {
-                this.render(this.root);
-            }
+            components.getMainShopPage().rerender();
         });
 
         resetCopyLink.addEventListener('click', () => {

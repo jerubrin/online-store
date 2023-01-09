@@ -7,6 +7,7 @@ import { ProductInCart } from '../../components/product-in-card';
 import * as promos from './promos';
 import { ModalWindow } from '../../components/modal-window';
 import { storageNames } from '../../../model/local-storage-enum';
+import { getCardQueryParams, setCartParams, setParams } from '../../../controller/routing';
 
 export class Cart implements iComponent {
     currentPage = 1;
@@ -18,6 +19,12 @@ export class Cart implements iComponent {
     render(root: HTMLElement) {
         this.root = root;
         cartList.loadData();
+        setParams({ ['id']: '' });
+        const params = getCardQueryParams();
+        if (params.page && !isNaN(+params.page)) this.currentPage = +params.page;
+        if (params.limit && !isNaN(+params.limit)) this.limit = this.checkLimit(+params.limit);
+        console.log(this.currentPage);
+        this.setCorrectPages(this.limit);
         const $header = document.createElement('header');
         const $footer = document.createElement('footer');
         const $main = new Constructor('main', 'cart').create();
@@ -32,15 +39,17 @@ export class Cart implements iComponent {
 
             const $top__limit = new Constructor('h2', 'top__limit').create();
             const $top__limitTitle = new Constructor('h3', 'top__limit-title', 'Limit:').create();
-            const $top__limitInput = new Constructor('input', 'top__input').create();
+            const $top__limitInput = new Constructor('input', 'top__input').create() as HTMLInputElement;
             $top__limitInput.setAttribute('type', 'number');
+            $top__limitInput.onkeydown = (event: KeyboardEvent) =>
+                event.key !== 'e' && event.key !== 'E' && event.key !== '-';
 
-            ($top__limitInput as HTMLInputElement).value = this.limit.toString();
+            $top__limitInput.value = this.limit.toString();
             $top__limitInput.setAttribute('min', '1');
             $top__limitInput.setAttribute('max', cartList.getLength().toString());
             $top__limit.append($top__limitTitle, $top__limitInput);
 
-            this.setCorrectPages(+($top__limitInput as HTMLInputElement).value);
+            this.setCorrectPages(+$top__limitInput.value);
 
             const $top__page = new Constructor('div', 'top__page').create();
             const $top__pageTitle = new Constructor('div', 'top__page-title', 'Page:').create();
@@ -141,14 +150,18 @@ export class Cart implements iComponent {
             //Handlers
             $top__pagePrev.onclick = () => {
                 this.currentPage = this.currentPage > 1 ? this.currentPage - 1 : this.currentPage;
+                setCartParams({ page: this.currentPage, limit: this.limit });
                 this.rerender();
             };
             $top__pageNext.onclick = () => {
                 this.currentPage = this.currentPage < this.maxPage ? this.currentPage + 1 : this.currentPage;
+                setCartParams({ page: this.currentPage, limit: this.limit });
                 this.rerender();
             };
             $top__limitInput.onchange = () => {
-                this.limit = +($top__limitInput as HTMLInputElement).value;
+                this.limit = this.checkLimit(+$top__limitInput.value);
+                $top__limitInput.value = this.limit.toString();
+                setCartParams({ page: this.currentPage, limit: this.limit });
                 this.rerender();
             };
             const inputHandler = () => {
@@ -208,8 +221,22 @@ export class Cart implements iComponent {
 
     setCorrectPages(limit: number) {
         this.maxPage = Math.trunc(cartList.getLength() / limit) + (cartList.getLength() % limit == 0 ? 0 : 1);
+        console.log(this.maxPage);
         if (this.currentPage > this.maxPage) {
             this.currentPage = this.maxPage;
         }
+        if (this.currentPage < 1) {
+            this.currentPage = 1;
+        }
+    }
+
+    private checkLimit(limit: number) {
+        if (limit < 1) {
+            return 1;
+        }
+        if (limit > cartList.getLength()) {
+            return cartList.getLength();
+        }
+        return limit;
     }
 }

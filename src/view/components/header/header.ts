@@ -2,9 +2,10 @@ import './style.scss';
 import { iComponent } from '../component';
 import { goToCart, goToMain } from '../../../controller/routing';
 import * as cartList from '../../pages/cart/cart.funcs';
+import * as promos from '../../pages/cart/promos';
 export class Header implements iComponent {
-    $totalPrice?: HTMLElement;
-    $itemsCount?: HTMLElement;
+    private $totalPrice?: HTMLElement;
+    private $itemsCount?: HTMLElement;
 
     render(root: HTMLElement) {
         const $block1 = document.createElement('div');
@@ -21,21 +22,21 @@ export class Header implements iComponent {
         $mainLogo.className = 'header__logo-img';
 
         const $totalPrice = document.createElement('div');
-        $totalPrice.className = 'header__basket-cont__total-price';
+        $totalPrice.className = 'header__total-price';
         $totalPrice.textContent = `Total price : 0 $`;
         this.$totalPrice = $totalPrice;
 
         const $basketBlock = document.createElement('a');
-        $basketBlock.className = 'header__basket-cont';
+        $basketBlock.className = 'header__basket-cont basket-cont';
         $basketBlock.onclick = () => goToCart(false);
 
         const $basket = document.createElement('div');
-        $basket.className = 'header__basket-img';
+        $basket.className = 'basket-cont__basket-img';
         $basket.setAttribute('alt', 'basket');
 
         const $itemsCount = document.createElement('p');
         $itemsCount.textContent = '0';
-        $itemsCount.className = 'header__basket-cont_items';
+        $itemsCount.className = 'basket-cont__items';
         this.$itemsCount = $itemsCount;
 
         $basketBlock.append($basket, $itemsCount);
@@ -46,8 +47,7 @@ export class Header implements iComponent {
 
     public refreshData() {
         if (this.$totalPrice && this.$itemsCount) {
-            console.log(cartList.getTotalPrice());
-            this.$totalPrice.textContent = `Total price : ${cartList.getTotalPrice()} $`;
+            this.$totalPrice.textContent = `Total price : ${promos.getNewPrice(cartList.getTotalPrice())} $`;
             this.$itemsCount.textContent = cartList.getTotalProducts().toString();
         }
     }

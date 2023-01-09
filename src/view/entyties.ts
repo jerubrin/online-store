@@ -22,6 +22,7 @@ export interface ProductsQueryParams {
 
 export interface CardQueryParams {
     page?: number;
+    limit?: number;
     [index: string]: string | number;
 }
 

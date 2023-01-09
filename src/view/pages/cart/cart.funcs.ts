@@ -5,27 +5,13 @@ export let cart: Array<CartItem> = [];
 
 export const addToCart = (product: iCartData, count = 1) => {
     const item: CartItem = new CartItem(product, count);
-    console.log(item);
     cart.push(item);
     saveData();
 };
 
 export const deleteFromCart = (id?: number) => {
     const i = cart.findIndex((item) => item.product.id === id);
-    console.log(i);
     if (i > -1) cart.splice(i, 1);
-    saveData();
-};
-
-export const incItemCount = (id?: number) => {
-    const item = cart.find((item) => item.product.id === id);
-    if (item) item.count++;
-    saveData();
-};
-
-export const decItemCount = (id?: number) => {
-    const item = cart.find((item) => item.product.id === id);
-    if (item) item.count--;
     saveData();
 };
 
@@ -38,7 +24,6 @@ export const getTotalPrice = (): number => cart.reduce((sum, item) => sum + item
 
 export const getTotalProducts = (): number => cart.reduce((sum, item) => sum + item.count, 0);
 export const getLength = (): number => cart.length;
-export const getInfo = () => console.log(cart);
 
 function saveData() {
     localStorage.setItem(storageNames.cardData, JSON.stringify(cart));
@@ -58,7 +43,7 @@ export function loadData() {
 
 export const incCount = (id?: number) => {
     const _item = cart.find((item) => item.product.id == id);
-    if (_item) {
+    if (_item && _item.count < _item.product.stock) {
         _item.count += 1;
         saveData();
     }
@@ -68,6 +53,9 @@ export const decCount = (id?: number) => {
     const _item = cart.find((item) => item.product.id == id);
     if (_item) {
         _item.count -= 1;
+        if (_item.count <= 0) {
+            deleteFromCart(_item.product.id);
+        }
         saveData();
     }
 };

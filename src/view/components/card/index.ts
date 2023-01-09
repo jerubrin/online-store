@@ -30,9 +30,6 @@ export class Card implements iComponent {
         if (this.data.price) $price.textContent = this.data.price.toString();
 
         const cartButtonHandler = () => {
-            const totalPriceDiv = components.getHeader().$totalPrice as HTMLElement;
-            const totalProductsDiv = components.getHeader().$itemsCount as HTMLElement;
-
             if (cartList.hasItem(this.data.id)) {
                 buyBtn.classList.add('card__btns_item-checked');
                 buyBtn.textContent = 'Delete';
@@ -40,8 +37,7 @@ export class Card implements iComponent {
                 buyBtn.classList.remove('card__btns_item-checked');
                 buyBtn.textContent = 'Add';
             }
-            totalPriceDiv.textContent = `Total price : ${cartList.getTotalPrice()} $`;
-            totalProductsDiv.textContent = cartList.getTotalProducts().toString();
+            components.getHeader().refreshData();
         };
         cartButtonHandler();
         buyBtn.addEventListener('click', () => {

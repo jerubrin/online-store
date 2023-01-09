@@ -20,7 +20,19 @@ const routeHandler: List<iComponent> = {
 export const handleLocation = () => {
     const path = window.location.pathname;
     const route = (routeHandler[path] || routeHandler['404']) as iComponent;
-    route.render(document.body, getQueryParams());
+    document.body.innerHTML = '';
+    route.render(document.body);
+};
+
+export const setCartParams = (params: CardQueryParams) => {
+    const urlSearchParams = new URLSearchParams();
+    if (params.limit == 4) delete params.limit;
+    if (params.page == 1) delete params.page;
+    for (const key in params) {
+        urlSearchParams.append(key, params[key]?.toString() ?? '');
+    }
+    const paramsStr = urlSearchParams.toString();
+    window.history.replaceState({}, '', paramsStr ? '?' + paramsStr : window.location.pathname);
 };
 
 export const setParams = (nesParam: Partial<QueryParams>) => {
@@ -36,11 +48,10 @@ export const setParams = (nesParam: Partial<QueryParams>) => {
         urlSearchParams.append(key, queryParams[key]?.toString() ?? '');
     }
     const paramsStr = urlSearchParams.toString();
-    window.history.replaceState({}, '', paramsStr ? '?' + paramsStr : '/');
+    window.history.replaceState({}, '', paramsStr ? '?' + paramsStr : window.location.pathname);
 
     const cardList = components.getCardList();
     if (cardList?.root) {
-        console.log('cardList render', queryParams);
         cardList.render(cardList.root);
     }
 };
@@ -57,17 +68,20 @@ export const getCardQueryParams = (): CardQueryParams => _getQueryParams<CardQue
 
 export const goToCart = (openModal = false) => {
     localStorage.setItem(storageNames.openModal, openModal.toString());
-    window.location.pathname = '/cart';
+    window.history.pushState({}, 'Cart', '/cart');
+    handleLocation();
 };
 
 export const goToMain = () => {
-    window.location.pathname = '/';
+    window.history.pushState({}, 'Main page', '/');
+    handleLocation();
 };
 
 export const goToProduct = (id?: number) => {
     if (id) {
-        window.location.href = `/product?id=${id}`;
+        window.history.pushState({}, 'Main page', `/product?id=${id}`);
     } else {
-        window.location.pathname = `/product`;
+        window.history.pushState({}, 'Main page', `/product`);
     }
+    handleLocation();
 };

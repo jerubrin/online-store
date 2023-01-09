@@ -15,13 +15,22 @@ export class ProductInCart implements iComponent {
         $item__number.textContent = this.index.toString();
 
         const $item__img = new Constructor('div', 'item__img').create();
-        if (this.data?.product.images) $item__img.style.backgroundImage = `url(${this.data.product.images[0] ?? ''})`;
+        if (this.data?.product.images)
+            $item__img.style.backgroundImage = `url(${
+                this.data.product.thumbnail ?? this.data.product.images[0] ?? ''
+            })`;
 
         const $item__infoBlock = new Constructor('div', 'item__info-block').create();
         const $item__title = new Constructor('p', 'item__title').create();
         if (this.data?.product.title) $item__title.textContent = this.data.product.title;
         const $item__description = new Constructor('p', 'item__description').create();
         if (this.data?.product.description) $item__description.textContent = this.data.product.description;
+        const $item__brandCategory = new Constructor('p', 'item__brand-category').create();
+        const $item__brand = new Constructor('p', 'item__brand').create();
+        if (this.data?.product.brand) $item__brand.textContent = this.data.product.brand;
+        const $item__category = new Constructor('p', 'item__category').create();
+        if (this.data?.product.category) $item__category.textContent = this.data.product.category;
+        $item__brandCategory.append($item__brand, $item__category);
         const $item__ratingDiscount = new Constructor('div', 'item__rating-discount').create();
         const $item__rating = new Constructor('p', 'item__rating').create();
         if (this.data?.product.rating) $item__rating.textContent = 'Rating: ' + this.data.product.rating.toString();
@@ -29,7 +38,7 @@ export class ProductInCart implements iComponent {
         if (this.data?.product.discountPercentage)
             $item__discount.textContent = 'Discount: ' + this.data.product.discountPercentage.toString() + '%';
         $item__ratingDiscount.append($item__rating, $item__discount);
-        $item__infoBlock.append($item__title, $item__description, $item__ratingDiscount);
+        $item__infoBlock.append($item__title, $item__brandCategory, $item__description, $item__ratingDiscount);
 
         const $item__countBlock = new Constructor('div', 'item__count-block').create();
         const $item__stock = new Constructor('p', 'item__stock').create();
@@ -39,10 +48,10 @@ export class ProductInCart implements iComponent {
         }
 
         const $item__controlBlock = new Constructor('div', 'item__control-block').create();
-        const $item__minusButton = new Constructor('button', 'item__minus-button', '-').create();
+        const $item__minusButton = new Constructor('button', 'item__minus-button').create();
         const $item__count = new Constructor('p', 'item__count').create();
         if (this.data?.product.price) $item__count.textContent = this.data.count.toString();
-        const $item__plusButton = new Constructor('button', 'item__plus-button', '+').create();
+        const $item__plusButton = new Constructor('button', 'item__plus-button').create();
         $item__controlBlock.append($item__minusButton, $item__count, $item__plusButton);
 
         const $item__price = new Constructor('div', 'item__price').create();

@@ -43,8 +43,26 @@
     // .item__title
     &__title {
         text-align: center;
-        font-size: 1.3em;
+        font-size: 1.4em;
+        font-weight: 900;
         font-style: 700;
+    }
+
+    &__brand-category {
+        display: flex;
+        justify-content: space-between;
+        margin: 4px 0 10px;
+        color: #00000092;
+    }
+
+    &__brand {
+        font-weight: 900;
+        font-size: 1.2em;
+    }
+
+    &__category {
+        font-size: 1.1em;
+        font-style: italic;
     }
 
     // .item__description
@@ -59,6 +77,7 @@
         display: flex;
         justify-content: center;
         font-style: italic;
+        color: #0000005f;
     }
 
     // .item__rating 
@@ -87,9 +106,6 @@
         }
     }
 
-    // .item__stock
-    &__stock {}
-
     // .item__control-block
     &__control-block {
         display: flex;
@@ -98,19 +114,22 @@
 
     // .item__minus-button
     &__minus-button {
-      padding: 5px;
-      width: 30px;
-      height: 30px;
-      transition: 0.3s;
-      background: url(../../../assets/svg/minus.svg) center no-repeat;
-      background-size: 70%;
-      background-color: #FE9013;
-      border-radius: 6px;
-      text-transform: uppercase;
-      font-size: 0.8em;
-      &:hover {
-          transform: translateY(-3px) scale(1.03);
-      }
+        padding: 5px;
+        width: 30px;
+        height: 30px;
+        transition: 0.3s;
+        background: url(../../../assets/svg/minus.svg) center no-repeat;
+        background-size: 70%;
+        background-color: #FE9013;
+        border-radius: 6px;
+        text-transform: uppercase;
+        font-size: 0.8em;
+        &:hover {
+            transform: translateY(-3px) scale(1.03);
+        }
+        &:active{
+            background-color: rgba(27, 175, 79, 0.4784313725);
+        }
     }
 
     // .item__count
@@ -135,6 +154,9 @@
         font-size: 0.8em;
         &:hover {
             transform: translateY(-3px) scale(1.03);
+        }
+        &:active{
+            background-color: rgba(27, 175, 79, 0.4784313725);
         }
     }
 
