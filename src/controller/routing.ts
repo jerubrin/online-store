@@ -31,7 +31,6 @@ export const setCartParams = (params: CardQueryParams) => {
     for (const key in params) {
         urlSearchParams.append(key, params[key]?.toString() ?? '');
     }
-    console.log(params);
     const paramsStr = urlSearchParams.toString();
     window.history.replaceState({}, '', paramsStr ? '?' + paramsStr : window.location.pathname);
 };
@@ -53,7 +52,6 @@ export const setParams = (nesParam: Partial<QueryParams>) => {
 
     const cardList = components.getCardList();
     if (cardList?.root) {
-        console.log('cardList render', queryParams);
         cardList.render(cardList.root);
     }
 };
@@ -70,17 +68,20 @@ export const getCardQueryParams = (): CardQueryParams => _getQueryParams<CardQue
 
 export const goToCart = (openModal = false) => {
     localStorage.setItem(storageNames.openModal, openModal.toString());
-    window.location.pathname = '/cart';
+    window.history.pushState({}, 'Cart', '/cart');
+    handleLocation();
 };
 
 export const goToMain = () => {
-    window.location.pathname = '/';
+    window.history.pushState({}, 'Main page', '/');
+    handleLocation();
 };
 
 export const goToProduct = (id?: number) => {
     if (id) {
-        window.location.href = `/product?id=${id}`;
+        window.history.pushState({}, 'Main page', `/product?id=${id}`);
     } else {
-        window.location.pathname = `/product`;
+        window.history.pushState({}, 'Main page', `/product`);
     }
+    handleLocation();
 };
