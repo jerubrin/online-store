@@ -2,9 +2,7 @@ import { iComponent } from '../../components/component';
 import './style.scss';
 import Constructor from '../../../model/html-constructor';
 import { components } from '../../../model/comp-factory';
-// import { QueryParams } from '../../entyties';
 
-//404
 export class NotFound implements iComponent {
     render(root: HTMLElement) {
         const $header = document.createElement('header');
@@ -23,7 +21,5 @@ export class NotFound implements iComponent {
         components.getFooter().render($footer);
 
         root.append($header, main, $footer);
-        console.log('NotFound - 404 rendered');
-        console.log('NotFound - 404 rendered');
     }
 }

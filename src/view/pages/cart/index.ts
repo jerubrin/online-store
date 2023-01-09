@@ -23,7 +23,6 @@ export class Cart implements iComponent {
         const params = getCardQueryParams();
         if (params.page && !isNaN(+params.page)) this.currentPage = +params.page;
         if (params.limit && !isNaN(+params.limit)) this.limit = this.checkLimit(+params.limit);
-        console.log(this.currentPage);
         this.setCorrectPages(this.limit);
         const $header = document.createElement('header');
         const $footer = document.createElement('footer');
@@ -221,7 +220,6 @@ export class Cart implements iComponent {
 
     setCorrectPages(limit: number) {
         this.maxPage = Math.trunc(cartList.getLength() / limit) + (cartList.getLength() % limit == 0 ? 0 : 1);
-        console.log(this.maxPage);
         if (this.currentPage > this.maxPage) {
             this.currentPage = this.maxPage;
         }

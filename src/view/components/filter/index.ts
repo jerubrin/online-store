@@ -271,9 +271,8 @@ export class Filter implements iComponent {
                 .then(() => {
                     resetCopyLink.textContent = 'Copied!!!';
                 })
-                .catch((error) => {
+                .catch(() => {
                     resetCopyLink.textContent = 'Error!!!';
-                    console.log(error);
                 });
             setTimeout(() => {
                 resetCopyLink.textContent = 'Copy link';
@@ -323,15 +322,12 @@ export class Filter implements iComponent {
                 delete paramsForStock.maxprice;
             }
             if (params.minprice && params.minprice < this.getMinPrice(loadedDataForStock)) {
-                console.log(paramsForPrice.minprice, '<', this.getMinPrice(loadedDataForStock));
                 delete params.minprice;
                 delete paramsForPrice.minprice;
                 delete paramsForStock.minprice;
             }
 
             const loadedData: iCartData[] = getProducts(params);
-
-            console.log('drawRanges', getProducts(params));
 
             this.multiRangePrice = this.getMultiRange('Price : ');
             this.multiRangeStock = this.getMultiRange('Stock : ');
@@ -342,14 +338,12 @@ export class Filter implements iComponent {
             this.multiRangePrice.range1.min = this.getMinPrice(loadedData).toString();
             this.multiRangePrice.range2.min = this.getMinPrice(loadedData).toString();
 
-            console.log('paramsForPrice.minprice =', paramsForPrice.minprice);
             const minPriceValue = paramsForPrice.minprice
                 ? paramsForPrice.minprice.toString()
                 : this.getMinPrice(loadedData).toString();
             const maxPriceValue = paramsForPrice.maxprice
                 ? paramsForPrice.maxprice.toString()
                 : this.getMaxPrice(loadedData).toString();
-            console.log('maxPriceValue =', maxPriceValue);
             this.multiRangePrice.range1.value = minPriceValue;
             this.multiRangePrice.value1.textContent = minPriceValue;
             this.multiRangePrice.value2.textContent = maxPriceValue;

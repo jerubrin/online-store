@@ -99,9 +99,6 @@ export class SortContainer implements iComponent {
             if (cardList.root) {
                 cardList.render(cardList?.root);
             }
-
-            // const modal = new modalWindow().render();
-            // console.log(modal);
         };
 
         btnList.addEventListener('click', () => {

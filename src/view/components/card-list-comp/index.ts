@@ -45,7 +45,6 @@ export class CardList implements iComponent {
             $cardConteiner.append($nothigContainer);
         }
         const totalItems = components.getSortContainer().totalItems;
-        console.log('totalItems:', totalItems);
         if (totalItems) {
             totalItems.textContent = `Found : ${this.loadedData?.length ?? 0}`;
         }
