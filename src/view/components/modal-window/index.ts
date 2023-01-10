@@ -115,7 +115,13 @@ export class ModalWindow {
                 cvvInp.value = cvvInp.value.slice(0, 3);
             }
         });
-        cvvInp.onkeydown = (event: KeyboardEvent) => event.key !== 'e' && event.key !== 'E' && event.key !== '-';
+        cvvInp.onkeydown = (event: KeyboardEvent) =>
+            event.key !== 'e' &&
+            event.key !== 'E' &&
+            event.key !== '-' &&
+            event.key !== '.' &&
+            event.key !== ',' &&
+            event.key !== '+';
         cvvInp.setAttribute('min', '0');
         cvvInp.setAttribute('max', '999');
         let moreThan2 = true;
@@ -167,7 +173,13 @@ export class ModalWindow {
                     addError(card16Block);
                     errorsCount++;
                 }
-                if (cvvInp.value.length !== 3) {
+                if (
+                    cvvInp.value.length !== 3 ||
+                    cvvInp.value
+                        .split('')
+                        .filter((it) => '1234567890'.split('').includes(it))
+                        .join('') != cvvInp.value
+                ) {
                     addError(cvvBlock);
                     errorsCount++;
                 }
