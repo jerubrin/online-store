@@ -88,10 +88,21 @@ export class ModalWindow {
                 cardImg.className = 'payment__image';
             }
 
-            const str = card16Inp.value;
+            let str = card16Inp.value;
             if (str.length !== 0 && str.replace(/ /g, '').length % 4 === 0 && countTo4) {
                 card16Inp.value += ' ';
             }
+            const spaseIndexes = [4, 9, 14];
+            spaseIndexes.forEach((i) => {
+                if (setNumber.has(str[i] as string)) {
+                    const arr = str.split('');
+                    arr.splice(i, 0, ' ');
+                    arr.filter((ch, j) => ch !== ' ' || spaseIndexes.includes(j));
+                    console.log(arr);
+                    str = arr.join('');
+                }
+            });
+            card16Inp.value = str;
             if (card16Inp.value.length > 19) {
                 card16Inp.value = card16Inp.value.slice(0, 19);
             }
@@ -115,28 +126,30 @@ export class ModalWindow {
                 cvvInp.value = cvvInp.value.slice(0, 3);
             }
         });
-        cvvInp.onkeydown = (event: KeyboardEvent) =>
-            event.key !== 'e' &&
-            event.key !== 'E' &&
-            event.key !== '-' &&
-            event.key !== '.' &&
-            event.key !== ',' &&
-            event.key !== '+';
+        const setNumber = new Set('0123456789'.split(''));
+        let key = '';
+        const keyDownHandler = (event: KeyboardEvent) => {
+            key = event.key;
+            return setNumber.has(event.key) || event.key == 'Backspace';
+        };
+        cvvInp.onkeydown = keyDownHandler;
+        cardDateInp.onkeydown = keyDownHandler;
         cvvInp.setAttribute('min', '0');
         cvvInp.setAttribute('max', '999');
-        let moreThan2 = true;
         cardDateInp.addEventListener('input', () => {
-            for (let i = 0; i < cardDateInp.value.length; i++) {
-                if (numArr.indexOf(cardDateInp.value[i] as string) === -1) {
-                    cardDateInp.value = cardDateInp.value.slice(0, i);
+            if (cardDateInp.value.length === 2 && +cardDateInp.value > 12) {
+                if (+(cardDateInp.value[0] as string) > 0) {
+                    cardDateInp.value = '0' + (cardDateInp.value[0] as string) + '/' + (cardDateInp.value[1] as string);
                 }
             }
-            if (cardDateInp.value.length === 2 && moreThan2) {
+            if (cardDateInp.value.length === 2 && key !== 'Backspace') {
                 cardDateInp.value += '/';
-                moreThan2 = false;
             }
-            if (cardDateInp.value.length < 3) {
-                moreThan2 = true;
+            console.log(cardDateInp.value);
+            if (cardDateInp.value.length > 2 && cardDateInp.value[2] !== '/' && key !== 'Backspace') {
+                const arr = cardDateInp.value.split('');
+                arr.splice(2, 0, '/');
+                cardDateInp.value = arr.join('');
             }
             if (cardDateInp.value.length > 5) {
                 cardDateInp.value = cardDateInp.value.slice(0, 5);
