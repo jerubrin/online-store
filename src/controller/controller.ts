@@ -15,7 +15,7 @@ const fileterByParams = (_products: Array<iCartData>, params?: QueryParams): Arr
             params.brand
                 .toLocaleLowerCase()
                 .split(SPLIT_SYMBOL)
-                .some((val) => data.brand?.toLocaleLowerCase().includes(val))
+                .some((val) => data.brand?.toLocaleLowerCase() == val)
     );
     __products = __products.filter(
         (data) =>
@@ -23,7 +23,7 @@ const fileterByParams = (_products: Array<iCartData>, params?: QueryParams): Arr
             params.category
                 .toLocaleLowerCase()
                 .split(SPLIT_SYMBOL)
-                .some((val) => data.category?.toLocaleLowerCase().includes(val))
+                .some((val) => data.category?.toLocaleLowerCase() == val)
     );
     __products = __products.filter((data) => !params.minprice || data.price >= params.minprice);
     __products = __products.filter((data) => !params.maxprice || data.price <= params.maxprice);
