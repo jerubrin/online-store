@@ -71,7 +71,6 @@ export class ModalWindow {
         const regEmail = /[A-Za-z0-9]+@[a-z]+\.[a-z]{2,3}/;
 
         const numArr = '1234567890/ ';
-        let countTo4 = true;
         card16Inp.addEventListener('input', () => {
             for (let i = 0; i < card16Inp.value.length; i++) {
                 if (numArr.indexOf(card16Inp.value[i] as string) === -1) {
@@ -89,9 +88,10 @@ export class ModalWindow {
             }
 
             let str = card16Inp.value;
-            if (str.length !== 0 && str.replace(/ /g, '').length % 4 === 0 && countTo4) {
-                card16Inp.value += ' ';
-            }
+            str = str
+                .split('')
+                .filter((ch) => setNumber.has(ch))
+                .join('');
             const spaseIndexes = [4, 9, 14];
             spaseIndexes.forEach((i) => {
                 if (setNumber.has(str[i] as string)) {
@@ -109,12 +109,6 @@ export class ModalWindow {
         });
 
         card16Inp.addEventListener('keydown', (e) => {
-            if (e.code === 'Backspace') {
-                countTo4 = false;
-            }
-            if (e.code !== 'Backspace') {
-                countTo4 = true;
-            }
             if (e.code === 'Space') {
                 e.preventDefault();
             }
@@ -137,23 +131,27 @@ export class ModalWindow {
         cvvInp.setAttribute('min', '0');
         cvvInp.setAttribute('max', '999');
         cardDateInp.addEventListener('input', () => {
-            if (cardDateInp.value.length === 2 && +cardDateInp.value > 12) {
-                if (+(cardDateInp.value[0] as string) > 0) {
-                    cardDateInp.value = '0' + (cardDateInp.value[0] as string) + '/' + (cardDateInp.value[1] as string);
+            let str = cardDateInp.value
+                .split('')
+                .filter((ch) => setNumber.has(ch))
+                .join('');
+            if (str.length === 2 && +str > 12) {
+                if (+(str[0] as string) > 0) {
+                    str = '0' + (str[0] as string) + (str[1] as string);
                 }
             }
-            if (cardDateInp.value.length === 2 && key !== 'Backspace') {
-                cardDateInp.value += '/';
+            if (str.length === 2 && key !== 'Backspace') {
+                str += '/';
             }
-            console.log(cardDateInp.value);
-            if (cardDateInp.value.length > 2 && cardDateInp.value[2] !== '/' && key !== 'Backspace') {
-                const arr = cardDateInp.value.split('');
+            if (str.length > 2 && str[2] !== '/' && key !== 'Backspace') {
+                const arr = str.split('');
                 arr.splice(2, 0, '/');
-                cardDateInp.value = arr.join('');
+                str = arr.join('');
             }
-            if (cardDateInp.value.length > 5) {
-                cardDateInp.value = cardDateInp.value.slice(0, 5);
+            if (str.length > 5) {
+                str = str.slice(0, 5);
             }
+            cardDateInp.value = str;
         });
         cardDateInp.addEventListener('keydown', (e) => {
             if (e.code === 'Slash' || e.code === 'Backslash') e.preventDefault();
@@ -174,7 +172,13 @@ export class ModalWindow {
                     errorsCount++;
                     addError(adressBlock);
                 }
-                if (!regTel.test(telInp.value)) {
+                const tellArr = telInp.value.split('').filter((ch) => ch != ' ');
+                console.log(tellArr);
+                if (
+                    !regTel.test(telInp.value) ||
+                    !tellArr.every((ch, i) => (i == 0 && ch == '+') || setNumber.has(ch)) ||
+                    tellArr.length <= 9
+                ) {
                     addError(telBlock);
                     errorsCount++;
                 }
