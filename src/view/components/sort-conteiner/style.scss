@@ -1,0 +1,87 @@
+.sort-conteiner{
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+
+    // .sort-conteiner__select
+    &__select{
+        border: 2px #0a164ca2 solid;
+        border-radius: 5px;
+        padding: 5px;
+        &:hover{
+            box-shadow: 0 0 10px 1px #10142841;
+        }
+        @media screen and (max-width: 480px) {
+            margin-top: 8px;
+        }
+    }
+
+    // .sort-conteiner__total
+    &__total {
+      @media screen and (max-width: 480px) {
+          margin-top: 8px;
+      }
+    }
+
+    // .sort-conteiner__search
+    &__search{
+        border: 2px #0a164ca2 solid;
+        border-radius: 5px;
+        padding: 5px 10px;
+        &:hover{
+            box-shadow: 0 0 10px 1px #10142841;
+        }
+        @media screen and (max-width: 900px) {
+            max-width: 100px;
+        }
+        @media screen and (max-width: 480px) {
+            margin-top: 8px;
+            max-width: 132px;
+        }
+    }
+
+    @media screen and (max-width: 740px) {
+        margin-left: 30px;
+    }
+    @media screen and (max-width: 480px) {
+        margin-top: 8px;
+        flex-wrap: wrap;
+    }
+}
+
+.btn-block{
+
+    // .btn-block__btn
+    &__btn{
+        padding: 5px 20px;
+        background: linear-gradient(113.96deg, #4bcdf9 1.49%, #13f6fe 101.44%);
+        border-radius: 10px;
+        margin-right: 5px;
+        transition: 0.4s;
+        &:hover{
+            transform: translateY(-1px) scale(1.03);
+        }
+        &:active{
+            background: linear-gradient(113.96deg, #1b7baf 1.49%, #00affa 101.44%);
+        }
+        @media screen and (max-width: 900px) {
+            padding: 5px 10px;
+        }
+    }
+
+    // .btn-block__btn-checked
+    &__btn-checked{
+        background: linear-gradient(113.96deg, #4257c9 1.49%, #2f8ad4 101.44%);
+        color: #e1fafe;
+    }
+
+    @media screen and (max-width: 480px) {
+        margin-top: 8px;
+    }
+}
+
+.sort-conteiner-list{
+    flex-direction: column;
+}

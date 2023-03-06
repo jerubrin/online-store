@@ -1,0 +1,116 @@
+.card-list-elem{
+    width: calc(100% - 20px);
+    height: 70px;
+    background-size:30px;
+    background-repeat: no-repeat;
+    background-position: right;
+    border: 1px solid #20424d53;
+    border-radius: 5px;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(199, 226, 247, 0.232);
+    p{
+        width: 50%;
+        overflow: visible;
+        text-align: center;
+    }
+
+    .card {
+        &__img {
+            order: 0;
+            height: 100%;
+            width: 100px;
+            background-position: center left;
+            background-color: transparent;
+        }
+        &__price {
+            order: 2;
+            margin-right: 12px;
+        }
+        &__btns {
+            order: 3;
+            width: 180px;
+        }
+        &__text {
+            order: 1;
+            height: auto;
+            width: 100%;
+            text-align: start;
+            border-radius: 0;
+            background-color: transparent
+        }
+    }
+}
+
+.card {
+    width: 180px;
+    height: 230px;
+    padding-bottom: 5px;
+    border: 1px solid #08347b91;
+    border-radius: 8px;
+    overflow: hidden;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    box-shadow: 4px 4px 8px 1px #22242e55;
+    
+    &__text{
+        background-color:#80c1ef7a;
+        padding: 5px 5px;
+        width: 100%;
+        border-radius: 5px 5px 0 0;
+    }
+    
+    &__img {
+        background-color: #ffffff;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        width: calc(100% - 20px);
+        height: calc(100% - 20px);
+        margin: 10px;
+    }
+    
+    &__price {
+        margin: 10px;
+        &::before {
+            content: '$';
+            margin-right: 2px;
+        }
+    }
+    
+    &__btns{
+        width: 120px;
+        display: flex;
+        justify-content: space-between;
+        gap: 5px;
+        margin: 0 auto;
+        &_item{
+            padding: 5px;
+            width: 50%;
+            background: linear-gradient(113.96deg, #8cdde1 1.49%, #13dffe 101.44%);
+            border-radius: 10px;
+            transition: 0.3s;
+            text-transform: uppercase;
+            font-size: .8em;
+            &:hover{
+                transform: translateY(-1px) scale(1.03);
+            }
+        }
+        &_item-checked{
+            padding: 5px;
+            width: 50%;
+            background: linear-gradient(113.96deg, #4257c9 1.49%, #2f8ad4 101.44%);
+            color: #e1fafe;
+            border-radius: 10px;
+            transition: 0.3s;
+            &:hover{
+                transform: translateY(-1px) scale(1.03);
+            }
+        }
+    }
+}
