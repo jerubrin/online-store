@@ -12,7 +12,7 @@
     left: 0;
     top: 0;
     bottom:0;
-    background-color: rgba(255, 68, 0, 0.568);
+    background-color: rgba(29, 21, 19, 0.475);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -26,9 +26,9 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    border-radius: 40px;
-    border: 1px solid #F9804B;
-    background-color: #2a2a2a;
+    border-radius: 8px;
+    border: 1px solid #29839193;
+    background-color: #1d1b1b;
     align-items: center;
     position: relative;
     &_succses {
@@ -57,7 +57,7 @@
         font-weight: bold;
         text-align: center;
         &:hover{
-            box-shadow: 0 0 6px 7px #F9804B;
+            box-shadow: 0 0 2px 1px #cbe0ff;
         }
         @media screen and (max-width: 520px) {
             width: 100%;
@@ -71,26 +71,26 @@
         font-weight: bold;
         text-align: center;
         &:hover{
-            box-shadow: 0 0 6px 7px #F9804B;
+            box-shadow: 0 0 2px 1px #cbe0ff;
         }
     }
     &__close-btn{
         position: absolute;
-        background-color: rgb(226, 69, 69);
+        background-color: rgb(176, 178, 213);
         padding: 5px;
         right: 5%;
         top: 5%;
         border-radius: 5px;
         transition: 0.4s;
-        color: #fff;
+        color: #f3f3f3;
         background-image: url(../../../assets/svg/close.svg);
         background-repeat: no-repeat;
         background-size: contain;
         width: 30px;
         height: 30px;
         &:hover{
-            box-shadow: 0 0 6px 7px rgba(222, 55, 55, 0.541);
-            transform: translateY(-3px);
+            box-shadow: 0 0 2px 1px rgba(218, 234, 255, 0.541);
+            transform: translateY(-1px);
         }
         @media screen and (max-width: 740px) {
             position: fixed;
@@ -101,19 +101,20 @@
     &__confirm-btn{
         padding: 5px 25px;
         border-radius: 10px;
-        background: linear-gradient(113.96deg, #F9804B 1.49%, #FE9013 101.44%);
+        background: linear-gradient(113.96deg, #4571bd 1.49%, #110d8a 101.44%);
         transition: 0.4s;
+        color: #f3f3f3;
         &:hover{
-            transform: translateY(-3px) scale(1.03);
+            transform: translateY(-1px) scale(1.03);
         }
         &:active{
-            background: linear-gradient(113.96deg, #1baf4e 1.49%, #00fa57 101.44%);
+            background: linear-gradient(113.96deg, #628ed8 1.49%, #2a25c8 101.44%);
         }
     }
     &__error{
         padding: 5px;
         padding-left: 5px;
-        color: red;
+        color: rgba(245, 81, 81, 0.857);
     }
     &__card{
         width: 70%;
@@ -122,7 +123,7 @@
         padding: 20px;
         gap: 10px;
         border-radius: 10px;
-        border: 1px solid #F9804B;
+        border: 1px solid #deefffa1;
         align-items: center;
         @media screen and (max-width: 740px) {
             width: 90%;
@@ -139,7 +140,7 @@
         width: 30px;
     }
     &__text{
-        color: #F9804B;
+        color: #d8f7ff;
         font-size: 1.5em;
     }
     &__image {
@@ -178,8 +179,8 @@
 .payment__succes{
     font-weight: bold;
     font-size: 30px;
-    color: #F9804B;
+    color: #4b9cf9;
     padding: 20px;
-    border-radius: 20px;
-    border: 1px solid #F9804B;
+    border-radius: 8px;
+    border: 1px solid #4ba2f9;
 }

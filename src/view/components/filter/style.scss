@@ -13,7 +13,7 @@
         position: absolute;
         left: -310px;
         background: #ffffff;
-        border: 1px solid rgba(27, 175, 79, 0.4784313725);
+        border: 1px solid rgba(128, 193, 239, 0.4784313725);
         border-radius: 0 20px 20px 0;
     }
 
@@ -29,7 +29,7 @@
     padding: 5px;
     height: 300px;
     overflow-y: auto;
-    border: 2px solid #1baf4e;
+    border: 2px solid #1039626e;
     border-radius: 5px;
     &__label{
         display: flex;
@@ -38,10 +38,10 @@
         border-radius: 5px;
         cursor: pointer;
         &:hover{
-            background-color: #F9804B;
+            background-color: #34a9cd;
         }
         &:has(.filter__check:checked){
-            background-color: #F9804B;
+            background-color: #34a9cd;
         }
     }
 }

@@ -4,13 +4,13 @@
     background-size:30px;
     background-repeat: no-repeat;
     background-position: right;
-    border: 2px solid #1baf4e;
+    border: 1px solid #20424d53;
     border-radius: 5px;
     padding: 5px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: rgba(27, 175, 79, 0.4784313725);
+    background-color: rgba(199, 226, 247, 0.232);
     p{
         width: 50%;
         overflow: visible;
@@ -48,7 +48,7 @@
     width: 180px;
     height: 230px;
     padding-bottom: 5px;
-    border: 1px solid #1baf4e;
+    border: 1px solid #08347b91;
     border-radius: 8px;
     overflow: hidden;
     background-size: cover;
@@ -56,10 +56,10 @@
     flex-direction: column;
     justify-content: space-between;
     text-align: center;
-    box-shadow: 2px 2px 4px 2px #1baf4e55;
+    box-shadow: 4px 4px 8px 1px #22242e55;
     
     &__text{
-        background-color:#1baf4f7a;
+        background-color:#80c1ef7a;
         padding: 5px 5px;
         width: 100%;
         border-radius: 5px 5px 0 0;
@@ -92,23 +92,24 @@
         &_item{
             padding: 5px;
             width: 50%;
-            background: linear-gradient(113.96deg, #F9804B 1.49%, #FE9013 101.44%);
+            background: linear-gradient(113.96deg, #8cdde1 1.49%, #13dffe 101.44%);
             border-radius: 10px;
             transition: 0.3s;
             text-transform: uppercase;
             font-size: .8em;
             &:hover{
-                transform: translateY(-3px) scale(1.03);
+                transform: translateY(-1px) scale(1.03);
             }
         }
         &_item-checked{
             padding: 5px;
             width: 50%;
-            background: linear-gradient(113.96deg, #1baf4e 1.49%, #00fa57 101.44%);
+            background: linear-gradient(113.96deg, #4257c9 1.49%, #2f8ad4 101.44%);
+            color: #e1fafe;
             border-radius: 10px;
             transition: 0.3s;
             &:hover{
-                transform: translateY(-3px) scale(1.03);
+                transform: translateY(-1px) scale(1.03);
             }
         }
     }

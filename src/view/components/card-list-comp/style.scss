@@ -36,7 +36,7 @@
 .slider-track{
     width: 100%;
     height: 5px;
-    background-color: #F9804B;
+    background-color: #4b8bf9;
     position: absolute;
     top: 0;
     bottom: 0;
@@ -52,18 +52,18 @@
     -webkit-appearance: none;
     height: 1.7em;
     width: 1.7em;
-    background: linear-gradient(113.96deg, #F9804B 1.49%, #FE9013 101.44%);
+    background: linear-gradient(113.96deg, #4571bd 1.49%, #110d8a 101.44%);
     border-radius: 50%;
     pointer-events: auto;
     cursor: pointer;
     margin-top: -10px;
     &:active{
-        background: linear-gradient(113.96deg, #1baf4e 1.49%, #00fa57 101.44%);
+        background: linear-gradient(113.96deg, #628ed8 1.49%, #2a25c8 101.44%);
     }
 }
 .range-block__values{
     padding: 10px 20px;
-    background-color: #1baf4e;
+    background-color: #dcf9fd;
     width: 50%;
     margin: 9px auto;
     position: relative;
@@ -87,7 +87,7 @@
     width: 0;
     height: 0;
     position: absolute;
-    border-top: 15px solid #1baf4e;
+    border-top: 15px solid #dcf9fd;
     border-left: 15px solid transparent;
     border-right: 15px solid transparent;
     margin: auto;
@@ -102,7 +102,7 @@
     margin: 0 auto;
     &__btn{
         padding: 5px 20px;
-        background: linear-gradient(113.96deg, #F9804B 1.49%, #FE9013 101.44%);
+        background: linear-gradient(113.96deg, #4bcdf9 1.49%, #13f6fe 101.44%);
         border-radius: 10px;
         margin-right: 5px;
         transition: 0.4s;
@@ -110,7 +110,7 @@
             transform: translateY(-3px) scale(1.03);
         }
         &:active{
-            background: linear-gradient(113.96deg, #1baf4e 1.49%, #00fa57 101.44%);
+            background: linear-gradient(113.96deg, #1b7baf 1.49%, #00affa 101.44%);
         }
     }
 }

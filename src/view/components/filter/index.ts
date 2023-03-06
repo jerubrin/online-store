@@ -65,8 +65,8 @@ export class Filter implements iComponent {
                 ((parseInt(range1.value) - parseInt(range1.min)) / (parseInt(range1.max) - parseInt(range1.min))) * 100;
             const percent2 =
                 ((parseInt(range2.value) - parseInt(range2.min)) / (parseInt(range2.max) - parseInt(range2.min))) * 100;
-            sliderTrack.style.background = `linear-gradient(to right, #F9804B ${percent1}%, #1baf4e ${percent1}%,
-            #1baf4e ${percent2}%, #F9804B ${percent2}%)`;
+            sliderTrack.style.background = `linear-gradient(to right, rgb(75 176 249 / 21%) ${percent1}%, rgb(16 137 213) ${percent1}%,
+            rgb(79 188 205) ${percent2}%, rgb(75 176 249 / 21%) ${percent2}%)`;
         }
 
         range1.addEventListener('input', slide1);

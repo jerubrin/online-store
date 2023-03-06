@@ -4,11 +4,11 @@
     align-items: center;
     padding: 20px;
     background-color: #2a2a2a;
-    color: #1baf4e;
+    color: #e0f7ff;
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 30px;
     margin-bottom: 20px;
-    box-shadow: 0 -4px 8px 8px #1baf4ebf;
+    box-shadow: 0 -4px 10px 8px #1d1e2e60;
     
     h1{
         font-size: 20px;
@@ -24,7 +24,7 @@
         cursor: pointer;
         transition: 0.4s;
         &:hover{
-            transform: translateY(-4px);
+            transform: translateY(-2px);
             cursor: pointer;
         }
     }
@@ -52,7 +52,7 @@
     cursor: pointer;
     transition: 0.4s;
     &:hover{
-        transform: translateY(-4px);
+        transform: translateY(-2px);
         cursor: pointer;
     }
 
