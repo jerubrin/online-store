@@ -5,7 +5,7 @@
     justify-content: center;
     margin: auto;
     padding: 20px;
-    background-color: #b4d8c1;
+    background-color: #c0dde776;
     width: 320px;
     border-radius: 30px;
     
@@ -45,7 +45,7 @@
     min-width: 380px;
     margin: 16px 24px 8px 12px;
     border-radius: 12px;
-    border: 1px solid #1baf4e;
+    border: 1px solid rgba(39, 54, 59, 0.413);
 
     //.summary__old-price
     &__old-price {
@@ -56,7 +56,7 @@
     &__title {
         display: flex;
         padding: 16px;
-        background: rgba(27, 175, 79, 0.4784313725);
+        background: rgba(108, 182, 205, 0.478);
         border-radius: 10px 10px 0 0;
         align-items: center;
         font-size: 2.2em;
@@ -113,16 +113,16 @@
         margin: 20px auto;
         padding: 5px;
         width: 160px;
-        background: linear-gradient(113.96deg, #F9804B 1.49%, #FE9013 101.44%);
+        background: linear-gradient(113.96deg, #95d0e2 1.49%, #69a7ba 101.44%);
         border-radius: 10px;
         transition: 0.3s;
         text-transform: uppercase;
         font-size: 1.5em;
         &:hover {
-            transform: translateY(-3px) scale(1.03);
+            transform: translateY(-1px) scale(1.03);
         }
         &:active{
-            background: linear-gradient(113.96deg, #1baf4e 1.49%, #00fa57 101.44%);
+            background: linear-gradient(113.96deg, #6778c4 1.49%, #5b6dbc 101.44%);
         }
     }
 
@@ -143,11 +143,11 @@
     &__input {
         width: 80%;
         margin: 16px;
-        border: 2px #1baf4e solid;
+        border: 2px #1a4f6881 solid;
         border-radius: 5px;
         padding: 5px 10px;
         &:hover {
-            box-shadow: 0 0 6px 6px #f9804b;
+            box-shadow: 0 0 10px 2px #1c1b2545;
         }
     }
 
@@ -168,16 +168,16 @@
     &__to-add-button {
         padding: 5px;
         width: 60px;
-        background: linear-gradient(113.96deg, #F9804B 1.49%, #FE9013 101.44%);
+        background: linear-gradient(113.96deg, #95d0e2 1.49%, #69a7ba 101.44%);
         border-radius: 10px;
         transition: 0.3s;
         text-transform: uppercase;
         font-size: 0.8em;
         &:hover {
-            transform: translateY(-3px) scale(1.03);
+            transform: translateY(-1px) scale(1.03);
         }
         &:active{
-            background: linear-gradient(113.96deg, #1baf4e 1.49%, #00fa57 101.44%);
+            background: linear-gradient(113.96deg, #6778c4 1.49%, #5b6dbc 101.44%);
         }
     }
 
@@ -195,7 +195,7 @@
         width: 100%;
         align-items: center;
         padding: 6px;
-        border: #1baf4e 1px solid;
+        border: #17435580 1px solid;
         border-radius: 5px;
         margin-bottom: 4px;
     }
@@ -211,16 +211,16 @@
     &__item-button {
         padding: 5px;
         width: 60px;
-        background: linear-gradient(113.96deg, #F9804B 1.49%, #FE9013 101.44%);
+        background: linear-gradient(113.96deg, #95d0e2 1.49%, #69a7ba 101.44%);
         border-radius: 10px;
         transition: 0.3s;
         text-transform: uppercase;
         font-size: 0.8em;
         &:hover {
-            transform: translateY(-3px) scale(1.03);
+            transform: translateY(-1px) scale(1.03);
         }
         &:active{
-            background: linear-gradient(113.96deg, #1baf4e 1.49%, #00fa57 101.44%);
+            background: linear-gradient(113.96deg, #6778c4 1.49%, #5b6dbc 101.44%);
         }
     }
 }
@@ -238,7 +238,7 @@
 .top {
     display: flex;
     padding: 16px;
-    background: rgba(27, 175, 79, 0.4784313725);
+    background: rgba(108, 182, 205, 0.478);
     border-radius: 10px 10px 0 0;
     align-items: center;
 
@@ -270,11 +270,11 @@
 
     // .top__limit-title
     &__input {
-        border: 2px #1baf4e solid;
+        border: 2px #152b6762 solid;
         border-radius: 5px;
         padding: 5px 10px;
         &:hover {
-            box-shadow: 0 0 6px 6px #f9804b;
+            box-shadow: 0 0 10px 2px #15212a4f;
         }
     }
 
@@ -299,7 +299,7 @@
         background: url(../../../assets/svg/arrow_back.svg) no-repeat center;
         background-size: 70%;
         background-position: right;
-        background-color: #FE9013;
+        background-color: #95d0e2;
         border-radius: 6px;
         text-transform: uppercase;
         font-size: 0.8em;
@@ -307,7 +307,7 @@
             transform: translateY(-3px) scale(1.03);
         }
         &:active{
-            background-color: rgba(27, 175, 79, 0.4784313725);
+            background-color: rgba(27, 79, 175, 0.478);
         }
     }
 
@@ -325,7 +325,7 @@
         transition: 0.3s;
         background: url(../../../assets/svg/arrow_forward.svg) center no-repeat;
         background-size: 70%;
-        background-color: #FE9013;
+        background-color: #95d0e2;
         border-radius: 6px;
         text-transform: uppercase;
         font-size: 0.8em;
@@ -333,7 +333,7 @@
             transform: translateY(-3px) scale(1.03);
         }
         &:active{
-            background-color: rgba(27, 175, 79, 0.4784313725);
+            background-color: rgba(27, 79, 175, 0.478);
         }
     }
 
@@ -348,7 +348,7 @@
     width: 100%;
     height: max-content;
     border-radius: 12px;
-    border: 1px solid #1baf4e;
+    border: 1px solid #1f7a9699;
 
     // .products__list
     &__list {

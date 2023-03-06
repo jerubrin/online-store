@@ -16,7 +16,7 @@
 }
 .bread__conteiner{
     margin: 10px auto;
-    color: #1baf4e;
+    color: rgba(58, 109, 191, 0.8);
     font-weight: bold;
     font-size: 1.5em;
 }
@@ -27,7 +27,7 @@
     align-items: center;
     gap: 10px;
     border-radius: 8px;
-    border: 1px solid #1baf4e;
+    border: 1px solid #1d305db1;
 }
 .info__mini-conteiner{
     display: flex;
@@ -37,11 +37,11 @@
 }
 .info__header{
     text-align: center;
-    color: #0f4622;
+    color: #0f1d4692;
     font-weight: bold;
     font-size: 1.2em;
     padding: 4px 0;
-    background-color: rgba(27, 175, 79, 0.4784313725);
+    background-color: rgba(108, 182, 205, 0.478);
     width: 100%;
 }
 .info__mini-conteiner_first {
@@ -71,7 +71,7 @@
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
-    border: #0000002f solid 1px;
+    border: #0a0b2d2f solid 1px;
     @media screen and (max-width: 960px) {
         min-width: 300px;
         min-width: 95vw;
@@ -96,36 +96,37 @@ margin-bottom: 10px;
     width: 100%;
     &__title {
         font-size: 3em;
-        color: #FE9013;
+        color: #0d3e4d;
         font-weight: 600;
         width: 100%;
         text-align: center;
     }
     &__price {
       font-size: 4em;
-      color: #FE9013;
+      color: #0d4151;
       font-weight: 900;
     }
     &__btn {
         padding: 5px;
         width: 220px;
-        background: linear-gradient(113.96deg, #F9804B 1.49%, #FE9013 101.44%);
+        background: linear-gradient(113.96deg, #95d0e2 1.49%, #69a7ba 101.44%);
         border-radius: 10px;
         transition: 0.3s;
         text-transform: uppercase;
         font-size: 1.5em;
         &:hover{
-            transform: translateY(-3px) scale(1.03);
+            transform: translateY(-1px) scale(1.03);
         }
         &:active{
-            background: linear-gradient(113.96deg, #1baf4e 1.49%, #00fa57 101.44%);
+            background: linear-gradient(113.96deg, #6778c4 1.49%, #5b6dbc 101.44%);
         }
         @media screen and (max-width: 960px) {
             margin: 12px;
             min-height: 45px;
         }
         &_active {
-            background: linear-gradient(113.96deg, #1baf4e 1.49%, #00fa57 101.44%);
+            background: linear-gradient(113.96deg, #4257c9 1.49%, #2f8ad4 101.44%);
+            color: #e1fafe;
         }
     }
 }
@@ -133,7 +134,7 @@ margin-bottom: 10px;
     padding: 60px 0 20px;
     font-size: 40px;
     font-weight: bold;
-    color: #FE9013;
+    color: #174b79;
 }
 .error-image{
     width: 250px;

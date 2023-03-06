@@ -6,10 +6,10 @@ footer {
     display: flex;
     justify-content: space-between;
     background-color: #2a2a2a;
-    color: #1baf4e;
+    color: #e0f7ff;
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
-    box-shadow: 0 4px 12px 6px #1baf4ebf;
+    box-shadow: 0 4px 12px 6px #1c3e6d6b;
     margin-top: 30px;
     
     &__link {
@@ -32,7 +32,7 @@ footer {
         align-items: center;
         transition: 0.4s;
         &:hover{
-          transform: translateY(-4px);
+          transform: translateY(-2px);
           cursor: pointer;
         }
     }
@@ -66,7 +66,7 @@ footer {
         align-items: center;
         transition: 0.4s;
         &:hover {
-            transform: translateY(-4px);
+            transform: translateY(-2px);
             cursor: pointer;
         }
         @media screen and (max-width: 580px) {
@@ -86,7 +86,7 @@ footer {
     &__links-github-user-name {
         display: flex;
         margin: auto 0;
-        color: #1baf4e;
+        color: #e0f7ff;
         @media screen and (max-width: 580px) {
             margin-left: 8px;
             margin-top: 12px;
