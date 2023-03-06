@@ -98,7 +98,6 @@ export class ModalWindow {
                     const arr = str.split('');
                     arr.splice(i, 0, ' ');
                     arr.filter((ch, j) => ch !== ' ' || spaseIndexes.includes(j));
-                    console.log(arr);
                     str = arr.join('');
                 }
             });
@@ -173,7 +172,6 @@ export class ModalWindow {
                     addError(adressBlock);
                 }
                 const tellArr = telInp.value.split('').filter((ch) => ch != ' ');
-                console.log(tellArr);
                 if (
                     !regTel.test(telInp.value) ||
                     !tellArr.every((ch, i) => (i == 0 && ch == '+') || setNumber.has(ch)) ||
